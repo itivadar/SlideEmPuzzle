@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SliderPuzzleSolver
 {
-  enum Direction
+    enum Direction
     {
         Right,
         Left,
@@ -27,12 +27,12 @@ namespace SliderPuzzleSolver
         #region Public Methods
         public Board(byte[,] tiles)
         {
-            if(tiles is null)
+            if (tiles is null)
             {
                 throw new ArgumentNullException();
             }
 
-            Dimension =(byte) tiles.GetLength(0);
+            Dimension = (byte)tiles.GetLength(0);
             _tiles = new byte[Dimension, Dimension];
 
             for (byte i = 0; i < Dimension; i++)
@@ -41,13 +41,13 @@ namespace SliderPuzzleSolver
                 {
                     _tiles[i, j] = tiles[i, j];
                     if (_tiles[i, j] == ConstantHelper.BlankTileValue)
-                    {                      
+                    {
                         BlankTilePosition = (i, j);
                     }
                 }
             }
         }
-             
+
 
         //gets the value in a specific tile
         public byte Tile(byte row, byte column)
@@ -73,7 +73,7 @@ namespace SliderPuzzleSolver
         }
 
         //determines if two boards are the same
-        public override bool Equals(object that)
+        public bool Indentic(object that)
         {
             var otherBoard = (IBoard)that;
             if (this.Dimension != otherBoard.Dimension) return false;
@@ -168,14 +168,14 @@ namespace SliderPuzzleSolver
             //determines random the value of first tile
             var firstValuePos = (Row: rand.Next() % Dimension, Colomn: rand.Next() % Dimension);
             //move one row if gets to the blank position
-            if(firstValuePos == BlankTilePosition)
+            if (firstValuePos == BlankTilePosition)
             {
                 firstValuePos.Row = (firstValuePos.Row + 1) % Dimension;
             }
             //the second tile is on another colomn to avoid swapping same tile
-            var secondValuePos = (Row: firstValuePos.Row , Colomn: (firstValuePos.Colomn + 1) % Dimension);
+            var secondValuePos = (Row: firstValuePos.Row, Colomn: (firstValuePos.Colomn + 1) % Dimension);
 
-            if(secondValuePos == BlankTilePosition)
+            if (secondValuePos == BlankTilePosition)
             {
                 secondValuePos.Row = (secondValuePos.Row + 1) % Dimension;
             }
@@ -184,6 +184,23 @@ namespace SliderPuzzleSolver
 
             return new Board(newTiles);
 
+        }
+
+        //Determines if two boards have the arrangement of the numbers
+        public override bool Equals(object obj)
+        {
+            return obj is Board board &&
+                   EqualityComparer<byte[,]>.Default.Equals(_tiles, board._tiles) &&
+                   BlankTilePosition.Equals(board.BlankTilePosition);
+        }
+
+        /// <summary>
+        /// Calculates the hash code of the object. 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_tiles, BlankTilePosition);
         }
 
         private ushort Manhattan((int Row, int Colomn) currentPosition, (int Row, int Colomn) goalPosition)
@@ -225,7 +242,7 @@ namespace SliderPuzzleSolver
         private (byte Row, byte Colomn) GoalPosition(int value)
         {
             var valueBasedZero = value - 1;
-            var goalPosition = (Row:(byte)( valueBasedZero / Dimension), Colomn:(byte)( valueBasedZero % Dimension));
+            var goalPosition = (Row: (byte)(valueBasedZero / Dimension), Colomn: (byte)(valueBasedZero % Dimension));
             return goalPosition;
         }
 
@@ -242,7 +259,7 @@ namespace SliderPuzzleSolver
 
             for (var i = 0; i < n; i++)
             {
-                for(var j = i; j <n; j++)
+                for (var j = i; j < n; j++)
                 {
                     if (copyArr[i] == ConstantHelper.BlankTileValue || copyArr[j] == ConstantHelper.BlankTileValue) continue;
                     if (copyArr[i] > copyArr[j]) s++;

@@ -99,7 +99,7 @@ namespace SliderPuzzleSolver
                 dequeuedNode = minPriorityQueue.PopMin();
                 foreach (var neighbor in dequeuedNode.Board.GetNeighbors())
                 {
-                    if (dequeuedNode.PreviousNode == null || !dequeuedNode.PreviousNode.Board.Equals(neighbor))
+                    if (dequeuedNode.PreviousNode is null || !dequeuedNode.PreviousNode.Board.Equals(neighbor))
                     {   
                         //calculate the priority function and updates the moves needed to get to the created node
                         var childNode = CreateNode(neighbor, dequeuedNode);
