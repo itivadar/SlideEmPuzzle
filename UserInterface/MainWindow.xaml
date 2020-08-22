@@ -6,7 +6,43 @@
         xmlns:local="clr-namespace:UserInterface"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button 
+                Content="About" 
+                Padding="50 20 0 0" 
+                Margin="5 20 5 10" 
+                Command="{Binding AboutCommand}" 
+                Height="45" 
+                Width="123" 
+                Background="#FF9468D6" 
+                Foreground="#FFFDFDFD">
+            </Button>
 
+            <Button 
+                Content="Clear" 
+                Padding="50 20 0 0" 
+                Margin="5 20 5 10" 
+                Command="{Binding ClearCommand}" 
+                Height="45" 
+                Width="123" 
+                Background="#FF9468D6" 
+                Foreground="#FFFDFDFD">
+            </Button>
+
+        </StackPanel>
+        <Frame Grid.Column="1" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0">
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8AD3E8" Offset="0"/>
+                    <GradientStop Color="#FFEFECF3" Offset="1"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+
+        </Frame>
     </Grid>
 </Window>
