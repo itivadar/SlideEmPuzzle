@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace UserInterface
 {
@@ -26,7 +27,7 @@ namespace UserInterface
             }
         }
 
-        public DelegateCommand AboutCommand { get; private set; }
+        public ICommand AboutCommand { get; private set; }
         public DelegateCommand ClearCommand { get; private set; }
         public MainWindowViewModel()
         {
