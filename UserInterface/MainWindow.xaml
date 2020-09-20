@@ -4,45 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
+        xmlns:custom="clr-namespace:UserInterface.CustomControls.MenuButton" 
+        xmlns:sliderControl="clr-namespace:UserInterface.CustomControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-     <Grid>
+        Title="Slide'em Puzzle" Height="450" Width="800"
+        WindowStyle="SingleBorderWindow"
+        Background="#FF1B1515" Foreground="White">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="33*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="36*"></ColumnDefinition>
+            <ColumnDefinition Width="87*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Vertical">
-            <Button 
-                Content="About" 
-                Padding="50 20 0 0" 
-                Margin="5 20 5 10" 
-                Command="{Binding AboutCommand}" 
-                Height="45" 
-                Width="123" 
-                Background="#FF9468D6" 
-                Foreground="#FFFDFDFD">
-            </Button>
-
-            <Button 
-                Content="Clear" 
-                Padding="50 20 0 0" 
-                Margin="5 20 5 10" 
-                Command="{Binding ClearCommand}" 
-                Height="45" 
-                Width="123" 
-                Background="#FF9468D6" 
-                Foreground="#FFFDFDFD">
-            </Button>
-
-        </StackPanel>
-        <Frame Grid.Column="1" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0">
+        <ListView Grid.Column="0" 
+            SelectionMode="Single" 
+            SelectedItem="{Binding SelectedMenu}" 
+            Background="#FF5FCD54"  
+            Foreground="{DynamicResource MaterialDesignCardBackground}" 
+            Grid.ColumnSpan="2">
+                <ListViewItem Content="ABOUT" />
+            <ListViewItem Content="GO!"/>
+            <ListViewItem Content="EXIT"/>
+        </ListView>
+        <Frame Grid.Column="2" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource SecondaryAccentBrush}">
             <Frame.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF8AD3E8" Offset="0"/>
-                    <GradientStop Color="#FFEFECF3" Offset="1"/>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF302929" Offset="0.914"/>
                 </LinearGradientBrush>
             </Frame.Background>
-
         </Frame>
     </Grid>
 </Window>

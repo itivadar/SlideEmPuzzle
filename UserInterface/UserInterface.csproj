@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ico1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ico1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
