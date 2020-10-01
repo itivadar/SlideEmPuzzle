@@ -6,8 +6,9 @@ using System.Windows.Controls;
 
 namespace UserInterface.CustomControls
 {
-    class Tile :  Canvas
+    public class Tile : Canvas
     {
             public Thickness FinalMargin { get; set; }
+            public int TileTag { get; set; }
     }
 }

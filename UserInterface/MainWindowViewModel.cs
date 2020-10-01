@@ -2,11 +2,10 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.Xml;
-using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using UserInterface.CustomControls;
 
 namespace UserInterface
 {
@@ -14,7 +13,14 @@ namespace UserInterface
     {
 
         private Uri _mainFrame;
-        private ListViewItem _selectedMenu;
+        private MenuViewItem _selectedMenu;
+        private Dictionary<MenuAction, Action> _menuActionMap;
+
+        public MainWindowViewModel()
+        {
+            BuildMenuActionMap();
+            ClearCommand = new DelegateCommand(this.OnClear);
+        }
 
         public Uri MainFrame
         {
@@ -26,36 +32,45 @@ namespace UserInterface
             }
         }
 
-        public ListViewItem SelectedMenu
+        public MenuViewItem SelectedMenu
         {
             get => _selectedMenu;
             set
             {
                 _selectedMenu = value;
                 RaisePropertyChanged(nameof(SelectedMenu));
+                OnMenuItemSelected(value);
             }
         }
 
         public ICommand AboutCommand { get; private set; }
         public DelegateCommand ClearCommand { get; private set; }
-        
 
-        public MainWindowViewModel()
-        {
-
-            AboutCommand = new DelegateCommand(this.OpenAboutPage);
-            ClearCommand = new DelegateCommand(this.OnClear);
-            OpenAboutPage();
-        }
 
         private void OnClear()
         {
             MainFrame = default(Uri);
         }
 
-        private void OpenAboutPage()
+        private void OnMenuItemSelected(MenuViewItem menuItem)
         {
-            MainFrame = new Uri("Pages/About/AboutPage.xaml", UriKind.Relative);
+            MainFrame = menuItem.PageUri;
+            _menuActionMap[menuItem.Action]?.Invoke();
         }
+
+        private void OnExit()
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void BuildMenuActionMap()
+        {
+            _menuActionMap = new Dictionary<MenuAction, Action>()
+            {
+             { MenuAction.Exit, OnExit},
+             { MenuAction.None, ()=>{ }}
+            };
+        }
+  
     }
 }

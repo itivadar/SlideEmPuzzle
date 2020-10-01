@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 
-namespace UserInterface.CustomControls.MenuButton
+namespace UserInterface.CustomControls
 
 {
     public class MenuButton : Button

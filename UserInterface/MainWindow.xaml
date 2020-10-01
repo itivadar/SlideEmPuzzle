@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
-        xmlns:custom="clr-namespace:UserInterface.CustomControls.MenuButton" 
-        xmlns:sliderControl="clr-namespace:UserInterface.CustomControls"
+        xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
         Title="Slide'em Puzzle" Height="450" Width="800"
         WindowStyle="SingleBorderWindow"
@@ -23,9 +22,8 @@
             Background="#FF5FCD54"  
             Foreground="{DynamicResource MaterialDesignCardBackground}" 
             Grid.ColumnSpan="2">
-                <ListViewItem Content="ABOUT" />
-            <ListViewItem Content="GO!"/>
-            <ListViewItem Content="EXIT"/>
+            <custom:MenuViewItem Content="Go!"  PageUri="{x:Static local:AppPages.About }"/>
+            <custom:MenuViewItem Content="Exit" Action="Exit"/>
         </ListView>
         <Frame Grid.Column="2" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource SecondaryAccentBrush}">
             <Frame.Background>
