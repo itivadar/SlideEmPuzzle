@@ -9,8 +9,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutPage">
 
-    <Grid>
-        <custom:Slider HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"></custom:Slider>
-    </Grid>
+    
 
 </Page>

@@ -22,7 +22,7 @@
             Background="#FF5FCD54"  
             Foreground="{DynamicResource MaterialDesignCardBackground}" 
             Grid.ColumnSpan="2">
-            <custom:MenuViewItem Content="Go!"  PageUri="{x:Static local:AppPages.About }"/>
+            <custom:MenuViewItem Content="Go!"  PageUri="{x:Static local:AppPages.SliderPage}"/>
             <custom:MenuViewItem Content="Exit" Action="Exit"/>
         </ListView>
         <Frame Grid.Column="2" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource SecondaryAccentBrush}">

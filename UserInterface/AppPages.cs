@@ -10,5 +10,10 @@ namespace UserInterface
         /// The URI of the About page. 
         /// </summary>
         public static Uri About = new Uri("Pages/About/AboutPage.xaml", UriKind.Relative);
+        /// <summary>
+        /// The URI of the About page. 
+        /// </summary>
+        public static Uri SliderPage = new Uri("Pages/SliderPage/SliderPage.xaml", UriKind.Relative);
+
     }
 }
