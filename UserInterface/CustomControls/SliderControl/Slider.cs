@@ -19,14 +19,13 @@ namespace UserInterface.CustomControls
 
 
     }
-    public class Slider : Grid
+    public class Slider : Canvas
     {
         private const int RowCount = 4;
         private const int Spacing = 5;
         private byte[] _state;
         private double _tilesHeight = 100;
         private double _tilesWidth = 100;
-        int index = 0;
 
         private Dictionary<Tile, int> tagToPositionMap;
         private Tile blankCanvas;
@@ -68,12 +67,14 @@ namespace UserInterface.CustomControls
         private void C_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var clickedTile = sender as Tile;
-
-            AnimateYourSelf(clickedTile);
+            if (IsMovePossible(clickedTile))
+            {
+                AnimateSwitching(clickedTile);
+            }
 
         }
        
-        private void AnimateYourSelf(Tile c, int index = 0)
+        private void AnimateSwitching(Tile c, int index = 0)
         {
             var tileAnimation = new ThicknessAnimation
             {
@@ -155,7 +156,7 @@ namespace UserInterface.CustomControls
             }
             if (otherTile != null)
             {
-                AnimateYourSelf(otherTile);
+                AnimateSwitching(otherTile);
             }
         }
 
