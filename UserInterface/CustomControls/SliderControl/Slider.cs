@@ -55,7 +55,8 @@ namespace UserInterface.CustomControls
         public Slider()
         {
             tagToPositionMap = new Dictionary<Tile, int>();
-            InitSlider();
+            State = GetDefaultState();
+            InitSlider();           
             StateChangedEvent += OnNewState;
         }
 
@@ -148,8 +149,11 @@ namespace UserInterface.CustomControls
         {
             var tilePosition = tagToPositionMap[sliderTile];
             var blankPosition = tagToPositionMap[blankCanvas];
+            var tileColomn = tilePosition / RowCount;
+            var blankColomn = blankPosition / RowCount;
 
-            if(Math.Abs(tilePosition - blankPosition) == 4 || Math.Abs(tilePosition - blankPosition) == 1) 
+            if(Math.Abs(tilePosition - blankPosition) == 4 ||  //the tiles have to be on the same colomn 
+             (Math.Abs(tilePosition - blankPosition) == 1 && tileColomn == blankColomn)) //the tiles have to be adjacent
             {
                 return true;
             }
