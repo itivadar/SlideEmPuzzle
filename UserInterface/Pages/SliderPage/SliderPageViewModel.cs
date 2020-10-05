@@ -15,7 +15,6 @@ namespace UserInterface.Pages.SliderPage
         public SliderPageViewModel()
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
-            SliderState = new byte[] { 0, 1, 2, 6, 5, 4, 3, 9, 10, 12, 11, 14, 15,7,8,13 };
         }
         public ICommand RandomizeCommand { get; set; }
 

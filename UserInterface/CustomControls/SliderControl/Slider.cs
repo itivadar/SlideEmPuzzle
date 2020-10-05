@@ -34,6 +34,8 @@ namespace UserInterface.CustomControls
 
         private const int RowCount = 4;
         private const int Spacing = 5;
+        private const byte BlankTileTag = 0;
+
         private double _tilesHeight = 100;
         private double _tilesWidth = 100;
         private byte[] _state;
@@ -41,6 +43,11 @@ namespace UserInterface.CustomControls
         private Dictionary<Tile, int> tagToPositionMap;
         private Tile blankCanvas;
 
+        /// <summary>
+        /// Gets or sets the slider state
+        /// Every element of state[i] represents the tag of the tile at position i.
+        /// Element 0 is for blank tile
+        /// </summary>
         public byte[] State
         {
             get => _state;
@@ -62,7 +69,7 @@ namespace UserInterface.CustomControls
 
         private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            State = (byte[])e.NewValue;
+            State = (byte[])e.NewValue ?? GetDefaultState();
         }
 
 
@@ -77,8 +84,9 @@ namespace UserInterface.CustomControls
            var stateBytes = new byte[RowCount * RowCount];
             for (byte tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
             {
-                stateBytes[tileIndex] = tileIndex;
+                stateBytes[tileIndex] = (byte)(tileIndex + 1);
             }
+            stateBytes[RowCount * RowCount - 1] = BlankTileTag;
             return stateBytes;
         }
         private void InitSlider()
@@ -89,15 +97,8 @@ namespace UserInterface.CustomControls
             for (int tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
             {
                 var sliderTile = BuildTile(tileIndex);
-
-                if (tileIndex + 1 == RowCount * RowCount)
-                {
-                    sliderTile = BuildTile(tileIndex, true);
-                    blankCanvas = sliderTile;
-                }
-                
                 Children.Add(sliderTile);
-                tagToPositionMap.Add(sliderTile, State[tileIndex]);
+                tagToPositionMap.Add(sliderTile, tileIndex);
             }
         }
 
@@ -149,11 +150,11 @@ namespace UserInterface.CustomControls
         {
             var tilePosition = tagToPositionMap[sliderTile];
             var blankPosition = tagToPositionMap[blankCanvas];
-            var tileColomn = tilePosition / RowCount;
-            var blankColomn = blankPosition / RowCount;
+            var tileRow = tilePosition / RowCount;
+            var blankRow = blankPosition / RowCount;
 
             if(Math.Abs(tilePosition - blankPosition) == 4 ||  //the tiles have to be on the same colomn 
-             (Math.Abs(tilePosition - blankPosition) == 1 && tileColomn == blankColomn)) //the tiles have to be adjacent
+              (Math.Abs(tilePosition - blankPosition) == 1 && tileRow == blankRow)) //the tiles have to be adjacent
             {
                 return true;
             }
@@ -190,10 +191,11 @@ namespace UserInterface.CustomControls
             }
         }
 
-        private Tile BuildTile(int tileIndex, bool IsBlankTile = false)
+        private Tile BuildTile(int tileIndex)
         {
-            var tileColumn = State[tileIndex] % RowCount;
-            var tileRow = State[tileIndex] / RowCount;
+            var tileColumn = tileIndex % RowCount;
+            var tileRow = tileIndex / RowCount;
+            var tileTag = State[tileIndex]; 
 
             var sliderTile = new Tile
             {
@@ -201,22 +203,26 @@ namespace UserInterface.CustomControls
                 VerticalAlignment = VerticalAlignment.Top,
                 Width = _tilesWidth,
                 Height = _tilesHeight,
-                TileTag = tileIndex,
-                Background = IsBlankTile ? Brushes.Transparent : Brushes.Wheat,
+                TileTag = tileTag,
+                Background = tileTag == BlankTileTag ? Brushes.Transparent : Brushes.Wheat,
                 Margin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
                 FinalMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
             };
             var textBlock = new TextBlock
             {
-                Text = (tileIndex + 1).ToString(),
+                Text = tileTag.ToString(),
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 FontSize = 48
             };
 
-            if(!IsBlankTile)
+            if(tileTag != BlankTileTag)
             {
                 sliderTile.Children.Add(textBlock);
+            }
+            else
+            {
+                blankCanvas = sliderTile;
             }
 
             sliderTile.MouseDown += OnTileClicked;
