@@ -17,38 +17,74 @@ namespace UserInterface.CustomControls
         public static int Down => 4;
         public static int Right => 1;
 
-
     }
+
+
     public class Slider : Canvas
     {
+        public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached(nameof(State),
+                                                                                              typeof(byte[]),
+                                                                                              typeof(Slider),
+                                                                                              new PropertyMetadata(GetDefaultState(),
+                                                                                                new PropertyChangedCallback(OnStateChanged)));
+
+        public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+        public static event DependencyPropertyChanged StateChangedEvent;
+            
+
         private const int RowCount = 4;
         private const int Spacing = 5;
-        private byte[] _state;
         private double _tilesHeight = 100;
         private double _tilesWidth = 100;
+        private byte[] _state;
 
         private Dictionary<Tile, int> tagToPositionMap;
         private Tile blankCanvas;
 
+        public byte[] State
+        {
+            get => _state;
+            set 
+            {
+                _state = value;
+               InitSlider();
+            }
+        }
+        
+
         public Slider()
         {
             tagToPositionMap = new Dictionary<Tile, int>();
-            InitState();
             InitSlider();
+            StateChangedEvent += OnNewState;
+        }
+
+        private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            State = (byte[])e.NewValue;
         }
 
 
-        private void InitState()
+        private static void OnStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            _state = new byte[RowCount * RowCount];
+            StateChangedEvent?.Invoke(d, e);
+        }
+
+
+        private static byte[] GetDefaultState()
+        {
+           var stateBytes = new byte[RowCount * RowCount];
             for (byte tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
             {
-                _state[tileIndex] = tileIndex;
+                stateBytes[tileIndex] = tileIndex;
             }
+            return stateBytes;
         }
-
         private void InitSlider()
         {
+            Children.Clear();
+            tagToPositionMap.Clear();
+
             for (int tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
             {
                 var sliderTile = BuildTile(tileIndex);
@@ -60,11 +96,11 @@ namespace UserInterface.CustomControls
                 }
                 
                 Children.Add(sliderTile);
-                tagToPositionMap.Add(sliderTile, _state[tileIndex]);
+                tagToPositionMap.Add(sliderTile, State[tileIndex]);
             }
         }
 
-        private void C_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OnTileClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var clickedTile = sender as Tile;
             if (IsMovePossible(clickedTile))
@@ -73,6 +109,7 @@ namespace UserInterface.CustomControls
             }
 
         }
+
        
         private void AnimateSwitching(Tile c, int index = 0)
         {
@@ -92,7 +129,6 @@ namespace UserInterface.CustomControls
 
 
             ExchangeThickness(blankCanvas, c);
-            tileAnimation.Completed += TileAnimation_Completed;
             tileAnimation.BeginTime = new TimeSpan(0, 0, 0,0,600*index);
             blankAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 600 * index);
             Storyboard.SetTarget(blankAnimation, blankCanvas);
@@ -105,17 +141,7 @@ namespace UserInterface.CustomControls
             pathAnimationStoryboard.AutoReverse = false;
             pathAnimationStoryboard.Children.Add(tileAnimation);
             pathAnimationStoryboard.Children.Add(blankAnimation);
-            pathAnimationStoryboard.Completed += PathAnimationStoryboard_Completed;
             pathAnimationStoryboard.Begin(this);
-        }
-
-        private void TileAnimation_Completed(object sender, EventArgs e)
-        {
-        }
-
-        private void PathAnimationStoryboard_Completed(object sender, EventArgs e)
-        {
-            
         }
 
         private bool IsMovePossible(Tile sliderTile)
@@ -162,8 +188,8 @@ namespace UserInterface.CustomControls
 
         private Tile BuildTile(int tileIndex, bool IsBlankTile = false)
         {
-            var tileColumn = _state[tileIndex] % RowCount;
-            var tileRow = _state[tileIndex] / RowCount;
+            var tileColumn = State[tileIndex] % RowCount;
+            var tileRow = State[tileIndex] / RowCount;
 
             var sliderTile = new Tile
             {
@@ -176,7 +202,6 @@ namespace UserInterface.CustomControls
                 Margin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
                 FinalMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
             };
-
             var textBlock = new TextBlock
             {
                 Text = (tileIndex + 1).ToString(),
@@ -190,7 +215,7 @@ namespace UserInterface.CustomControls
                 sliderTile.Children.Add(textBlock);
             }
 
-            sliderTile.MouseDown += C_MouseDown;
+            sliderTile.MouseDown += OnTileClicked;
 
             return sliderTile;
         }

@@ -17,10 +17,10 @@
                         <Grid>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width ="*"></ColumnDefinition>
+                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <materialDesign:ColorZone Mode="PrimaryDark" Background="Azure"></materialDesign:ColorZone>
+                            <materialDesign:ColorZone Mode="PrimaryDark"></materialDesign:ColorZone>
 
                             <Image
                                 Grid.Column="0"
@@ -28,12 +28,13 @@
                                 Source="{TemplateBinding Image}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"/>
-                            <ListView Grid.Column="1" 
-                                    HorizontalAlignment="Center"
-                                    Width="200"
-                                    Height="60">
-                                <ListViewItem Content="{TemplateBinding Content}"></ListViewItem>
-                            </ListView>
+                            <TextBlock Grid.Column="1" 
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    FontWeight="Bold"
+                                    Foreground="Wheat"
+                                    Text="{TemplateBinding Content}">
+                            </TextBlock>
                         </Grid>
                     </Border>
                 </ControlTemplate>
