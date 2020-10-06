@@ -109,7 +109,6 @@ namespace UserInterface.CustomControls
             {
                 AnimateSwitching(clickedTile);
             }
-
         }
 
        
