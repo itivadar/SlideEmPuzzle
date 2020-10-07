@@ -1,5 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using SliderPuzzleSolver;
+using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,10 +13,12 @@ namespace UserInterface.Pages.SliderPage
     class SliderPageViewModel : BindableBase
     {
         private byte[] _sliderState;
+        private readonly IPuzzleSolver puzzleSolver;
 
         public SliderPageViewModel()
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
+            puzzleSolver = new PuzzleSolver();
         }
         public ICommand RandomizeCommand { get; set; }
 
@@ -30,18 +34,8 @@ namespace UserInterface.Pages.SliderPage
 
         private void OnRandomize()
         {
-            Random randGen = new Random();
-
-            int n = 16;
-            var tempi = new byte[16] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-            while (n > 1)
-            {
-                byte k = (byte)randGen.Next(n--);
-                byte temp = tempi[n];
-                tempi[n] = tempi[k];
-                tempi[k] = temp;
-            }
-            SliderState = tempi;
+            var board = puzzleSolver.GenerateRandomBoard(4);
+            SliderState = board.GetTiles();
         }
 
     }

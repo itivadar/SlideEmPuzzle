@@ -49,7 +49,7 @@ namespace UserInterface
 
         private void OnClear()
         {
-            MainFrame = default(Uri);
+            MainFrame = default;
         }
 
         private void OnMenuItemSelected(MenuViewItem menuItem)

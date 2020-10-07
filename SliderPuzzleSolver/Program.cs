@@ -34,11 +34,11 @@ namespace SliderPuzzleSolver
                 }
             }
 
-            IPuzzleSolver solver = new PuzzleSolver(board);
+            IPuzzleSolver solver = new PuzzleSolver();
 
             if (board.CanBeSolved())
              {
-                var steps = solver.SolutionSteps();
+                var steps = solver.SolutionSteps(board);
                 int i = 0;
                 foreach (var step in steps)
                 {

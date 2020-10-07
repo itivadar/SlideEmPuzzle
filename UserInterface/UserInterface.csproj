@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SliderPuzzleSolver\SliderPuzzleSolver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\ico1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

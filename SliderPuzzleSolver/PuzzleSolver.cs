@@ -43,32 +43,25 @@ namespace SliderPuzzleSolver
 
         #endregion
 
-        #region Fields
-        readonly IBoard _initialBoard;
-        #endregion
-
         #region Public methods
-        public PuzzleSolver(IBoard board)
-        {
-            if(board is null)
-            {
-                throw  new ArgumentNullException();
-            }
 
-            _initialBoard = board;
-        }
-
-        public IEnumerable<IBoard> SolutionSteps()
+        public IEnumerable<IBoard> SolutionSteps(IBoard boardToSolve)
         {
-            if (!_initialBoard.CanBeSolved())
+            if (!boardToSolve.CanBeSolved())
             {
                 Console.WriteLine("Unsolvable puzzle");
                 return new List<IBoard>() as IEnumerable<IBoard>;
             }
 
-            var lastNode = Solve();
+            var lastNode = Solve(boardToSolve);
 
             return BuildSolutionSteps(lastNode);
+        }
+       
+        public IBoard GenerateRandomBoard(int dimension)
+        {
+            var tiles = Board.GetGoalTiles(dimension);
+            return new Board(tiles);
         }
 
         #endregion
@@ -86,11 +79,11 @@ namespace SliderPuzzleSolver
             return sol as IEnumerable<IBoard>;
         }
 
-        private Node Solve()
+        private Node Solve(IBoard board)
         {
             IHeap<Node> minPriorityQueue = new MinHeap<Node>(new ManhattanPriorityFunction());
             //no previous node, 0 moves to get to the root
-            var root = CreateNode(_initialBoard, null);
+            var root = CreateNode(board, null);
 
             minPriorityQueue.Add(root);
             Node dequeuedNode;

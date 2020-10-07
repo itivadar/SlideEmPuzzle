@@ -22,5 +22,10 @@ namespace UserInterface.Pages.SliderPage
         {
             InitializeComponent();
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

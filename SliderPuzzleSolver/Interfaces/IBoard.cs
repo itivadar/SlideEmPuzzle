@@ -12,11 +12,14 @@ namespace SliderPuzzleSolver.Interfaces
     //get the position of the blank tile
     (byte Row, byte Column) BlankTilePosition { get; }
 
-    // string represantion of the board
+    // string representation of the board
     string ToString();
 
     //the tile number 
     byte Tile(byte row, byte column);
+
+    ///get one dimiension array with the state of the board
+    byte[] GetTiles();
 
     // numeber of tiles out of the place
     ushort Hamming();

@@ -55,6 +55,16 @@ namespace SliderPuzzleSolver
             return _tiles[row, column];
         }
 
+        public byte[] GetTiles()
+        {
+            var tiles = new byte[Dimension  * Dimension ];
+            int index = 0;
+            foreach(var tile in _tiles)
+            {
+                tiles[index++] = tile;
+            }
+            return tiles;
+        }
         //the string representation of the board
         public override string ToString()
         {
@@ -157,6 +167,19 @@ namespace SliderPuzzleSolver
                     }
                 }
             return distance;
+        }
+
+        //generate the goal tiles 
+        public static byte[,] GetGoalTiles(int dimension)
+        {
+            var tiles = new byte[dimension, dimension];
+            for (int rowId = 0; rowId < dimension; rowId++)
+                for (int columnId = 0; columnId < dimension; columnId++)
+                {
+                    tiles[rowId, columnId] = (byte)(rowId * dimension + columnId + 1);
+                }
+            tiles[dimension - 1, dimension - 1] = 0;
+            return tiles;
         }
 
         //Returns a board twin the current one
