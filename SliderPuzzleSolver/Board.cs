@@ -143,7 +143,7 @@ namespace SliderPuzzleSolver
         ///     the blank is on an odd row counting from the bottom and number of inversions is even.
         /// </summary>
         /// <returns></returns>
-        public bool CanBeSolved()
+        public bool IsSolvable()
         {
             var invCount = InversionCount();
             if (Dimension % 2 == 1)
@@ -151,7 +151,7 @@ namespace SliderPuzzleSolver
                 return invCount % 2 == 0;
             }
 
-            return (Dimension - BlankTilePosition.Row) % 2 != invCount % 2;
+            return (Dimension - 1 - BlankTilePosition.Row) % 2 != invCount % 2;
         }
 
         //Manhattan distance: total Manhattan distance to each tile to its goal position
