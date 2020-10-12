@@ -34,7 +34,7 @@ namespace SliderPuzzleSolver.Interfaces
     bool CanBeSolved();
 
     //determines if two board are equal
-    bool Equals(object that);
+    bool Equals(IBoard that);
 
     //all neighbors of the board
     IEnumerable<IBoard> GetNeighbors();

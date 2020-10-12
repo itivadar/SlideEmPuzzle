@@ -1,11 +1,12 @@
 ﻿using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace SliderPuzzleSolver
 {
-    enum Direction
+    enum Direction : byte
     {
         Right,
         Left,
@@ -13,7 +14,7 @@ namespace SliderPuzzleSolver
         Down
     }
 
-    public sealed class Board : IBoard
+    public sealed class Board : IBoard, IEquatable<IBoard>
     {
         #region Fields
         private readonly byte[,] _tiles;
@@ -170,7 +171,7 @@ namespace SliderPuzzleSolver
         }
 
         //generate the goal tiles 
-        public static byte[,] GetGoalTiles(int dimension)
+        public static IBoard GetGoalBoard(int dimension)
         {
             var tiles = new byte[dimension, dimension];
             for (int rowId = 0; rowId < dimension; rowId++)
@@ -179,7 +180,7 @@ namespace SliderPuzzleSolver
                     tiles[rowId, columnId] = (byte)(rowId * dimension + columnId + 1);
                 }
             tiles[dimension - 1, dimension - 1] = 0;
-            return tiles;
+            return new Board(tiles);
         }
 
         //Returns a board twin the current one
@@ -210,7 +211,7 @@ namespace SliderPuzzleSolver
         }
 
         //Determines if two boards have the arrangement of the numbers
-        public override bool Equals(object obj)
+        public bool Equals(IBoard obj)
         {
             return obj is Board board &&
                    EqualityComparer<byte[,]>.Default.Equals(_tiles, board._tiles) &&

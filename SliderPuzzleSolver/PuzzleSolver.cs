@@ -57,11 +57,18 @@ namespace SliderPuzzleSolver
 
             return BuildSolutionSteps(lastNode);
         }
-       
+
         public IBoard GenerateRandomBoard(int dimension)
         {
-            var tiles = Board.GetGoalTiles(dimension);
-            return new Board(tiles);
+            var stepsNeeded = 5;
+            var currentStep = 1;
+            var generatedBoard = Board.GetGoalBoard(dimension);
+            do
+            {
+                generatedBoard = generatedBoard.Twin().Twin();
+            }
+            while (currentStep++ <= stepsNeeded);
+            return generatedBoard;
         }
 
         #endregion
