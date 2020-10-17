@@ -110,8 +110,8 @@ namespace SliderPuzzleSolver
                 
                 if (neighborTile != null)
                 {
-                    var transf = ConstantHelper.DirectionsTransfom[direction];
-                    var currentDistance = GetManhattanAt(_tiles, BlankTilePosition.Row + transf.Row, BlankTilePosition.Column + transf.Column);
+                    var (Row, Column) = ConstantHelper.DirectionsTransfom[direction];
+                    var currentDistance = GetManhattanAt(_tiles, BlankTilePosition.Row + Row, BlankTilePosition.Column + Column);
                     var futureDistance = GetManhattanAt(neighborTile, BlankTilePosition.Row, BlankTilePosition.Column);
                     allNeighbors.Add(new Board(neighborTile), futureDistance - currentDistance);
                 }

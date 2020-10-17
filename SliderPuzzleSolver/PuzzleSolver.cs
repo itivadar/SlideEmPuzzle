@@ -75,8 +75,6 @@ namespace SliderPuzzleSolver
                 generatedBoard = generatedBoard.Twin().Twin();
             }
             while (currentStep++ <= stepsNeeded);
-
-            var man = generatedBoard.Manhattan();
             return generatedBoard;
         }
 

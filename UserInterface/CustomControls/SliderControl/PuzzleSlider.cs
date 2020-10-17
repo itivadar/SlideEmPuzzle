@@ -27,20 +27,21 @@ namespace UserInterface.CustomControls
                                                                                               typeof(PuzzleSlider),
                                                                                               new PropertyMetadata(GetDefaultState(),
                                                                                                 new PropertyChangedCallback(OnStateChanged)));
-
         public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
         public static event DependencyPropertyChanged StateChangedEvent;
-            
 
-        private const int RowCount = 3;
+
+        private const int DefaultSize = 2;
         private const int Spacing = 5;
         private const byte BlankTileTag = 0;
 
-        private double _tilesHeight = 100;
-        private double _tilesWidth = 100;
+        private readonly double _tilesHeight = 100;
+        private readonly double _tilesWidth = 100;
+        public int _rowsCount;
+
         private byte[] _state;
 
-        private Dictionary<Tile, int> tagToPositionMap;
+        private readonly Dictionary<Tile, int> tagToPositionMap;
         private Tile blankCanvas;
 
         /// <summary>
@@ -78,23 +79,29 @@ namespace UserInterface.CustomControls
             StateChangedEvent?.Invoke(d, e);
         }
 
+        private static void OnSizeOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
 
         private static byte[] GetDefaultState()
         {
-           var stateBytes = new byte[RowCount * RowCount];
-            for (byte tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
+           var stateBytes = new byte[DefaultSize * DefaultSize];
+            for (byte tileIndex = 0; tileIndex < DefaultSize * DefaultSize; tileIndex++)
             {
                 stateBytes[tileIndex] = (byte)(tileIndex + 1);
             }
-            stateBytes[RowCount * RowCount - 1] = BlankTileTag;
+            stateBytes[DefaultSize * DefaultSize - 1] = BlankTileTag;
             return stateBytes;
         }
         private void InitSlider()
         {
             Children.Clear();
             tagToPositionMap.Clear();
-
-            for (int tileIndex = 0; tileIndex < RowCount * RowCount; tileIndex++)
+            _rowsCount = (int) Math.Sqrt(State.Length);
+         
+            for (int tileIndex = 0; tileIndex < _rowsCount * _rowsCount; tileIndex++)
             {
                 var sliderTile = BuildTile(tileIndex);
                 Children.Add(sliderTile);
@@ -149,10 +156,10 @@ namespace UserInterface.CustomControls
         {
             var tilePosition = tagToPositionMap[sliderTile];
             var blankPosition = tagToPositionMap[blankCanvas];
-            var tileRow = tilePosition / RowCount;
-            var blankRow = blankPosition / RowCount;
+            var tileRow = tilePosition / _rowsCount;
+            var blankRow = blankPosition / _rowsCount;
 
-            if(Math.Abs(tilePosition - blankPosition) == 4 ||  //the tiles have to be on the same colomn 
+            if(Math.Abs(tilePosition - blankPosition) == _rowsCount ||  //the tiles have to be on the same colomn 
               (Math.Abs(tilePosition - blankPosition) == 1 && tileRow == blankRow)) //the tiles have to be adjacent
             {
                 return true;
@@ -192,8 +199,8 @@ namespace UserInterface.CustomControls
 
         private Tile BuildTile(int tileIndex)
         {
-            var tileColumn = tileIndex % RowCount;
-            var tileRow = tileIndex / RowCount;
+            var tileColumn = tileIndex % _rowsCount;
+            var tileRow = tileIndex / _rowsCount;
             var tileTag = State[tileIndex]; 
 
             var sliderTile = new Tile
