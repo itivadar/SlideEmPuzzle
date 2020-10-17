@@ -8,16 +8,18 @@ namespace UserInterface.BootstraperSpace
 {
     public interface INavigationService
     {
-        /// <summary>
-        /// Gets a <see cref="Page"/> object by name. 
-        /// </summary>
-        /// <param name="pageName">The page name</param>
-        /// <returns>a page</returns>
-        TViewType GetView<TViewType>() where TViewType : FrameworkElement;
 
         /// <summary>
         /// Resolve a view from the container.
         /// </summary>
+      
+        TViewType GetView<TViewType>() where TViewType : FrameworkElement;
+
+        /// <summary>
+        /// Gets a page by name. 
+        /// </summary>
+        /// <param name="pageName">The page name</param>
+        /// <returns>a page</returns>
         Page GetPage(string pageName);
     }
 }
