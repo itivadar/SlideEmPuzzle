@@ -18,39 +18,46 @@ namespace UserInterface.BootstraperSpace
         {
             _unityContainer = new UnityContainer();
         }
-        public Type Resolve<Type>()
-        {
-            return _unityContainer.Resolve<Type>();
-        }
 
-        public Type ResolveView<Type>() where Type : FrameworkElement
-        {
-            return _unityContainer.Resolve<Type>();
-        }
-
+        /// <summary>
+        /// Registers types and views to the container.
+        /// </summary>
         public void ConfigureContainer()
         {
             RegisterTypes();
             RegisterViews();
         }
 
+       /// <summary>
+       /// Gets a <see cref="Page"/> object by name. 
+       /// </summary>
+       /// <param name="pageName">The page name</param>
+       /// <returns>a page</returns>
         public Page GetPage(string pageName)
         {
             return _unityContainer.Resolve<object>(pageName) as Page;
         }
 
+        /// <summary>
+        /// Resolve a view from the container.
+        /// </summary>
         public TViewType GetView<TViewType>() where TViewType : FrameworkElement
         {
             return _unityContainer.Resolve<TViewType>();
         }
 
+        /// <summary>
+        /// Register types into the container.
+        /// </summary>
         private void RegisterTypes()
         {
             _unityContainer.RegisterType<IPuzzleSolver, PuzzleSolver>();
-            _unityContainer.RegisterType<IBoard, Board>();
             _unityContainer.RegisterInstance<INavigationService>(this);
         }
 
+        /// <summary>
+        /// Register the views and associate it with the view model
+        /// </summary>
         private void RegisterViews()
         {
             _unityContainer.RegisterView<MainWindow, MainWindowViewModel>();
