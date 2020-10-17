@@ -20,11 +20,11 @@ namespace UserInterface.CustomControls
     }
 
 
-    public class Slider : Canvas
+    public class PuzzleSlider : Canvas
     {
         public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached(nameof(State),
                                                                                               typeof(byte[]),
-                                                                                              typeof(Slider),
+                                                                                              typeof(PuzzleSlider),
                                                                                               new PropertyMetadata(GetDefaultState(),
                                                                                                 new PropertyChangedCallback(OnStateChanged)));
 
@@ -32,7 +32,7 @@ namespace UserInterface.CustomControls
         public static event DependencyPropertyChanged StateChangedEvent;
             
 
-        private const int RowCount = 4;
+        private const int RowCount = 3;
         private const int Spacing = 5;
         private const byte BlankTileTag = 0;
 
@@ -59,7 +59,7 @@ namespace UserInterface.CustomControls
         }
         
 
-        public Slider()
+        public PuzzleSlider()
         {
             tagToPositionMap = new Dictionary<Tile, int>();
             State = GetDefaultState();

@@ -25,19 +25,19 @@ namespace SliderPuzzleSolver.Interfaces
     ushort Hamming();
 
     // sum of Manhattan disstances between tiles and goal
-    ushort Manhattan();
+    int Manhattan();
 
     //determines if this is the board goal
     bool IsSolved();
 
     //determines if the board is solvable
-    bool CanBeSolved();
+    bool IsSolvable();
 
     //determines if two board are equal
     bool Equals(IBoard that);
 
-    //all neighbors of the board
-    IEnumerable<IBoard> GetNeighbors();
+    //all neighbors of the board and their Manhattan difference with the respect of the parent board. 
+    Dictionary<IBoard,int> GetChildBoards();
 
     //// a board that is obtained by exchanging any pair of tiles
     public IBoard Twin();

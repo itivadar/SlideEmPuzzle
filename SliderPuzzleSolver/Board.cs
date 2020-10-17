@@ -99,19 +99,24 @@ namespace SliderPuzzleSolver
             return true;
         }
 
-        //all the neightbors of the current board
-        public IEnumerable<IBoard> GetNeighbors()
+        //returns a dictionary mapping the neighbor boards to their Manhattan difference against the current board.
+        //between two neighbor boards the Manhattan distance will change by -1 or +1
+        public Dictionary<IBoard, int> GetChildBoards()
         {
-            List<IBoard> allNeighbors = new List<IBoard>();
+            Dictionary<IBoard, int> allNeighbors = new Dictionary<IBoard, int>();
             foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
             {
-                var transformedTiles = MoveBlankTile(direction);
-                if (transformedTiles != null)
+                var neighborTile = MoveBlankTile(direction);
+                
+                if (neighborTile != null)
                 {
-                    allNeighbors.Add(new Board(transformedTiles));
+                    var transf = ConstantHelper.DirectionsTransfom[direction];
+                    var currentDistance = GetManhattanAt(_tiles, BlankTilePosition.Row + transf.Row, BlankTilePosition.Column + transf.Column);
+                    var futureDistance = GetManhattanAt(neighborTile, BlankTilePosition.Row, BlankTilePosition.Column);
+                    allNeighbors.Add(new Board(neighborTile), futureDistance - currentDistance);
                 }
             }
-            return allNeighbors as IEnumerable<IBoard>;
+            return allNeighbors;
         }
 
         //Hamming distance: number of tiles which are in wrong position
@@ -151,25 +156,26 @@ namespace SliderPuzzleSolver
                 return invCount % 2 == 0;
             }
 
-            return (Dimension - 1 - BlankTilePosition.Row) % 2 != invCount % 2;
+            return (Dimension  - BlankTilePosition.Row) % 2 != invCount % 2;
         }
 
         //Manhattan distance: total Manhattan distance to each tile to its goal position
-        public ushort Manhattan()
+        public int Manhattan()
         {
-            ushort distance = 0;
+            int distance = 0;
             for (int rowId = 0; rowId < Dimension; rowId++)
                 for (int colomnId = 0; colomnId < Dimension; colomnId++)
                 {
-                    if (_tiles[rowId, colomnId] != ConstantHelper.BlankTileValue)
+                    if (_tiles[rowId, colomnId] == ConstantHelper.BlankTileValue)
                     {
-                        var goalPosition = GoalPosition(_tiles[rowId, colomnId]);
-                        distance += Manhattan((rowId, colomnId), goalPosition);
+                        continue;
                     }
+                    distance += GetManhattanAt(_tiles, rowId, colomnId);
                 }
             return distance;
         }
 
+     
         //generate the goal tiles 
         public static IBoard GetGoalBoard(int dimension)
         {
@@ -227,11 +233,6 @@ namespace SliderPuzzleSolver
             return HashCode.Combine(_tiles, BlankTilePosition);
         }
 
-        private ushort Manhattan((int Row, int Colomn) currentPosition, (int Row, int Colomn) goalPosition)
-        {
-            return (ushort)(Math.Abs(goalPosition.Row - currentPosition.Row) + Math.Abs(goalPosition.Colomn - currentPosition.Colomn));
-        }
-
         #endregion
 
         #region Private Methods
@@ -265,7 +266,7 @@ namespace SliderPuzzleSolver
         //gets the position when a specific tile should be
         private (byte Row, byte Colomn) GoalPosition(int value)
         {
-            var valueBasedZero = value - 1;
+            var valueBasedZero = value -1 ;
             var goalPosition = (Row: (byte)(valueBasedZero / Dimension), Colomn: (byte)(valueBasedZero % Dimension));
             return goalPosition;
         }
@@ -291,6 +292,15 @@ namespace SliderPuzzleSolver
             }
             return s;
         }
+
+        private int GetManhattanAt(byte[,] board, int x, int y)
+        {
+            var value = board[x, y] - 1;
+            var goalRow = (value) / Dimension;
+            var goalCol = (value) % Dimension;
+            return Math.Abs(goalRow - x) + Math.Abs(goalCol - y);
+        }
+
 
         private void Swap(byte[,] a, (int Row, int Colomn) firstValue, (int Row, int Colomn) secondValue)
         {

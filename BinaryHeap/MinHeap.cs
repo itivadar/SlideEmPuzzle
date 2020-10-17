@@ -38,7 +38,7 @@ namespace BinaryHeap
             if (Count == Capacity) Resize(2 * Capacity);
             _minHeap[++Count] = key;
             Swim(Count);
-            Debug.Assert(IsMinHeap());
+           // Debug.Assert(IsMinHeap());
         }
 
         public T SeekMin()
@@ -53,7 +53,7 @@ namespace BinaryHeap
             _minHeap[Count--] = default;
             Sink(1);
             if (Count > 0 && Count == Capacity / 4)  Resize(Capacity / 2);
-            Debug.Assert(IsMinHeap());
+           // Debug.Assert(IsMinHeap());
             return max;
         }
 

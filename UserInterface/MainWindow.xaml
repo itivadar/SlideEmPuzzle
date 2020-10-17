@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UserInterface"
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
-        Title="Slide'em Puzzle" Height="450" Width="800"
+        Title="Slide'em Puzzle" Height="520" Width="900"
         WindowStyle="SingleBorderWindow"
         Background="#FF1B1515" Foreground="White">
     <Grid>
