@@ -9,6 +9,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutPage">
 
-    
+    <Grid>
+        <TextBlock Text="Welcome to the About page" 
+                   Foreground="WhiteSmoke"/>
+    </Grid>
 
 </Page>

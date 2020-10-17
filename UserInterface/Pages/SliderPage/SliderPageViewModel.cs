@@ -10,15 +10,15 @@ using System.Windows.Input;
 
 namespace UserInterface.Pages.SliderPage
 {
-    class SliderPageViewModel : BindableBase
+    public class SliderPageViewModel : BindableBase
     {
         private byte[] _sliderState;
         private readonly IPuzzleSolver puzzleSolver;
 
-        public SliderPageViewModel()
+        public SliderPageViewModel(IPuzzleSolver puzzleSolver)
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
-            puzzleSolver = new PuzzleSolver();
+            this.puzzleSolver = puzzleSolver;
         }
         public ICommand RandomizeCommand { get; set; }
 

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using UserInterface.BootstraperSpace;
 
 namespace UserInterface
 {
@@ -13,5 +14,12 @@ namespace UserInterface
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var bootstraper = new Bootstraper();
+            bootstraper.ConfigureContainer();
+            bootstraper.GetView<MainWindow>().Show();
+        }
     }
 }

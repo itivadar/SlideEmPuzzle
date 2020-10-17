@@ -1,4 +1,4 @@
-﻿<Window x:Class="UserInterface.MainWindow"
+<Window x:Class="UserInterface.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:UserInterface"
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
-        Title="Slide'em Puzzle" Height="520" Width="900"
+        Title="Slide'em Puzzle" 
+        Height="520" 
+        Width="900"
         WindowStyle="SingleBorderWindow"
         Background="#FF1B1515" Foreground="White">
     <Grid>
@@ -22,11 +24,16 @@
             Background="#FF5FCD54"  
             Foreground="{DynamicResource MaterialDesignCardBackground}" 
             Grid.ColumnSpan="2">
-            <custom:MenuViewItem Content="Go!"  PageUri="{x:Static local:AppPages.SliderPage}"/>
-            <custom:MenuViewItem Content="About" PageUri="{x:Static local:AppPages.AboutPage}"/>
+            <custom:MenuViewItem Content="Go!"  Page="{x:Static local:AppPages.SliderPage}"/>
+            <custom:MenuViewItem Content="About" Page="{x:Static local:AppPages.AboutPage}"/>
             <custom:MenuViewItem Content="Exit" Action="Exit"/>
         </ListView>
-        <Frame Grid.Column="2" Source="{Binding MainFrame}" NavigationUIVisibility="Hidden" BorderThickness="1,0,2,0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource SecondaryAccentBrush}">
+        <Frame Grid.Column="2" 
+               Content="{Binding MainFrame}" 
+               NavigationUIVisibility="Hidden" 
+               BorderThickness="1,0,2,0" 
+               Grid.ColumnSpan="2" 
+               BorderBrush="{DynamicResource SecondaryAccentBrush}">
             <Frame.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>

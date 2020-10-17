@@ -5,24 +5,28 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using UserInterface.BootstraperSpace;
 using UserInterface.CustomControls;
+using UserInterface.Pages.SliderPage;
 
 namespace UserInterface
 {
-    class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : BindableBase
     {
 
-        private Uri _mainFrame;
+        private FrameworkElement _mainFrame;
         private MenuViewItem _selectedMenu;
+        private readonly INavigationService _navigationService;
         private Dictionary<MenuAction, Action> _menuActionMap;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(INavigationService navigationService)
         {
             BuildMenuActionMap();
+            _navigationService = navigationService;
             ClearCommand = new DelegateCommand(this.OnClear);
         }
 
-        public Uri MainFrame
+        public FrameworkElement MainFrame
         {
             get => _mainFrame;
             set
@@ -54,7 +58,7 @@ namespace UserInterface
 
         private void OnMenuItemSelected(MenuViewItem menuItem)
         {
-            MainFrame = menuItem.PageUri;
+            MainFrame = _navigationService.GetPage(menuItem.Page);
             _menuActionMap[menuItem.Action]?.Invoke();
         }
 
