@@ -60,22 +60,10 @@ namespace SliderPuzzleSolver
             }
 
             var lastNode = IDASolve(boardToSolve);
+            //var lastNode = Solve(boardToSolve);
+
 
             return BuildSolutionSteps(lastNode) as IEnumerable<IBoard>;
-        }
-
-        public  IBoard GenerateRandomBoard(int dimension)
-        {
-            var stepsNeeded = 1;
-            var currentStep = 1;
-            List<IBoard> steps;
-            var generatedBoard = Board.GetGoalBoard(dimension);
-            do
-            {
-                generatedBoard = generatedBoard.Twin().Twin();
-            }
-            while (currentStep++ <= stepsNeeded);
-            return generatedBoard;
         }
 
         #endregion
@@ -104,7 +92,7 @@ namespace SliderPuzzleSolver
             do
             {
                 dequeuedNode = minPriorityQueue.PopMin();
-                foreach (var neighbor in dequeuedNode.Board.GetChildBoards())
+                foreach (var neighbor in dequeuedNode.Board.GetDistanceByChildBoards())
                 {
                     if (dequeuedNode.ParentNode is null || !dequeuedNode.ParentNode.Board.Equals(neighbor))
                     {   
@@ -160,7 +148,7 @@ namespace SliderPuzzleSolver
             if (node.ManhattanDistance == 0) return NodeFound;
 
             var min = NodeNotFound;
-            foreach (KeyValuePair<IBoard, int> childPair in node.Board.GetChildBoards())
+            foreach (KeyValuePair<IBoard, int> childPair in node.Board.GetDistanceByChildBoards())
             {
                 var neighborNode = CreateNode(childPair.Key, node, childPair.Value);
                 if (node.ParentNode != null && childPair.Value.Equals(node.ParentNode.Board)) continue;

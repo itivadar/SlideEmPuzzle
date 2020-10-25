@@ -9,7 +9,5 @@ namespace SliderPuzzleSolver.Interfaces
         //sequence of boards which lead to solution
         IEnumerable<IBoard> SolutionSteps(IBoard boardToSolve);
 
-        //generate a random solvable board of a given dimension
-        IBoard GenerateRandomBoard(int dimension);
     }
 }
