@@ -37,7 +37,10 @@ namespace SliderPuzzleSolver.Interfaces
     bool Equals(IBoard that);
 
     //all neighbors of the board and their Manhattan difference with the respect of the parent board. 
-    Dictionary<IBoard,int> GetChildBoards();
+    Dictionary<IBoard,int> GetDistanceByChildBoards();
+
+    //all neighbors of the board 
+    List<IBoard> GetChildBoards();
 
     //// a board that is obtained by exchanging any pair of tiles
     public IBoard Twin();

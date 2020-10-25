@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Linq;
+using System.Collections;
 
 namespace SliderPuzzleSolver
 {
@@ -18,6 +20,7 @@ namespace SliderPuzzleSolver
     {
         #region Fields
         private byte[,] _tiles;
+        private int? _hashCode;
         #endregion
 
         #region Proprieties
@@ -94,7 +97,7 @@ namespace SliderPuzzleSolver
 
         //returns a dictionary mapping the neighbor boards to their Manhattan difference against the current board.
         //between two neighbor boards the Manhattan distance will change by -1 or +1
-        public Dictionary<IBoard, int> GetChildBoards()
+        public Dictionary<IBoard, int> GetDistanceByChildBoards()
         {
             Dictionary<IBoard, int> allNeighbors = new Dictionary<IBoard, int>();
             foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
@@ -112,6 +115,23 @@ namespace SliderPuzzleSolver
             return allNeighbors;
         }
 
+
+        //returns a list with all the child boards
+        //a child board is a board where the blank makes an move from the parent board.
+        public List<IBoard> GetChildBoards()
+        {
+            var childBoards = new List<IBoard>();
+            foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
+            {
+                var neighborTile = MoveBlankTile(direction);
+
+                if (neighborTile != null)
+                {
+                    childBoards.Add(new Board(neighborTile));
+                }
+            }
+            return childBoards;
+        }
         //Hamming distance: number of tiles which are in wrong position
         public ushort Hamming()
         {
@@ -212,9 +232,18 @@ namespace SliderPuzzleSolver
         //Determines if two boards have the arrangement of the numbers
         public bool Equals(IBoard obj)
         {
-            return obj is Board board &&
-                   EqualityComparer<byte[,]>.Default.Equals(_tiles, board._tiles) &&
-                   BlankTilePosition.Equals(board.BlankTilePosition);
+            var otherBoard = obj as Board;
+            if (Dimension != otherBoard.Dimension) return false;
+            for (int rowId = 0; rowId < Dimension; rowId++)
+                for (int columnId = 0; columnId < Dimension; columnId++)
+                {
+                    if(_tiles[rowId, columnId] != otherBoard._tiles[rowId, columnId])
+                    {
+                        return false;
+                    }
+                }
+
+            return true;
         }
 
         /// <summary>
@@ -223,12 +252,23 @@ namespace SliderPuzzleSolver
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(_tiles, BlankTilePosition);
+            return _hashCode ?? ComputeHash();
         }
 
         #endregion
 
         #region Private Methods
+        private int ComputeHash()
+        {
+            int hash = 0;
+            foreach(int tile in _tiles)
+            {
+                hash = HashCode.Combine(tile, hash);
+            }
+            _hashCode = hash;
+            return _hashCode.Value;
+        }
+
         //if the move of the blank til is possible return tile array where the blank tile is moved according to the direction
         //if the move is not possible, return null
         private byte[,] MoveBlankTile(Direction direction)
