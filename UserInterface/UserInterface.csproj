@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SliderPuzzleGenerator\SliderPuzzleGenerator.csproj" />
     <ProjectReference Include="..\SliderPuzzleSolver\SliderPuzzleSolver.csproj" />
   </ItemGroup>
 

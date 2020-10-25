@@ -1,4 +1,5 @@
-﻿using SliderPuzzleSolver;
+﻿using SliderPuzzleGenerator;
+using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Windows;
@@ -52,6 +53,8 @@ namespace UserInterface.BootstraperSpace
         private void RegisterTypes()
         {
             _unityContainer.RegisterType<IPuzzleSolver, PuzzleSolver>();
+            _unityContainer.RegisterType<IPuzzleGenerator, PuzzleGenerator>();
+            _unityContainer.Resolve<IPuzzleGenerator>();
             _unityContainer.RegisterInstance<INavigationService>(this);
         }
 

@@ -17,7 +17,7 @@ namespace SliderPuzzleSolver
     public sealed class Board : IBoard, IEquatable<IBoard>
     {
         #region Fields
-        private readonly byte[,] _tiles;
+        private byte[,] _tiles;
         #endregion
 
         #region Proprieties
@@ -33,20 +33,13 @@ namespace SliderPuzzleSolver
                 throw new ArgumentNullException();
             }
 
-            Dimension = (byte)tiles.GetLength(0);
-            _tiles = new byte[Dimension, Dimension];
+            SetupBoad(tiles);
+        }
 
-            for (byte i = 0; i < Dimension; i++)
-            {
-                for (byte j = 0; j < Dimension; j++)
-                {
-                    _tiles[i, j] = tiles[i, j];
-                    if (_tiles[i, j] == ConstantHelper.BlankTileValue)
-                    {
-                        BlankTilePosition = (i, j);
-                    }
-                }
-            }
+        public Board(string tilesRepresentation)
+        {
+            var tiles = GetTiles(tilesRepresentation);
+            SetupBoad(tiles);
         }
 
 
@@ -58,9 +51,9 @@ namespace SliderPuzzleSolver
 
         public byte[] GetTiles()
         {
-            var tiles = new byte[Dimension  * Dimension ];
+            var tiles = new byte[Dimension * Dimension];
             int index = 0;
-            foreach(var tile in _tiles)
+            foreach (var tile in _tiles)
             {
                 tiles[index++] = tile;
             }
@@ -107,7 +100,7 @@ namespace SliderPuzzleSolver
             foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
             {
                 var neighborTile = MoveBlankTile(direction);
-                
+
                 if (neighborTile != null)
                 {
                     var (Row, Column) = ConstantHelper.DirectionsTransfom[direction];
@@ -156,7 +149,7 @@ namespace SliderPuzzleSolver
                 return invCount % 2 == 0;
             }
 
-            return (Dimension  - BlankTilePosition.Row) % 2 != invCount % 2;
+            return (Dimension - BlankTilePosition.Row) % 2 != invCount % 2;
         }
 
         //Manhattan distance: total Manhattan distance to each tile to its goal position
@@ -175,7 +168,7 @@ namespace SliderPuzzleSolver
             return distance;
         }
 
-     
+
         //generate the goal tiles 
         public static IBoard GetGoalBoard(int dimension)
         {
@@ -266,7 +259,7 @@ namespace SliderPuzzleSolver
         //gets the position when a specific tile should be
         private (byte Row, byte Colomn) GoalPosition(int value)
         {
-            var valueBasedZero = value -1 ;
+            var valueBasedZero = value - 1;
             var goalPosition = (Row: (byte)(valueBasedZero / Dimension), Colomn: (byte)(valueBasedZero % Dimension));
             return goalPosition;
         }
@@ -293,6 +286,7 @@ namespace SliderPuzzleSolver
             return s;
         }
 
+        //get the manhattan distance for single tile
         private int GetManhattanAt(byte[,] board, int x, int y)
         {
             var value = board[x, y] - 1;
@@ -301,12 +295,46 @@ namespace SliderPuzzleSolver
             return Math.Abs(goalRow - x) + Math.Abs(goalCol - y);
         }
 
-
+        //swap two tiles
         private void Swap(byte[,] a, (int Row, int Colomn) firstValue, (int Row, int Colomn) secondValue)
         {
             byte tmp = a[firstValue.Row, firstValue.Colomn];
             a[firstValue.Row, firstValue.Colomn] = a[secondValue.Row, secondValue.Colomn];
             a[secondValue.Row, secondValue.Colomn] = tmp;
+        }
+
+        //get a byte array from a string representation
+        private byte[,] GetTiles(string stringRepresentation)
+        {
+            var tilesValues = stringRepresentation.Split(" ");
+            int n = (int)Math.Sqrt(tilesValues.Length);
+            byte[,] tiles = new byte[n, n];
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    tiles[i, j] = byte.Parse(tilesValues[i * n + j]);
+                }
+            return tiles;
+        }
+
+        //set the tiles array from a provided byte array
+        private void SetupBoad(byte[,] tiles)
+        {
+            Dimension = (byte)tiles.GetLength(0);
+            _tiles = new byte[Dimension, Dimension];
+
+            for (byte i = 0; i < Dimension; i++)
+            {
+                for (byte j = 0; j < Dimension; j++)
+                {
+                    _tiles[i, j] = tiles[i, j];
+                    if (_tiles[i, j] == ConstantHelper.BlankTileValue)
+                    {
+                        BlankTilePosition = (i, j);
+                    }
+                }
+            }
         }
         #endregion
     }
