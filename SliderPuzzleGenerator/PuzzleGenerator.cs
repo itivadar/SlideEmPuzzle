@@ -89,14 +89,14 @@ namespace SliderPuzzleGenerator
         //move the blank randomly
         IBoard Generate3x3Board()
         {
-            return GetRandomBoard(3, _3x3Boards, 16);
+            return GetRandomBoard(3, _3x3Boards, 8);
         }
 
         //for 4 X 4 puzzle start from a random position from the predefined 
         //move the blank randomly
         IBoard Generate4x4Board()
         {
-            return GetRandomBoard(4, _4x4Boards, 10);
+            return GetRandomBoard(4, _4x4Boards, 6);
         }
 
         //generates a random puzzle starting from a board randomly selected from the boards space

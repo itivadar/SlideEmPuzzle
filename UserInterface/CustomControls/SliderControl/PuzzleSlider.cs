@@ -79,12 +79,8 @@ namespace UserInterface.CustomControls
             StateChangedEvent?.Invoke(d, e);
         }
 
-        private static void OnSizeOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
 
-        }
-
-
+        //generates the goal state
         private static byte[] GetDefaultState()
         {
            var stateBytes = new byte[DefaultSize * DefaultSize];
@@ -95,6 +91,8 @@ namespace UserInterface.CustomControls
             stateBytes[DefaultSize * DefaultSize - 1] = BlankTileTag;
             return stateBytes;
         }
+
+        //creates the tiles for the puzzle
         private void InitSlider()
         {
             Children.Clear();
@@ -123,15 +121,15 @@ namespace UserInterface.CustomControls
         {
             var tileAnimation = new ThicknessAnimation
             {
-                From = c.FinalMargin,
-                To = blankCanvas.FinalMargin,
+                From = c.DestinationMargin,
+                To = blankCanvas.DestinationMargin,
                 Duration = new Duration(TimeSpan.FromMilliseconds(300)),
             };
 
             var blankAnimation = new ThicknessAnimation
             {
-                From = blankCanvas.FinalMargin,
-                To = c.FinalMargin,
+                From = blankCanvas.DestinationMargin,
+                To = c.DestinationMargin,
                 Duration = new Duration(TimeSpan.FromMilliseconds(300))
             };
 
@@ -169,9 +167,9 @@ namespace UserInterface.CustomControls
 
         private void ExchangeThickness(Tile firstValue, Tile secondValue)
         {
-            var tempThickness = firstValue.FinalMargin;
-            firstValue.FinalMargin = secondValue.FinalMargin;
-            secondValue.FinalMargin = tempThickness;
+            var tempThickness = firstValue.DestinationMargin;
+            firstValue.DestinationMargin = secondValue.DestinationMargin;
+            secondValue.DestinationMargin = tempThickness;
 
             var firstPosition = tagToPositionMap[firstValue];
             tagToPositionMap[firstValue] = tagToPositionMap[secondValue];
@@ -205,28 +203,15 @@ namespace UserInterface.CustomControls
 
             var sliderTile = new Tile
             {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
                 Width = _tilesWidth,
                 Height = _tilesHeight,
                 TileTag = tileTag,
-                Background = tileTag == BlankTileTag ? Brushes.Transparent : Brushes.Wheat,
+                IsBlankTile = tileTag == BlankTileTag,
                 Margin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
-                FinalMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
+                DestinationMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
             };
-            var textBlock = new TextBlock
-            {
-                Text = tileTag.ToString(),
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                FontSize = 48
-            };
-
-            if(tileTag != BlankTileTag)
-            {
-                sliderTile.Children.Add(textBlock);
-            }
-            else
+           
+            if(tileTag == BlankTileTag)
             {
                 blankCanvas = sliderTile;
             }
