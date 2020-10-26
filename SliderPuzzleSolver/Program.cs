@@ -12,9 +12,9 @@ namespace SliderPuzzleSolver
             Console.WriteLine("Hello World!");
             Console.Write("Tiles: ");
             IPuzzleSolver solver = new PuzzleSolver();
-           
+
             IBoard board =  new Board(GetTiles("8 10 6 7 12 11 15 14 4 3 0 1 5 13 2 6"));
-             board = new Board(GetTiles("0 3 2 1")); //17 moves
+            board = new Board(GetTiles("6 4 7 8 5 0 3 2 1")); //17 moves
             Console.Write("The board to solve: ");
             Console.Write(board);
             Console.WriteLine(board.IsSolvable());

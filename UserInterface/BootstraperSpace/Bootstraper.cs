@@ -54,7 +54,6 @@ namespace UserInterface.BootstraperSpace
         {
             _unityContainer.RegisterType<IPuzzleSolver, PuzzleSolver>();
             _unityContainer.RegisterType<IPuzzleGenerator, PuzzleGenerator>();
-            _unityContainer.Resolve<IPuzzleGenerator>();
             _unityContainer.RegisterInstance<INavigationService>(this);
         }
 

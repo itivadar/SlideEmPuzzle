@@ -60,7 +60,6 @@ namespace SliderPuzzleSolver
             }
 
             var lastNode = IDASolve(boardToSolve);
-            //var lastNode = Solve(boardToSolve);
 
 
             return BuildSolutionSteps(lastNode) as IEnumerable<IBoard>;
