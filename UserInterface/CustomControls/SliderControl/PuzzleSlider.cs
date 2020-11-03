@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -39,8 +41,6 @@ namespace UserInterface.CustomControls
         private readonly double _tilesWidth = 100;
         public int _rowsCount;
 
-        private byte[] _state;
-
         private readonly Dictionary<Tile, int> tagToPositionMap;
         private Tile blankCanvas;
 
@@ -51,11 +51,11 @@ namespace UserInterface.CustomControls
         /// </summary>
         public byte[] State
         {
-            get => _state;
-            set 
+            get { return (byte[]) GetValue(StateProperty); }
+            set
             {
-                _state = value;
-               InitSlider();
+                SetValue(StateProperty, value);
+                InitSlider();
             }
         }
         
@@ -65,7 +65,7 @@ namespace UserInterface.CustomControls
             tagToPositionMap = new Dictionary<Tile, int>();
             State = GetDefaultState();
             InitSlider();           
-            StateChangedEvent += OnNewState;
+            StateChangedEvent += OnNewState;      
         }
 
         private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)

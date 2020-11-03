@@ -15,8 +15,13 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <custom:PuzzleSlider Grid.Row="0" State="{Binding SliderState}"></custom:PuzzleSlider>
-            <custom:MenuButton Grid.Row="1" Content="Randomize" Height="50" Command="{Binding RandomizeCommand}" Margin="555,10,120,-10" Click="MenuButton_Click"/>
+            <custom:PuzzleSlider Grid.Row="0" 
+                                 State="{Binding SliderState}"/>
+            <custom:MenuButton Grid.Row="1" 
+                               Content="Randomize" 
+                               Height="50" 
+                               Command="{Binding RandomizeCommand}" 
+                               Margin="555,10,120,-10"/>
         </Grid>
 
     </Grid>

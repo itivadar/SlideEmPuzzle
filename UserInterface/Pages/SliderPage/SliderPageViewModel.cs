@@ -22,7 +22,7 @@ namespace UserInterface.Pages.SliderPage
             _puzzleSolver = puzzleSolver;
             _puzzleGenerator = puzzleGenerator;
             RandomizeCommand = new DelegateCommand(OnRandomize);
-            
+            SliderState = Board.GetGoalBoard(3).GetTiles();
             
         }
         public ICommand RandomizeCommand { get; set; }
