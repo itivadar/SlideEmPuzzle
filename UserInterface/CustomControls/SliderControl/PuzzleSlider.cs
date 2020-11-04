@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.CustomControls
 {
@@ -25,9 +26,9 @@ namespace UserInterface.CustomControls
     public class PuzzleSlider : Canvas
     {
         public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached(nameof(State),
-                                                                                              typeof(byte[]),
+                                                                                              typeof(ObservableBoard),
                                                                                               typeof(PuzzleSlider),
-                                                                                              new PropertyMetadata(GetDefaultState(),
+                                                                                              new PropertyMetadata(null,
                                                                                                 new PropertyChangedCallback(OnStateChanged)));
         public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
         public static event DependencyPropertyChanged StateChangedEvent;
@@ -49,9 +50,9 @@ namespace UserInterface.CustomControls
         /// Every element of state[i] represents the tag of the tile at position i.
         /// Element 0 is for blank tile
         /// </summary>
-        public byte[] State
+        public ObservableBoard State
         {
-            get { return (byte[]) GetValue(StateProperty); }
+            get { return (ObservableBoard)GetValue(StateProperty); }
             set
             {
                 SetValue(StateProperty, value);
@@ -70,7 +71,7 @@ namespace UserInterface.CustomControls
 
         private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            State = (byte[])e.NewValue ?? GetDefaultState();
+            State = (ObservableBoard) e.NewValue ?? GetDefaultState();
         }
 
 
@@ -81,7 +82,7 @@ namespace UserInterface.CustomControls
 
 
         //generates the goal state
-        private static byte[] GetDefaultState()
+        private static ObservableBoard GetDefaultState()
         {
            var stateBytes = new byte[DefaultSize * DefaultSize];
             for (byte tileIndex = 0; tileIndex < DefaultSize * DefaultSize; tileIndex++)
@@ -89,7 +90,7 @@ namespace UserInterface.CustomControls
                 stateBytes[tileIndex] = (byte)(tileIndex + 1);
             }
             stateBytes[DefaultSize * DefaultSize - 1] = BlankTileTag;
-            return stateBytes;
+            return new ObservableBoard(stateBytes);
         }
 
         //creates the tiles for the puzzle
@@ -171,9 +172,15 @@ namespace UserInterface.CustomControls
             firstValue.DestinationMargin = secondValue.DestinationMargin;
             secondValue.DestinationMargin = tempThickness;
 
-            var firstPosition = tagToPositionMap[firstValue];
-            tagToPositionMap[firstValue] = tagToPositionMap[secondValue];
-            tagToPositionMap[secondValue] = firstPosition;
+            var initialfirstPosition = tagToPositionMap[firstValue];
+            var secondPosition = tagToPositionMap[secondValue];
+
+            tagToPositionMap[firstValue] = secondPosition;
+            tagToPositionMap[secondValue] = initialfirstPosition;
+
+            var temp = State[initialfirstPosition];
+            State[initialfirstPosition] = State[secondPosition];
+            State[secondPosition] = temp;
         }
 
         private void AnimateInDirection(int animationDirection)
