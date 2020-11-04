@@ -16,7 +16,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <custom:PuzzleSlider Grid.Row="0" 
-                                 State="{Binding SliderState}"/>
+                                 State="{Binding SliderState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <custom:MenuButton Grid.Row="1" 
                                Content="Randomize" 
                                Height="50" 

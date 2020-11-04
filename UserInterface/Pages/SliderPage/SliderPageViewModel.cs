@@ -13,7 +13,7 @@ namespace UserInterface.Pages.SliderPage
 {
     public class SliderPageViewModel : BindableBase
     {
-        private byte[] _sliderState;
+        private ObservableBoard _sliderState;
         private readonly IPuzzleSolver _puzzleSolver;
         private readonly IPuzzleGenerator _puzzleGenerator;
 
@@ -22,25 +22,34 @@ namespace UserInterface.Pages.SliderPage
             _puzzleSolver = puzzleSolver;
             _puzzleGenerator = puzzleGenerator;
             RandomizeCommand = new DelegateCommand(OnRandomize);
-            SliderState = Board.GetGoalBoard(3).GetTiles();
-            
         }
+
         public ICommand RandomizeCommand { get; set; }
 
-        public byte[] SliderState
+        public ObservableBoard SliderState
         {
             get => _sliderState;
             set 
             {
                 _sliderState = value;
+                _sliderState.StateChanged -= OnStateChanged;
+                _sliderState.StateChanged += OnStateChanged;
                 RaisePropertyChanged(nameof(SliderState));
             }
         }
 
         private void OnRandomize()
         {
-            var board = _puzzleGenerator.GenerateRandomPuzzle(3);
-            SliderState = board.GetTiles();
+            var board = _puzzleGenerator.GenerateRandomPuzzle(2);
+            SliderState = new ObservableBoard(board);
+        }
+
+        private void OnStateChanged()
+        {
+             if(SliderState.IsSolved())
+             {
+                MessageBox.Show("You did it motherforker");
+             }
         }
 
     }
