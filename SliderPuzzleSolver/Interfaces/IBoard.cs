@@ -7,7 +7,7 @@ namespace SliderPuzzleSolver.Interfaces
   public interface IBoard
   {
     //board dimension n
-    byte Dimension { get; }
+    byte Rows { get; }
 
     //get the position of the blank tile
     (byte Row, byte Column) BlankTilePosition { get; }
@@ -20,6 +20,9 @@ namespace SliderPuzzleSolver.Interfaces
 
     ///get one dimiension array with the state of the board
     byte[] GetTiles();
+
+    //move the blanktile in one direction
+    void MoveBlankTile(Direction direction);
 
     // numeber of tiles out of the place
     ushort Hamming();

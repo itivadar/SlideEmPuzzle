@@ -9,35 +9,43 @@ namespace UserInterface.Pages.SliderPage
     public delegate void PropertyChangedEvent();
     public class ObservableBoard
     {
-        private byte[] _board;
+        private IBoard _board;
         public event PropertyChangedEvent StateChanged;
 
         public ObservableBoard(IBoard board)
         {
-            _board = board.GetTiles();
-        }
-
-        public ObservableBoard(byte[] board)
-        {
             _board = board;
         }
 
-        public int Length => _board.Length;
+        public ObservableBoard(byte[,] board)
+        {
+            _board = new Board(board);
+        }
+
+        public ObservableBoard(string board)
+        {
+            _board = new Board(board);
+        }
+
+        public int Rows => _board.Rows;
+        public bool IsSolved => _board.IsSolved();
+
 
         public byte this[int i]
         {
-            get => _board[i];
-            set
-            {
-                _board[i] = value;
-                RaiseStateChangedEvent();
-            }
+            get => _board.GetTiles()[i];
         }
 
-        public bool IsSolved()
+        public void MoveBlankTile(int tilePosition, int blankPosition)
         {
-            return new Board(string.Join(" ", _board)).IsSolved();
-         }
+            var direction = Direction.Up;
+            if (blankPosition - tilePosition == 1)      direction = Direction.Left;
+            if (blankPosition - tilePosition == -1)     direction = Direction.Right;
+            if (blankPosition - tilePosition == -Rows)  direction = Direction.Down;
+
+            _board.MoveBlankTile(direction);
+            RaiseStateChangedEvent();
+        }
 
         private void RaiseStateChangedEvent()
         {

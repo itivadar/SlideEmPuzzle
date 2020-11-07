@@ -43,7 +43,7 @@ namespace UserInterface.CustomControls
         public int _rowsCount;
 
         private readonly Dictionary<Tile, int> tagToPositionMap;
-        private Tile blankCanvas;
+        private Tile blankTile;
 
         /// <summary>
         /// Gets or sets the slider state
@@ -84,13 +84,7 @@ namespace UserInterface.CustomControls
         //generates the goal state
         private static ObservableBoard GetDefaultState()
         {
-           var stateBytes = new byte[DefaultSize * DefaultSize];
-            for (byte tileIndex = 0; tileIndex < DefaultSize * DefaultSize; tileIndex++)
-            {
-                stateBytes[tileIndex] = (byte)(tileIndex + 1);
-            }
-            stateBytes[DefaultSize * DefaultSize - 1] = BlankTileTag;
-            return new ObservableBoard(stateBytes);
+            return new ObservableBoard("1 2 3 0");
         }
 
         //creates the tiles for the puzzle
@@ -98,7 +92,7 @@ namespace UserInterface.CustomControls
         {
             Children.Clear();
             tagToPositionMap.Clear();
-            _rowsCount = (int) Math.Sqrt(State.Length);
+            _rowsCount = State.Rows;
          
             for (int tileIndex = 0; tileIndex < _rowsCount * _rowsCount; tileIndex++)
             {
@@ -118,43 +112,40 @@ namespace UserInterface.CustomControls
         }
 
        
-        private void AnimateSwitching(Tile c, int index = 0)
+        private void AnimateSwitching(Tile valueTile, int index = 0)
         {
             var tileAnimation = new ThicknessAnimation
             {
-                From = c.DestinationMargin,
-                To = blankCanvas.DestinationMargin,
+                From = valueTile.DestinationMargin,
+                To = blankTile.DestinationMargin,
                 Duration = new Duration(TimeSpan.FromMilliseconds(300)),
             };
 
             var blankAnimation = new ThicknessAnimation
             {
-                From = blankCanvas.DestinationMargin,
-                To = c.DestinationMargin,
+                From = blankTile.DestinationMargin,
+                To = valueTile.DestinationMargin,
                 Duration = new Duration(TimeSpan.FromMilliseconds(300))
             };
 
 
-            ExchangeThickness(blankCanvas, c);
-            tileAnimation.BeginTime = new TimeSpan(0, 0, 0,0,600*index);
+            ExchangeThickness(blankTile, valueTile);
+            ExchangePositions(blankTile, valueTile);
+
+            tileAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 600 * index);
             blankAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 600 * index);
-            Storyboard.SetTarget(blankAnimation, blankCanvas);
+            Storyboard.SetTarget(blankAnimation, blankTile);
             Storyboard.SetTargetProperty(blankAnimation, new PropertyPath(Tile.MarginProperty));
-            Storyboard.SetTarget(tileAnimation, c);
+            Storyboard.SetTarget(tileAnimation, valueTile);
             Storyboard.SetTargetProperty(tileAnimation, new PropertyPath(Tile.MarginProperty));
 
-            // Create a Storyboard to contain and apply the animation.
-            Storyboard pathAnimationStoryboard = new Storyboard();
-            pathAnimationStoryboard.AutoReverse = false;
-            pathAnimationStoryboard.Children.Add(tileAnimation);
-            pathAnimationStoryboard.Children.Add(blankAnimation);
-            pathAnimationStoryboard.Begin(this);
+            SetupStoryBoard(blankAnimation, tileAnimation);
         }
 
         private bool IsMovePossible(Tile sliderTile)
         {
             var tilePosition = tagToPositionMap[sliderTile];
-            var blankPosition = tagToPositionMap[blankCanvas];
+            var blankPosition = tagToPositionMap[blankTile];
             var tileRow = tilePosition / _rowsCount;
             var blankRow = blankPosition / _rowsCount;
 
@@ -166,26 +157,39 @@ namespace UserInterface.CustomControls
             return false;
         }
 
-        private void ExchangeThickness(Tile firstValue, Tile secondValue)
+        private void ExchangeThickness(Tile blankTile, Tile valueTile)
         {
-            var tempThickness = firstValue.DestinationMargin;
-            firstValue.DestinationMargin = secondValue.DestinationMargin;
-            secondValue.DestinationMargin = tempThickness;
+            var tempThickness = blankTile.DestinationMargin;
+            blankTile.DestinationMargin = valueTile.DestinationMargin;
+            valueTile.DestinationMargin = tempThickness;
+        }
 
-            var initialfirstPosition = tagToPositionMap[firstValue];
-            var secondPosition = tagToPositionMap[secondValue];
+        private void ExchangePositions(Tile blankTile, Tile valueTile)
+        {
+            var blankPosition = tagToPositionMap[blankTile];
+            var valuePosition = tagToPositionMap[valueTile];
+            
+            //exchange position in the mapping
+            tagToPositionMap[blankTile] = valuePosition;
+            tagToPositionMap[valueTile] = blankPosition;
+            
+            //move the blank tile to the new position
+            State.MoveBlankTile(valuePosition, blankPosition);
+        }
 
-            tagToPositionMap[firstValue] = secondPosition;
-            tagToPositionMap[secondValue] = initialfirstPosition;
-
-            var temp = State[initialfirstPosition];
-            State[initialfirstPosition] = State[secondPosition];
-            State[secondPosition] = temp;
+        private void SetupStoryBoard(ThicknessAnimation blankAnimation, ThicknessAnimation valueTileAnimation)
+        {
+            // Create a Storyboard to contain and apply the animation.
+            Storyboard pathAnimationStoryboard = new Storyboard();
+            pathAnimationStoryboard.AutoReverse = false;
+            pathAnimationStoryboard.Children.Add(valueTileAnimation);
+            pathAnimationStoryboard.Children.Add(blankAnimation);
+            pathAnimationStoryboard.Begin(this);
         }
 
         private void AnimateInDirection(int animationDirection)
         {
-            var blankPosition = tagToPositionMap[blankCanvas];
+            var blankPosition = tagToPositionMap[blankTile];
             Tile otherTile = null;
 
             foreach(var keyPair in tagToPositionMap)
@@ -220,7 +224,7 @@ namespace UserInterface.CustomControls
            
             if(tileTag == BlankTileTag)
             {
-                blankCanvas = sliderTile;
+                blankTile = sliderTile;
             }
 
             sliderTile.MouseDown += OnTileClicked;

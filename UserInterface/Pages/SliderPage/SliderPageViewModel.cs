@@ -40,13 +40,13 @@ namespace UserInterface.Pages.SliderPage
 
         private void OnRandomize()
         {
-            var board = _puzzleGenerator.GenerateRandomPuzzle(2);
+            var board = _puzzleGenerator.GenerateRandomPuzzle(3);
             SliderState = new ObservableBoard(board);
         }
 
         private void OnStateChanged()
         {
-             if(SliderState.IsSolved())
+             if(SliderState.IsSolved)
              {
                 MessageBox.Show("You did it motherforker");
              }

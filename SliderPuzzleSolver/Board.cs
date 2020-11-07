@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace SliderPuzzleSolver
 {
-    enum Direction : byte
+    public enum Direction : byte
     {
         Right,
         Left,
@@ -24,7 +24,7 @@ namespace SliderPuzzleSolver
         #endregion
 
         #region Proprieties
-        public byte Dimension { get; private set; }
+        public byte Rows { get; private set; }
         public (byte Row, byte Column) BlankTilePosition { get; private set; }
         #endregion
 
@@ -54,7 +54,7 @@ namespace SliderPuzzleSolver
 
         public byte[] GetTiles()
         {
-            var tiles = new byte[Dimension * Dimension];
+            var tiles = new byte[Rows * Rows];
             int index = 0;
             foreach (var tile in _tiles)
             {
@@ -67,10 +67,10 @@ namespace SliderPuzzleSolver
         {
             var representation = new StringBuilder();
 
-            for (int rowId = 0; rowId < Dimension; rowId++)
+            for (int rowId = 0; rowId < Rows; rowId++)
             {
                 representation.AppendLine();
-                for (int columnId = 0; columnId < Dimension; columnId++)
+                for (int columnId = 0; columnId < Rows; columnId++)
                 {
                     representation.Append($"{_tiles[rowId, columnId]} ");
                 }
@@ -83,10 +83,10 @@ namespace SliderPuzzleSolver
         public bool Indentic(object that)
         {
             var otherBoard = (IBoard)that;
-            if (this.Dimension != otherBoard.Dimension) return false;
+            if (this.Rows != otherBoard.Rows) return false;
 
-            for (byte rowId = 0; rowId < Dimension; rowId++)
-                for (byte columnId = 0; columnId < Dimension; columnId++)
+            for (byte rowId = 0; rowId < Rows; rowId++)
+                for (byte columnId = 0; columnId < Rows; columnId++)
                 {
                     if (_tiles[rowId, columnId] != otherBoard.Tile(rowId, columnId))
                         return false;
@@ -102,7 +102,7 @@ namespace SliderPuzzleSolver
             Dictionary<IBoard, int> allNeighbors = new Dictionary<IBoard, int>();
             foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
             {
-                var neighborTile = MoveBlankTile(direction);
+                var neighborTile = GetNeighborTiles(direction);
 
                 if (neighborTile != null)
                 {
@@ -123,7 +123,7 @@ namespace SliderPuzzleSolver
             var childBoards = new List<IBoard>();
             foreach (var direction in ConstantHelper.DirectionsTransfom.Keys)
             {
-                var neighborTile = MoveBlankTile(direction);
+                var neighborTile = GetNeighborTiles(direction);
 
                 if (neighborTile != null)
                 {
@@ -136,11 +136,11 @@ namespace SliderPuzzleSolver
         public ushort Hamming()
         {
             ushort hammingCount = 0;
-            for (int rowId = 0; rowId < Dimension; rowId++)
-                for (int colomnId = 0; colomnId < Dimension; colomnId++)
+            for (int rowId = 0; rowId < Rows; rowId++)
+                for (int colomnId = 0; colomnId < Rows; colomnId++)
                 {
                     if (_tiles[rowId, colomnId] == ConstantHelper.BlankTileValue) continue;
-                    var (Row, Column) = GoalPosition(_tiles[rowId, colomnId]);
+                    var (Row, Column) = GoalPositionForValue(_tiles[rowId, colomnId]);
                     if (Row != rowId || Column != colomnId)
                         hammingCount++;
                 }
@@ -164,20 +164,20 @@ namespace SliderPuzzleSolver
         public bool IsSolvable()
         {
             var invCount = InversionCount();
-            if (Dimension % 2 == 1)
+            if (Rows % 2 == 1)
             {
                 return invCount % 2 == 0;
             }
 
-            return (Dimension - BlankTilePosition.Row) % 2 != invCount % 2;
+            return (Rows - BlankTilePosition.Row) % 2 != invCount % 2;
         }
 
         //Manhattan distance: total Manhattan distance to each tile to its goal position
         public int Manhattan()
         {
             int distance = 0;
-            for (int rowId = 0; rowId < Dimension; rowId++)
-                for (int colomnId = 0; colomnId < Dimension; colomnId++)
+            for (int rowId = 0; rowId < Rows; rowId++)
+                for (int colomnId = 0; colomnId < Rows; colomnId++)
                 {
                     if (_tiles[rowId, colomnId] == ConstantHelper.BlankTileValue)
                     {
@@ -209,18 +209,18 @@ namespace SliderPuzzleSolver
             var newTiles = _tiles.Clone() as byte[,];
             var rand = new Random();
             //determines random the value of first tile
-            var firstValuePos = (Row: rand.Next() % Dimension, Colomn: rand.Next() % Dimension);
+            var firstValuePos = (Row: rand.Next() % Rows, Colomn: rand.Next() % Rows);
             //move one row if gets to the blank position
             if (firstValuePos == BlankTilePosition)
             {
-                firstValuePos.Row = (firstValuePos.Row + 1) % Dimension;
+                firstValuePos.Row = (firstValuePos.Row + 1) % Rows;
             }
             //the second tile is on another colomn to avoid swapping same tile
-            var secondValuePos = (Row: firstValuePos.Row, Colomn: (firstValuePos.Colomn + 1) % Dimension);
+            var secondValuePos = (Row: firstValuePos.Row, Colomn: (firstValuePos.Colomn + 1) % Rows);
 
             if (secondValuePos == BlankTilePosition)
             {
-                secondValuePos.Row = (secondValuePos.Row + 1) % Dimension;
+                secondValuePos.Row = (secondValuePos.Row + 1) % Rows;
             }
 
             Swap(newTiles, firstValuePos, secondValuePos);
@@ -233,9 +233,9 @@ namespace SliderPuzzleSolver
         public bool Equals(IBoard obj)
         {
             var otherBoard = obj as Board;
-            if (Dimension != otherBoard.Dimension) return false;
-            for (int rowId = 0; rowId < Dimension; rowId++)
-                for (int columnId = 0; columnId < Dimension; columnId++)
+            if (Rows != otherBoard.Rows) return false;
+            for (int rowId = 0; rowId < Rows; rowId++)
+                for (int columnId = 0; columnId < Rows; columnId++)
                 {
                     if(_tiles[rowId, columnId] != otherBoard._tiles[rowId, columnId])
                     {
@@ -244,6 +244,19 @@ namespace SliderPuzzleSolver
                 }
 
             return true;
+        }
+
+        //moves the blank tile in a given direction
+        public void MoveBlankTile(Direction direction)
+        {
+            var (Row, Column) = ConstantHelper.DirectionsTransfom[direction];
+            var newPosition = (Row: (byte)(BlankTilePosition.Row + Row), Column:(byte) (BlankTilePosition.Column + Column));
+
+            if (newPosition.Row < 0 || newPosition.Row >= Rows) return;
+            if (newPosition.Column < 0 || newPosition.Column >= Rows) return;
+
+            Swap(_tiles, newPosition, BlankTilePosition);
+            BlankTilePosition = newPosition;
         }
 
         /// <summary>
@@ -271,48 +284,44 @@ namespace SliderPuzzleSolver
 
         //if the move of the blank til is possible return tile array where the blank tile is moved according to the direction
         //if the move is not possible, return null
-        private byte[,] MoveBlankTile(Direction direction)
+        private byte[,] GetNeighborTiles(Direction direction)
         {
             var (Row, Column) = ConstantHelper.DirectionsTransfom[direction];
             var newPosition = (Row: BlankTilePosition.Row + Row, Column: BlankTilePosition.Column + Column);
 
-            if (newPosition.Row < 0 || newPosition.Row >= Dimension) return null;
-            if (newPosition.Column < 0 || newPosition.Column >= Dimension) return null;
+            if (newPosition.Row < 0 || newPosition.Row >= Rows) return null;
+            if (newPosition.Column < 0 || newPosition.Column >= Rows) return null;
 
-            byte[,] transformedArray = new byte[Dimension, Dimension];
+            byte[,] transformedArray = new byte[Rows, Rows];
 
-            for (int rowId = 0; rowId < Dimension; rowId++)
-                for (int columnId = 0; columnId < Dimension; columnId++)
+            for (int rowId = 0; rowId < Rows; rowId++)
+                for (int columnId = 0; columnId < Rows; columnId++)
                 {
                     transformedArray[rowId, columnId] = _tiles[rowId, columnId];
                 }
 
-            //move the value from the old position to the blank tile
-            var valueToBeMoved = transformedArray[newPosition.Row, newPosition.Column];
-            transformedArray[BlankTilePosition.Row, BlankTilePosition.Column] = valueToBeMoved;
-            //move the blank tile to the new position
-            transformedArray[newPosition.Row, newPosition.Column] = ConstantHelper.BlankTileValue;
+            Swap(transformedArray, newPosition, BlankTilePosition);
 
             return transformedArray;
         }
 
         //gets the position when a specific tile should be
-        private (byte Row, byte Colomn) GoalPosition(int value)
+        private (byte Row, byte Colomn) GoalPositionForValue(int value)
         {
             var valueBasedZero = value - 1;
-            var goalPosition = (Row: (byte)(valueBasedZero / Dimension), Colomn: (byte)(valueBasedZero % Dimension));
+            var goalPosition = (Row: (byte)(valueBasedZero / Rows), Colomn: (byte)(valueBasedZero % Rows));
             return goalPosition;
         }
 
         private ushort InversionCount()
         {
             byte s = 0;
-            int n = Dimension * Dimension;
+            int n = Rows * Rows;
             byte[] copyArr = new byte[n];
-            for (byte i = 0; i < Dimension; i++)
-                for (byte j = 0; j < Dimension; j++)
+            for (byte i = 0; i < Rows; i++)
+                for (byte j = 0; j < Rows; j++)
                 {
-                    copyArr[i * Dimension + j] = Tile(i, j);
+                    copyArr[i * Rows + j] = Tile(i, j);
                 }
 
             for (var i = 0; i < n; i++)
@@ -330,8 +339,8 @@ namespace SliderPuzzleSolver
         private int GetManhattanAt(byte[,] board, int x, int y)
         {
             var value = board[x, y] - 1;
-            var goalRow = (value) / Dimension;
-            var goalCol = (value) % Dimension;
+            var goalRow = (value) / Rows;
+            var goalCol = (value) % Rows;
             return Math.Abs(goalRow - x) + Math.Abs(goalCol - y);
         }
 
@@ -361,12 +370,12 @@ namespace SliderPuzzleSolver
         //set the tiles array from a provided byte array
         private void SetupBoad(byte[,] tiles)
         {
-            Dimension = (byte)tiles.GetLength(0);
-            _tiles = new byte[Dimension, Dimension];
+            Rows = (byte)tiles.GetLength(0);
+            _tiles = new byte[Rows, Rows];
 
-            for (byte i = 0; i < Dimension; i++)
+            for (byte i = 0; i < Rows; i++)
             {
-                for (byte j = 0; j < Dimension; j++)
+                for (byte j = 0; j < Rows; j++)
                 {
                     _tiles[i, j] = tiles[i, j];
                     if (_tiles[i, j] == ConstantHelper.BlankTileValue)
