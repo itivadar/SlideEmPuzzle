@@ -55,7 +55,7 @@ namespace UserInterface.CustomControls
                 Text = TileTag.ToString(),
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                FontSize = 50
+                FontSize = 38
             };
         }
 

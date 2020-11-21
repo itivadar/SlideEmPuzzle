@@ -13,15 +13,6 @@ using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.CustomControls
 {
-    public static class AnimationDirection
-    {
-        public static int Up =>-4;
-        public static int Left => -1;
-        public static int Down => 4;
-        public static int Right => 1;
-
-    }
-
 
     public class PuzzleSlider : Canvas
     {
@@ -30,13 +21,14 @@ namespace UserInterface.CustomControls
                                                                                               typeof(PuzzleSlider),
                                                                                               new PropertyMetadata(null,
                                                                                                 new PropertyChangedCallback(OnStateChanged)));
+       
         public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
         public static event DependencyPropertyChanged StateChangedEvent;
 
 
-        private const int DefaultSize = 2;
         private const int Spacing = 5;
         private const byte BlankTileTag = 0;
+        private const int AnimationDuration = 300; //in ms
 
         private readonly double _tilesHeight = 100;
         private readonly double _tilesWidth = 100;
@@ -118,22 +110,22 @@ namespace UserInterface.CustomControls
             {
                 From = valueTile.DestinationMargin,
                 To = blankTile.DestinationMargin,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(AnimationDuration))
             };
 
             var blankAnimation = new ThicknessAnimation
             {
                 From = blankTile.DestinationMargin,
                 To = valueTile.DestinationMargin,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300))
+                Duration = new Duration(TimeSpan.FromMilliseconds(AnimationDuration))
             };
 
 
             ExchangeThickness(blankTile, valueTile);
             ExchangePositions(blankTile, valueTile);
 
-            tileAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 600 * index);
-            blankAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 600 * index);
+            tileAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, AnimationDuration * index);
+            blankAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, AnimationDuration * index);
             Storyboard.SetTarget(blankAnimation, blankTile);
             Storyboard.SetTargetProperty(blankAnimation, new PropertyPath(Tile.MarginProperty));
             Storyboard.SetTarget(tileAnimation, valueTile);

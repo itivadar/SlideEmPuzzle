@@ -43,6 +43,11 @@ namespace UserInterface.Pages.SliderPage
             if (blankPosition - tilePosition == -1)     direction = Direction.Right;
             if (blankPosition - tilePosition == -Rows)  direction = Direction.Down;
 
+            MoveBlankTile(direction);
+        }
+
+        public void MoveBlankTile(Direction direction)
+        {
             _board.MoveBlankTile(direction);
             RaiseStateChangedEvent();
         }

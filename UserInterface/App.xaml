@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CustomControls/MenuButton/MenuButtonStyle.xaml"/>
                 <ResourceDictionary Source="/CustomControls/SliderControl/SliderStyle.xaml"/>
+                <ResourceDictionary Source="/CustomControls/Tile/TileStyle.xaml"/>
+                
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />

@@ -48,7 +48,7 @@ namespace UserInterface
         }
 
         public ICommand AboutCommand { get; private set; }
-        public DelegateCommand ClearCommand { get; private set; }
+        public ICommand ClearCommand { get; private set; }
 
 
         private void OnClear()
