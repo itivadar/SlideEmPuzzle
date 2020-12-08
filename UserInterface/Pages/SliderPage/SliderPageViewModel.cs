@@ -20,7 +20,6 @@ namespace UserInterface.Pages.SliderPage
         private DispatcherTimer _timer;
         private ObservableBoard _sliderState;
         private int  _playerMoves;
-        private string _formatedPlayerTime;
         private TimeSpan _playerTime;
         
 
@@ -36,12 +35,12 @@ namespace UserInterface.Pages.SliderPage
 
         public ICommand RandomizeCommand { get; set; }
 
-        public string PlayerTime
+        public TimeSpan PlayerTime
         {
-            get => _formatedPlayerTime;
+            get => _playerTime;
             private set
             {
-                _formatedPlayerTime = value;
+                _playerTime = value;
                 RaisePropertyChanged(nameof(PlayerTime));
             }
         }
@@ -70,6 +69,7 @@ namespace UserInterface.Pages.SliderPage
 
         private void OnRandomize()
         {
+            ResetPlayerState();
             var board = _puzzleGenerator.GenerateRandomPuzzle(3);
             SliderState = new ObservableBoard(board);
             _timer.Start();
@@ -94,8 +94,13 @@ namespace UserInterface.Pages.SliderPage
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            _playerTime = _playerTime.Add(TimeSpan.FromSeconds(1));
-            PlayerTime = _playerTime.ToString(@"mm\:ss");
+            PlayerTime = PlayerTime.Add(TimeSpan.FromSeconds(1));
+        }
+
+        private void ResetPlayerState()
+        {
+            PlayerMoves = 0;
+            PlayerTime = TimeSpan.Zero;
         }
     }
 }
