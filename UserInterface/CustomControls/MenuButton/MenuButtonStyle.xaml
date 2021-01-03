@@ -44,8 +44,6 @@
                                    RadiusY="20">
                             <Rectangle.Fill >
                                 <ImageBrush ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
-                                
-                                
                             </Rectangle.Fill>
                         </Rectangle>
 

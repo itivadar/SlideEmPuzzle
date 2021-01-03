@@ -202,7 +202,7 @@ namespace UserInterface.CustomControls
         {
             var tileColumn = tileIndex % _rowsCount;
             var tileRow = tileIndex / _rowsCount;
-            var tileTag = State[tileIndex]; 
+            var tileTag = State[tileIndex];
 
             var sliderTile = new Tile
             {
@@ -213,13 +213,13 @@ namespace UserInterface.CustomControls
                 Margin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
                 DestinationMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
             };
-           
-            if(tileTag == BlankTileTag)
+
+            if (tileTag == BlankTileTag)
             {
                 blankTile = sliderTile;
             }
 
-            sliderTile.MouseDown += OnTileClicked;
+            sliderTile.PreviewMouseLeftButtonDown += OnTileClicked;
 
             return sliderTile;
         }
