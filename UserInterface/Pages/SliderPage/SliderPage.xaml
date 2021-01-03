@@ -89,7 +89,7 @@
             </custom:MenuButton>
             <custom:MenuButton Grid.Row="1"
                                Content="Main menu" 
-                               Command="{Binding RandomizeCommand}" 
+                               Command="{Binding OpenMainMenuCommand}" 
                                Margin="155,30,0,0" Grid.Column="1"/>
         </Grid>
 

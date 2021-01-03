@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using UserInterface.BootstraperSpace;
 
 namespace UserInterface.Pages.SliderPage
 {
@@ -15,6 +16,8 @@ namespace UserInterface.Pages.SliderPage
 
         private readonly IPuzzleGenerator _puzzleGenerator;
         private readonly IPuzzleSolver _puzzleSolver;
+        private readonly INavigationService _navigationService;
+
         private int _playerMoves;
         private TimeSpan _playerTime;
         private ObservableBoard _sliderState;
@@ -24,14 +27,16 @@ namespace UserInterface.Pages.SliderPage
 
         #region Public Constructors
 
-        public SliderPageViewModel(IPuzzleSolver puzzleSolver, IPuzzleGenerator puzzleGenerator)
+        public SliderPageViewModel(IPuzzleSolver puzzleSolver, IPuzzleGenerator puzzleGenerator, INavigationService navigationService)
         {
             _puzzleSolver = puzzleSolver;
             _puzzleGenerator = puzzleGenerator;
-
-            RandomizeCommand = new DelegateCommand(OnRandomize);
+            _navigationService = navigationService;
 
             ConfigureTimer();
+
+            RandomizeCommand = new DelegateCommand(OnRandomize);
+            OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
         }
 
         #endregion Public Constructors
@@ -58,7 +63,7 @@ namespace UserInterface.Pages.SliderPage
             }
         }
 
-        public ICommand RandomizeCommand { get; set; }
+        
 
         public ObservableBoard SliderState
         {
@@ -74,6 +79,12 @@ namespace UserInterface.Pages.SliderPage
 
         #endregion Public Properties
 
+        #region Public Commands
+        public ICommand RandomizeCommand { get; private set; }
+
+        public ICommand OpenMainMenuCommand { get; private set; }
+
+        #endregion
         #region Private Methods
 
         private void ConfigureTimer()
@@ -89,6 +100,11 @@ namespace UserInterface.Pages.SliderPage
             var board = _puzzleGenerator.GenerateRandomPuzzle(4);
             SliderState = new ObservableBoard(board);
             _timer.Start();
+        }
+
+        private void OnOpenMainMenu()
+        {
+            _navigationService.SetMainPage(AppPages.MainMenuPage);
         }
 
         private void OnStateChanged()
@@ -111,6 +127,7 @@ namespace UserInterface.Pages.SliderPage
             PlayerMoves = 0;
             PlayerTime = TimeSpan.Zero;
         }
+
 
         #endregion Private Methods
     }
