@@ -15,13 +15,11 @@ namespace UserInterface
     {
 
         private FrameworkElement _mainFrame;
-        private MenuViewItem _selectedMenu;
         private readonly INavigationService _navigationService;
         private Dictionary<MenuAction, Action> _menuActionMap;
 
         public MainWindowViewModel(INavigationService navigationService)
         {
-            BuildMenuActionMap();
             _navigationService = navigationService;
             PlayCommand = new DelegateCommand(OnClear);
             MainFrame = navigationService.GetPage(AppPages.MainMenuPage);
@@ -37,17 +35,6 @@ namespace UserInterface
             }
         }
 
-        public MenuViewItem SelectedMenu
-        {
-            get => _selectedMenu;
-            set
-            {
-                _selectedMenu = value;
-                RaisePropertyChanged(nameof(SelectedMenu));
-                OnMenuItemSelected(value);
-            }
-        }
-
         public ICommand AboutCommand { get; private set; }
         public ICommand PlayCommand { get; private set; }
 
@@ -57,25 +44,11 @@ namespace UserInterface
             MainFrame = default;
             MainFrame = _navigationService.GetPage(AppPages.SliderPage);
         }
-        private void OnMenuItemSelected(MenuViewItem menuItem)
-        {
-            MainFrame = _navigationService.GetPage(menuItem.Page);
-            _menuActionMap[menuItem.Action]?.Invoke();
-        }
 
         private void OnExit()
         {
             Application.Current.Shutdown();
         }
-
-        private void BuildMenuActionMap()
-        {
-            _menuActionMap = new Dictionary<MenuAction, Action>()
-            {
-             { MenuAction.Exit, OnExit},
-             { MenuAction.None, ()=>{ }}
-            };
-        }
-  
+ 
     }
 }
