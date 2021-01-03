@@ -11,7 +11,10 @@
         Width="900"
         WindowStyle="SingleBorderWindow"
         Background="#FF933C3C" 
-        Foreground="White" Template="{DynamicResource PopupContentClassicTemplate}">
+        Foreground="White" 
+        Template="{DynamicResource PopupContentClassicTemplate}" 
+        WindowStartupLocation="CenterScreen"
+        Cursor="/Resources/Earth_Pointer.ani">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
