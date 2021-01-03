@@ -1,0 +1,19 @@
+﻿<Page x:Class="UserInterface.Pages.MainMenu.MainMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UserInterface.Pages.MainMenu" xmlns:customControls="clr-namespace:UserInterface.CustomControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainMenuPage">
+
+    <Grid>
+        <customControls:MenuButton Width="200"
+                                   Content="Start game" Margin="80,75,520,300" d:LayoutOverrides="Width, Height" ></customControls:MenuButton>
+        <customControls:MenuButton Width="200"
+                                   Content="About"
+                                   Margin="80,188,0,188"
+                                   Command="{Binding OpenAboutCommand}" RenderTransformOrigin="-0.7,-0.733" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment, Width"/>
+    </Grid>
+</Page>

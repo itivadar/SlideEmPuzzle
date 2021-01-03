@@ -18,6 +18,7 @@ namespace UserInterface.BootstraperSpace
         public static void RegisterView<TViewType, TViewModelType>(this IUnityContainer unityContainer) where TViewType : FrameworkElement
         {
             unityContainer.RegisterSingleton<TViewType, TViewType>();
+            unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();
 
             var view = unityContainer.Resolve<TViewType>();
             var viewModel = unityContainer.Resolve<TViewModelType>();
@@ -34,6 +35,7 @@ namespace UserInterface.BootstraperSpace
         public static void RegisterPage<TViewType, TViewModelType>(this IUnityContainer unityContainer, string name) where TViewType : FrameworkElement
         {
             unityContainer.RegisterSingleton<object, TViewType>(name);
+            unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();
 
             var view = unityContainer.Resolve<object>(name) as TViewType;
             var viewModel = unityContainer.Resolve<TViewModelType>();

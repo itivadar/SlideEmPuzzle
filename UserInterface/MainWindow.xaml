@@ -7,39 +7,38 @@
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
         Title="Slide'em Puzzle" 
-        Height="520" 
+        Height="520"
         Width="900"
         WindowStyle="SingleBorderWindow"
-        Background="#FF1B1515" Foreground="White">
+        Background="#FF933C3C" 
+        Foreground="White" Template="{DynamicResource PopupContentClassicTemplate}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="36*"></ColumnDefinition>
-            <ColumnDefinition Width="87*"/>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" 
-            SelectionMode="Single" 
-            SelectedItem="{Binding SelectedMenu}" 
-            Background="#FF5FCD54"  
-            Foreground="{DynamicResource MaterialDesignCardBackground}" 
-            Grid.ColumnSpan="2">
-            <custom:MenuViewItem Content="Go!"  Page="{x:Static local:AppPages.SliderPage}"/>
-            <custom:MenuViewItem Content="About" Page="{x:Static local:AppPages.AboutPage}"/>
-            <custom:MenuViewItem Content="Exit" Action="Exit"/>
-        </ListView>
-        <Frame Grid.Column="2" 
-               Content="{Binding MainFrame}" 
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0" 
+               Content="{Binding MainFrame}"
                NavigationUIVisibility="Hidden" 
-               BorderThickness="1,0,2,0" 
-               Grid.ColumnSpan="2" 
-               BorderBrush="{DynamicResource SecondaryAccentBrush}">
+               BorderThickness="1,0,2,0">
             <Frame.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF302929" Offset="0.914"/>
+                    <GradientStop Color="#FF24307E"/>
+                    <GradientStop Color="#FF104C6E" Offset="1"/>
                 </LinearGradientBrush>
             </Frame.Background>
         </Frame>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center"
+                       Text="&#xA9; Tivadar Ionut"/>
+        </Grid>
     </Grid>
 </Window>

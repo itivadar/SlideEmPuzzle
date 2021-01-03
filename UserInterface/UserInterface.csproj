@@ -16,7 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\DarkerGrotesque-Regular.ttf" />
+    <None Remove="Fonts\Langar-Regular.ttf" />
+    <None Remove="Fonts\NovaFlat-Regular.ttf" />
     <None Remove="Resources\ico1.png" />
+    <None Remove="Resources\menuButton4.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +35,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\DarkerGrotesque-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Langar-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\NovaFlat-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\ico1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\menuButton4.jpg" />
   </ItemGroup>
 
 </Project>

@@ -19,6 +19,7 @@ namespace UserInterface
             base.OnStartup(e);
             var bootstraper = new Bootstraper();
             bootstraper.ConfigureContainer();
+            bootstraper.SetMainPage(AppPages.MainMenuPage);
             bootstraper.GetView<MainWindow>().Show();
         }
     }

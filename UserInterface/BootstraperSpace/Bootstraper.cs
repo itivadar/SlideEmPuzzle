@@ -7,17 +7,19 @@ using System.Windows.Controls;
 using Unity;
 using UserInterface;
 using UserInterface.Pages.About;
+using UserInterface.Pages.MainMenu;
 using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.BootstraperSpace
 {
     public class Bootstraper : INavigationService
     {
-        private IUnityContainer _unityContainer;
-
+        private readonly IUnityContainer _unityContainer;
+        private  MainWindowViewModel _mainViewModel;
         public Bootstraper()
         {
             _unityContainer = new UnityContainer();
+            
         }
 
         /// <summary>
@@ -27,6 +29,12 @@ namespace UserInterface.BootstraperSpace
         {
             RegisterTypes();
             RegisterViews();
+            _mainViewModel = _unityContainer.Resolve<MainWindowViewModel>();
+        }
+
+        public void SetMainPage(string page)
+        {
+            _mainViewModel.MainFrame = GetPage(page);
         }
 
        /// <summary>
@@ -65,6 +73,7 @@ namespace UserInterface.BootstraperSpace
             _unityContainer.RegisterView<MainWindow, MainWindowViewModel>();
             _unityContainer.RegisterPage<SliderPage, SliderPageViewModel>(AppPages.SliderPage);
             _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
+            _unityContainer.RegisterPage<MainMenuPage, MainMenuViewModel>(AppPages.MainMenuPage);
         }
 
        

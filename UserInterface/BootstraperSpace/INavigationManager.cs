@@ -21,5 +21,11 @@ namespace UserInterface.BootstraperSpace
         /// <param name="pageName">The page name</param>
         /// <returns>a page</returns>
         Page GetPage(string pageName);
+
+        /// <summary>
+        /// Sets the main page
+        /// </summary>
+        /// <param name="page"></param>
+        void SetMainPage(string page);
     }
 }

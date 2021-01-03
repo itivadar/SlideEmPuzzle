@@ -23,7 +23,8 @@ namespace UserInterface
         {
             BuildMenuActionMap();
             _navigationService = navigationService;
-            ClearCommand = new DelegateCommand(this.OnClear);
+            PlayCommand = new DelegateCommand(OnClear);
+            MainFrame = navigationService.GetPage(AppPages.MainMenuPage);
         }
 
         public FrameworkElement MainFrame
@@ -48,14 +49,14 @@ namespace UserInterface
         }
 
         public ICommand AboutCommand { get; private set; }
-        public ICommand ClearCommand { get; private set; }
+        public ICommand PlayCommand { get; private set; }
 
 
         private void OnClear()
         {
             MainFrame = default;
+            MainFrame = _navigationService.GetPage(AppPages.SliderPage);
         }
-
         private void OnMenuItemSelected(MenuViewItem menuItem)
         {
             MainFrame = _navigationService.GetPage(menuItem.Page);

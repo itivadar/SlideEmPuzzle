@@ -86,7 +86,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnRandomize()
         {
             ResetPlayerState();
-            var board = _puzzleGenerator.GenerateRandomPuzzle(3);
+            var board = _puzzleGenerator.GenerateRandomPuzzle(4);
             SliderState = new ObservableBoard(board);
             _timer.Start();
         }

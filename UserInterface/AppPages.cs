@@ -18,5 +18,10 @@ namespace UserInterface
         /// </summary>
         public static string SliderPage = "SliderPage";
 
+        /// <summary>
+        /// The URI of the About page. 
+        /// </summary>
+        public static string MainMenuPage = "MainMenuPage";
+
     }
 }
