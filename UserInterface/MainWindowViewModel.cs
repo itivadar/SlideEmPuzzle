@@ -16,7 +16,6 @@ namespace UserInterface
 
         private FrameworkElement _mainFrame;
         private readonly INavigationService _navigationService;
-        private Dictionary<MenuAction, Action> _menuActionMap;
 
         public MainWindowViewModel(INavigationService navigationService)
         {

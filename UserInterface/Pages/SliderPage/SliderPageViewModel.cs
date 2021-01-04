@@ -98,7 +98,7 @@ namespace UserInterface.Pages.SliderPage
         {
             ResetPlayerState();
             var board = _puzzleGenerator.GenerateRandomPuzzle(4);
-            SliderState = new ObservableBoard(board);
+            SliderState = new ObservableBoard("1 2 3 4 5 6 7 8 0");
             _timer.Start();
         }
 

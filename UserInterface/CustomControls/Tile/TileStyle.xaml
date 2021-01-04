@@ -6,11 +6,11 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Background" Value="Wheat"/>
-        <Setter Property="BitmapEffect">
+        <!--<Setter Property="BitmapEffect">
             <Setter.Value>
                 <BlurBitmapEffect Radius="2" />
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         
         <Setter Property="Template">
             <Setter.Value>

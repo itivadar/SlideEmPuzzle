@@ -9,11 +9,25 @@
       Title="MainMenuPage">
 
     <Grid>
-        <customControls:MenuButton Width="200"
-                                   Content="Start game" Margin="80,75,520,300" d:LayoutOverrides="Width, Height" ></customControls:MenuButton>
-        <customControls:MenuButton Width="200"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" 
+                    Orientation="Vertical">
+            <customControls:MenuButton Width="200"
+                                   Content="Start game" 
+                                   Margin="0,80,5,0"
+                                   Command="{Binding OpenAboutCommand}"/>
+            <customControls:MenuButton Width="200"
+                                   Content="How to play"
+                                   Margin="0,15,2,0"/>
+            <customControls:MenuButton Width="200"
                                    Content="About"
-                                   Margin="80,188,0,188"
-                                   Command="{Binding OpenAboutCommand}" RenderTransformOrigin="-0.7,-0.733" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment, Width"/>
+                                   Margin="0,15,2,0"/>
+            <customControls:MenuButton Width="200"
+                                   Content="Exit"
+                                   Margin="0,15,2,0"/>
+        </StackPanel>
     </Grid>
 </Page>
