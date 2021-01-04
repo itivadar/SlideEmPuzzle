@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:UserInterface.CustomControls">
+    
+    <!--The cursor used in the game-->
+    <Cursor x:Key="GameCursor">pack://application:,,,/Resources/Earth_Pointer.ani</Cursor>
+    
+    <!--Textures used for the controls -->
+    <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
+    <ImageBrush x:Key="MenuButtonTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
+    <ImageBrush x:Key="TileTexture" ImageSource="/Resources/tileTexture.jpg" Stretch="UniformToFill"/>
+    
+    <!--Font family used -->
+    <FontFamily x:Key="LangarRegular">pack://application:,,,/Fonts/Langar-Regular.ttf#Langar</FontFamily>
+
+</ResourceDictionary>

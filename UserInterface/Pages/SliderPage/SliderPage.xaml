@@ -34,48 +34,52 @@
 
                 <Grid x:Name="UserInfo" Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
+                    
                     <Label Grid.Column="0"
                            Grid.Row="0"
                            FontSize="10"
                            FontWeight="DemiBold"
-                           Content="Time: "
+                           Content="Time"
                            Width="100"
-                           Height="35"
-                           VerticalAlignment="Center"
+                           Margin="5"
+                           VerticalAlignment="Top"
                            HorizontalAlignment="Right"
                            Style="{StaticResource InfoLabelStyle}"
                            Foreground="Beige"/>
+                    
                     <Label Grid.Column="1"
                            Grid.Row="0"
                            Content="{Binding PlayerTime, Converter={StaticResource TimeSpanToStringFormatConverter}}"
-                           Foreground="Beige"
-                           Width="60"
-                           Height="35"
-                           FontSize="16"
+                           Width="80"
                            Margin="5"
                            Style="{StaticResource InfoLabelStyle}"
-                           VerticalAlignment="Center"
+                           VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            FontWeight="DemiBold"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="1"
-                            Content="Moves " 
+                           Content="Moves " 
+                           Width="100"
+                           Margin="5"
+                           Style="{StaticResource InfoLabelStyle}"
                            Foreground="Beige"
                            FontSize="16"
                            FontWeight="DemiBold"/>
                     <Label Grid.Column="1"
                            Grid.Row="1"
+                           Width="80"
+                           Margin="5"
                            Content="{Binding PlayerMoves}"
                            Foreground="Beige"
-                           FontSize="16"
+                           Style="{StaticResource InfoLabelStyle}"
                            FontWeight="DemiBold"/>
                 </Grid>
 

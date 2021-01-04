@@ -3,6 +3,7 @@
 
 
     <Style x:Key="InfoLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Height" Value="50"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Label}">
@@ -10,11 +11,11 @@
                         <Rectangle x:Name="outerRectangle" 
                                    HorizontalAlignment="Stretch" 
                                    VerticalAlignment="Stretch" 
-                                   Stroke="ForestGreen"                                  
+                                   Stroke="#FFD6BD66"                               
                                    RadiusX="10" 
                                    RadiusY="10" 
-                                   StrokeThickness="3" 
-                                   Fill="Transparent" />
+                                   StrokeThickness="1" 
+                                   Fill="Transparent"  />
 
                         <Rectangle x:Name="innerRectangle" 
                                    HorizontalAlignment="Stretch" 
@@ -22,20 +23,19 @@
                                    Stroke="Transparent"
                                    StrokeThickness="10" 
                                    RadiusX="10" 
-                                   RadiusY="10">
-                            <Rectangle.Fill >
-                                <ImageBrush ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                                   RadiusY="10"
+                                   Fill="{StaticResource LabelTexture}"/>
+
                         <DockPanel Name="myContentPresenterDockPanel"  
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center">
                             <ContentPresenter x:Name="myContentPresenter" 
                                               Margin="2"
                                               Content="{TemplateBinding Content}"
-                                              TextBlock.FontSize="20" 
+                                              TextBlock.FontSize="22" 
                                               TextBlock.FontWeight="DemiBold"
-                                              Style="{StaticResource LangarRegular}"/>
+                                              TextBlock.Foreground=" #041961 "
+                                              TextBlock.FontFamily="{StaticResource LangarRegular}"/>
                         </DockPanel>
                     </Grid>
                 </ControlTemplate>

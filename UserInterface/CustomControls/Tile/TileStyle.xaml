@@ -31,19 +31,17 @@
                                    Stroke="Transparent"  
                                    StrokeThickness="14" 
                                    RadiusX="20" 
-                                   RadiusY="20">
-                            <Rectangle.Fill >
-                                <ImageBrush ImageSource="/Resources/tileTexture.jpg" Stretch="UniformToFill"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                                   RadiusY="20"
+                                   Fill="{StaticResource TileTexture}"/>
                         <DockPanel Name="myContentPresenterDockPanel"  
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center">
                             <ContentPresenter x:Name="myContentPresenter" 
                                               Content="{TemplateBinding Content}"
                                               TextBlock.FontSize="48" 
+                                              TextBlock.Foreground="#041961"
                                               TextBlock.FontWeight="DemiBold"
-                                              Style ="{StaticResource LangarRegular}"/>
+                                              TextBlock.FontFamily="{StaticResource LangarRegular}"/>
                         </DockPanel>
                     </Grid>
                     <ControlTemplate.Triggers>

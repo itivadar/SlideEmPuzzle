@@ -14,7 +14,7 @@
         Foreground="White" 
         Template="{DynamicResource PopupContentClassicTemplate}" 
         WindowStartupLocation="CenterScreen"
-        Cursor="/Resources/Earth_Pointer.ani">
+        Cursor="{StaticResource GameCursor}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

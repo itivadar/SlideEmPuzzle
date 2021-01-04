@@ -50,9 +50,6 @@
     <Resource Include="Resources\Earth_Pointer.ani">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\ico1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\labelTexture.jpg" />
     <Resource Include="Resources\menuButton4.jpg" />
     <Resource Include="Resources\tileTexture.jpg" />
