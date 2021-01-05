@@ -7,7 +7,6 @@ namespace UserInterface
 {
     public static class AppPages
     {
-
         /// <summary>
         /// The URI of the About page. 
         /// </summary>
@@ -22,6 +21,11 @@ namespace UserInterface
         /// The URI of the About page. 
         /// </summary>
         public static string MainMenuPage = "MainMenuPage";
+
+        /// <summary>
+        /// The URI of the About page. 
+        /// </summary>
+        public static string PuzzleSelectorPage = "PuzzleSelectorPage";
 
     }
 }

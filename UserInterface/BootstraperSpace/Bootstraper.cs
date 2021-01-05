@@ -9,6 +9,7 @@ using Unity;
 using UserInterface;
 using UserInterface.Pages.About;
 using UserInterface.Pages.MainMenu;
+using UserInterface.Pages.PuzzleSelectorPage;
 using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.BootstraperSpace
@@ -74,10 +75,13 @@ namespace UserInterface.BootstraperSpace
         /// </summary>
         private void RegisterViews()
         {
-            _unityContainer.RegisterView<MainWindow, MainWindowViewModel>();
+            _unityContainer.RegisterWindow<MainWindow, MainWindowViewModel>();
             _unityContainer.RegisterPage<SliderPage, SliderPageViewModel>(AppPages.SliderPage);
-            _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
             _unityContainer.RegisterPage<MainMenuPage, MainMenuViewModel>(AppPages.MainMenuPage);
+            _unityContainer.RegisterPage<PuzzleSelectorPage, PuzzleSelectorViewModel>(AppPages.PuzzleSelectorPage);
+
+            _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
+            
         }
     }
 }

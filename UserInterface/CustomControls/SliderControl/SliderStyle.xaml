@@ -3,5 +3,6 @@
                     xmlns:local="clr-namespace:UserInterface.CustomControls">
 
     <Style TargetType="local:PuzzleSlider">
+        <Setter Property="Height" Value="400"/>
     </Style>
 </ResourceDictionary>

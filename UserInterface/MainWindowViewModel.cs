@@ -41,7 +41,7 @@ namespace UserInterface
         private void OnClear()
         {
             MainFrame = default;
-            MainFrame = _navigationService.GetPage(AppPages.SliderPage);
+            MainFrame = _navigationService.GetPage(AppPages.PuzzleSelectorPage);
         }
 
         private void OnExit()

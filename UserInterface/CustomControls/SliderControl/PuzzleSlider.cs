@@ -13,29 +13,60 @@ using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.CustomControls
 {
-
+   /// <summary>
+   /// The delegate for defining events related to the dependecy property changing value.
+   /// </summary>
+   /// <param name="d"></param>
+   /// <param name="e"></param>
+    public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
     public class PuzzleSlider : Canvas
     {
+        /// <summary>
+        /// The state of the puzzle representing an <see cref="ObservableBoard"/>
+        /// Defines the positions of the tiles. 
+        /// </summary>
         public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached(nameof(State),
                                                                                               typeof(ObservableBoard),
                                                                                               typeof(PuzzleSlider),
-                                                                                              new PropertyMetadata(null,
+                                                                                              new FrameworkPropertyMetadata(null,
+                                                                                                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                                                                                                 new PropertyChangedCallback(OnStateChanged)));
-       
-        public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+       /// <summary>
+       /// Triggered when the puzzle state changes.
+       /// </summary>
         public static event DependencyPropertyChanged StateChangedEvent;
+
+        /// <summary>
+        /// Determines if the puzzle is locked or not.
+        /// If the puzzle is locked the user cannot move tiles.
+        /// </summary>
+       public static readonly DependencyProperty TileSizeProperty = DependencyProperty.RegisterAttached(nameof(TileSize), 
+                                                                                                         typeof(double), 
+                                                                                                         typeof(PuzzleSlider),
+                                                                                                         new FrameworkPropertyMetadata(DefaultTileSize,
+                                                                                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                                                                                            new PropertyChangedCallback(OnTileSizeChanged)));
+        /// <summary>
+        /// Triggered when the locking property is changed.
+        /// </summary>
+        public static event DependencyPropertyChanged TileChangedEvent;
 
 
         private const int Spacing = 5;
         private const byte BlankTileTag = 0;
         private const int AnimationDuration = 300; //in ms
+        private const double DefaultTileSize = 100d;
 
-        private readonly double _tilesHeight = 100;
-        private readonly double _tilesWidth = 100;
         public int _rowsCount;
 
         private readonly Dictionary<Tile, int> tagToPositionMap;
         private Tile blankTile;
+
+        public double? TileSize
+        {
+            get => (double)GetValue(TileSizeProperty);
+            set => SetValue(TileSizeProperty, value);
+        }
 
         /// <summary>
         /// Gets or sets the slider state
@@ -57,26 +88,18 @@ namespace UserInterface.CustomControls
         {
             tagToPositionMap = new Dictionary<Tile, int>();
             State = GetDefaultState();
-            InitSlider();           
-            StateChangedEvent += OnNewState;      
-        }
-
-        private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            State = (ObservableBoard) e.NewValue ?? GetDefaultState();
+            InitSlider();
+            StateChangedEvent += OnNewState;
+            TileChangedEvent += OnNewTileSize;
         }
 
 
-        private static void OnStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            StateChangedEvent?.Invoke(d, e);
-        }
 
-
-        //generates the goal state
+        //returns the empty board
         private static ObservableBoard GetDefaultState()
         {
-            return new ObservableBoard("1 2 3 0");
+            return new ObservableBoard(new byte[,] { });
+
         }
 
         //creates the tiles for the puzzle
@@ -94,6 +117,9 @@ namespace UserInterface.CustomControls
             }
         }
 
+        /// <summary>
+        /// Triggered when a tile is clicked.
+        /// </summary>
         private void OnTileClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var clickedTile = sender as Tile;
@@ -104,6 +130,11 @@ namespace UserInterface.CustomControls
         }
 
        
+        /// <summary>
+        /// Animate the tile exchanging between the blank tile and the specified tile. 
+        /// </summary>
+        /// <param name="valueTile"></param>
+        /// <param name="index"></param>
         private void AnimateSwitching(Tile valueTile, int index = 0)
         {
             var tileAnimation = new ThicknessAnimation
@@ -134,6 +165,11 @@ namespace UserInterface.CustomControls
             SetupStoryBoard(blankAnimation, tileAnimation);
         }
 
+        /// <summary>
+        /// Determines if the given tile can be exchanged with the blank tile.
+        /// </summary>
+        /// <param name="sliderTile"></param>
+        /// <returns></returns>
         private bool IsMovePossible(Tile sliderTile)
         {
             var tilePosition = tagToPositionMap[sliderTile];
@@ -149,6 +185,11 @@ namespace UserInterface.CustomControls
             return false;
         }
 
+        /// <summary>
+        /// Exchanges thickness between two tiles. Used on animating.
+        /// </summary>
+        /// <param name="blankTile"></param>
+        /// <param name="valueTile"></param>
         private void ExchangeThickness(Tile blankTile, Tile valueTile)
         {
             var tempThickness = blankTile.DestinationMargin;
@@ -198,6 +239,11 @@ namespace UserInterface.CustomControls
             }
         }
 
+        /// <summary>
+        /// Creates a new tile for the puzzler.
+        /// </summary>
+        /// <param name="tileIndex">The index of the tile.</param>
+        /// <returns>a new tile with the specified index</returns>
         private Tile BuildTile(int tileIndex)
         {
             var tileColumn = tileIndex % _rowsCount;
@@ -206,12 +252,12 @@ namespace UserInterface.CustomControls
 
             var sliderTile = new Tile
             {
-                Width = _tilesWidth,
-                Height = _tilesHeight,
+                Width = TileSize.Value,
+                Height = TileSize.Value,
                 TileTag = tileTag,
                 IsBlankTile = tileTag == BlankTileTag,
-                Margin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
-                DestinationMargin = new Thickness(tileColumn * (_tilesWidth + Spacing), tileRow * (_tilesHeight + Spacing), 0, 0),
+                Margin = new Thickness(tileColumn * (TileSize.Value + Spacing), tileRow * (TileSize.Value + Spacing), 0, 0),
+                DestinationMargin = new Thickness(tileColumn * (TileSize.Value + Spacing), tileRow * (TileSize.Value + Spacing), 0, 0),
             };
 
             if (tileTag == BlankTileTag)
@@ -224,5 +270,45 @@ namespace UserInterface.CustomControls
             return sliderTile;
         }
 
+        /// <summary>
+        /// Handles the state changing event.
+        /// </summary>
+        private void OnNewState(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((PuzzleSlider) sender != this)
+            {
+                return;
+            }
+            State = (ObservableBoard)e.NewValue ?? GetDefaultState();
+        }
+
+        /// <summary>
+        /// Triggered when the state has been changed.
+        /// </summary>
+        private static void OnStateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            StateChangedEvent?.Invoke(sender, args);
+        }
+
+        /// <summary>
+        /// Triggered  when the tile size has been changed.
+        /// </summary>
+        private static void OnTileSizeChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+           TileChangedEvent?.Invoke(sender, args);
+        }
+
+        /// <summary>
+        /// Handles the tile changing event.
+        /// </summary>
+        private void OnNewTileSize(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if ((PuzzleSlider) sender != this)
+            {
+                return;
+            }
+
+            TileSize = (double?)args.NewValue ?? DefaultTileSize;
+        }
     }
 }

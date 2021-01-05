@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Prism.Mvvm;
+using System.Windows;
 using Unity;
 
 namespace UserInterface.BootstraperSpace
@@ -14,7 +15,9 @@ namespace UserInterface.BootstraperSpace
         /// </summary>
         /// <typeparam name="TViewType">Type of the View</typeparam>
         /// <typeparam name="TViewModelType">Type of the ViewModel</typeparam>
-        public static void RegisterView<TViewType, TViewModelType>(this IUnityContainer unityContainer) where TViewType : FrameworkElement
+        public static void RegisterWindow<TViewType, TViewModelType>(this IUnityContainer unityContainer) 
+            where TViewType : FrameworkElement
+            where TViewModelType : BindableBase
         {
             unityContainer.RegisterSingleton<TViewType, TViewType>();
             unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();
@@ -31,7 +34,9 @@ namespace UserInterface.BootstraperSpace
         /// <typeparam name="TViewType">Type of the View</typeparam>
         /// <typeparam name="TViewModelType">Type of the ViewModel</typeparam>
         /// <param name="name">The name of the page used for resolving.</param>
-        public static void RegisterPage<TViewType, TViewModelType>(this IUnityContainer unityContainer, string name) where TViewType : FrameworkElement
+        public static void RegisterPage<TViewType, TViewModelType>(this IUnityContainer unityContainer, string name) 
+            where TViewType : FrameworkElement 
+            where TViewModelType : BindableBase
         {
             unityContainer.RegisterSingleton<object, TViewType>(name);
             unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();

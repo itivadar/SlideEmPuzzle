@@ -23,8 +23,9 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <custom:PuzzleSlider Grid.Row="0"
-                                 State="{Binding SliderState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 State="{Binding SliderState}"
                                  Margin="10"
+                                 TileSize="105"
                                  Height="400"/>
 
             <Grid Grid.Column="1">
