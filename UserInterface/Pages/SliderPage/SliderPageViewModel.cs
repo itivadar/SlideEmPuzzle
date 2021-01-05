@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using SliderPuzzleGenerator;
 using SliderPuzzleSolver.Interfaces;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
+using UserInterface.Events;
 
 namespace UserInterface.Pages.SliderPage
 {
@@ -17,6 +19,7 @@ namespace UserInterface.Pages.SliderPage
         private readonly IPuzzleGenerator _puzzleGenerator;
         private readonly IPuzzleSolver _puzzleSolver;
         private readonly INavigationService _navigationService;
+        private readonly IEventAggregator _eventAgreggator;
 
         private int _playerMoves;
         private TimeSpan _playerTime;
@@ -27,11 +30,15 @@ namespace UserInterface.Pages.SliderPage
 
         #region Public Constructors
 
-        public SliderPageViewModel(IPuzzleSolver puzzleSolver, IPuzzleGenerator puzzleGenerator, INavigationService navigationService)
+        public SliderPageViewModel(IPuzzleSolver puzzleSolver, 
+                                   IPuzzleGenerator puzzleGenerator,
+                                   INavigationService navigationService, 
+                                   IEventAggregator eventAggregator)
         {
             _puzzleSolver = puzzleSolver;
             _puzzleGenerator = puzzleGenerator;
             _navigationService = navigationService;
+            _eventAgreggator = eventAggregator;
 
             ConfigureTimer();
 
@@ -113,6 +120,7 @@ namespace UserInterface.Pages.SliderPage
             if (SliderState.IsSolved)
             {
                 MessageBox.Show("You did it motherforker");
+                OnGameFinished();
                 _timer.Stop();
             }
         }
@@ -128,6 +136,12 @@ namespace UserInterface.Pages.SliderPage
             PlayerTime = TimeSpan.Zero;
         }
 
+        private void OnGameFinished()
+        {
+            //_navigationService.SetMainPage(AppPages.AboutPage);
+            _eventAgreggator.GetEvent<GameFinishedEvent>().Publish();
+            
+        }
 
         #endregion Private Methods
     }

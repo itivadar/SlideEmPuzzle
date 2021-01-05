@@ -1,4 +1,5 @@
-﻿using SliderPuzzleGenerator;
+﻿using Prism.Events;
+using SliderPuzzleGenerator;
 using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
 using System;
@@ -55,14 +56,17 @@ namespace UserInterface.BootstraperSpace
             return _unityContainer.Resolve<TViewType>();
         }
 
+
         /// <summary>
         /// Register types into the container.
         /// </summary>
         private void RegisterTypes()
         {
+            _unityContainer.RegisterSingleton<IEventAggregator, EventAggregator>();
             _unityContainer.RegisterType<IPuzzleSolver, PuzzleSolver>();
             _unityContainer.RegisterType<IPuzzleGenerator, PuzzleGenerator>();
             _unityContainer.RegisterInstance<INavigationService>(this);
+
         }
 
         /// <summary>
@@ -75,7 +79,5 @@ namespace UserInterface.BootstraperSpace
             _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
             _unityContainer.RegisterPage<MainMenuPage, MainMenuViewModel>(AppPages.MainMenuPage);
         }
-
-       
     }
 }
