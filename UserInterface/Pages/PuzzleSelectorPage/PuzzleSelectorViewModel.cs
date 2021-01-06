@@ -21,7 +21,34 @@ namespace UserInterface.Pages.PuzzleSelectorPage
 
         private BitmapImage _puzzleImage;
         private ObservableBoard _puzzleState;
-    
+
+        private ObservableBoard _15puzzleBoard;
+        private ObservableBoard _9puzzleBoard;
+
+        private ObservableBoard Board15
+        {
+            get 
+            {
+                if(_15puzzleBoard is null)
+                {
+                    _15puzzleBoard = new ObservableBoard("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0");
+                }
+                return _15puzzleBoard;
+            }
+        }
+
+        private ObservableBoard Board9
+        {
+            get
+            {
+                if (_9puzzleBoard is null)
+                {
+                    _9puzzleBoard = new ObservableBoard("1 2 3 4 5 6 7 8 9 0");
+                }
+                return _9puzzleBoard;
+            }
+        }
+
         /// <summary>
         /// Command triggered when the mouse is over the button.
         /// </summary>
@@ -83,12 +110,12 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         {
             if (args == "15")
             {
-                PuzzleState = new ObservableBoard("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0");
+                PuzzleState = Board15;
             }
 
             if (args == "9")
             {
-                PuzzleState = new ObservableBoard("1 2 3 4 5 6 7 8 9 0");
+                PuzzleState = Board9;
             }
         }
 

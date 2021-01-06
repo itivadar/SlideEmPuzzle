@@ -10,7 +10,7 @@ namespace UserInterface.CustomControls
     public class Tile : Button
     {
         
-        private int _tileTag;
+        private byte _tileTag;
         private bool _isBlankTile;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace UserInterface.CustomControls
         /// <summary>
         /// Gets or sets the number displayed on the tile.
         /// </summary>
-        public int TileTag
+        public byte TileTag
         {
             get => _tileTag;
             set 

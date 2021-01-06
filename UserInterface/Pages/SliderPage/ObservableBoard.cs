@@ -27,7 +27,7 @@ namespace UserInterface.Pages.SliderPage
             _board = new Board(board);
         }
 
-        public int Rows => _board.Rows;
+        public byte Rows => _board.Rows;
         public bool IsSolved => _board.IsSolved();
 
 

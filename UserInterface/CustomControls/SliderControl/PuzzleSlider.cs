@@ -41,7 +41,7 @@ namespace UserInterface.CustomControls
         /// If the puzzle is locked the user cannot move tiles.
         /// </summary>
        public static readonly DependencyProperty TileSizeProperty = DependencyProperty.RegisterAttached(nameof(TileSize), 
-                                                                                                         typeof(double), 
+                                                                                                         typeof(short), 
                                                                                                          typeof(PuzzleSlider),
                                                                                                          new FrameworkPropertyMetadata(DefaultTileSize,
                                                                                                             FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
@@ -52,19 +52,19 @@ namespace UserInterface.CustomControls
         public static event DependencyPropertyChanged TileChangedEvent;
 
 
-        private const int Spacing = 5;
+        private const byte Spacing = 5;
         private const byte BlankTileTag = 0;
-        private const int AnimationDuration = 300; //in ms
-        private const double DefaultTileSize = 100d;
+        private const short AnimationDuration = 300; //in ms
+        private const short DefaultTileSize = 100;
 
         public int _rowsCount;
 
         private readonly Dictionary<Tile, int> tagToPositionMap;
         private Tile blankTile;
 
-        public double? TileSize
+        public short TileSize
         {
-            get => (double)GetValue(TileSizeProperty);
+            get => (short)GetValue(TileSizeProperty);
             set => SetValue(TileSizeProperty, value);
         }
 
@@ -252,12 +252,12 @@ namespace UserInterface.CustomControls
 
             var sliderTile = new Tile
             {
-                Width = TileSize.Value,
-                Height = TileSize.Value,
+                Width = TileSize,
+                Height = TileSize,
                 TileTag = tileTag,
                 IsBlankTile = tileTag == BlankTileTag,
-                Margin = new Thickness(tileColumn * (TileSize.Value + Spacing), tileRow * (TileSize.Value + Spacing), 0, 0),
-                DestinationMargin = new Thickness(tileColumn * (TileSize.Value + Spacing), tileRow * (TileSize.Value + Spacing), 0, 0),
+                Margin = new Thickness(tileColumn * (TileSize + Spacing), tileRow * (TileSize + Spacing), 0, 0),
+                DestinationMargin = new Thickness(tileColumn * (TileSize + Spacing), tileRow * (TileSize + Spacing), 0, 0),
             };
 
             if (tileTag == BlankTileTag)
@@ -308,7 +308,7 @@ namespace UserInterface.CustomControls
                 return;
             }
 
-            TileSize = (double?)args.NewValue ?? DefaultTileSize;
+            TileSize = (short?)args.NewValue ?? DefaultTileSize;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace UserInterface.Pages.SliderPage
         private readonly INavigationService _navigationService;
         private readonly IEventAggregator _eventAgreggator;
 
-        private int _playerMoves;
+        private short _playerMoves;
         private TimeSpan _playerTime;
         private ObservableBoard _sliderState;
         private DispatcherTimer _timer;
@@ -50,7 +50,7 @@ namespace UserInterface.Pages.SliderPage
 
         #region Public Properties
 
-        public int PlayerMoves
+        public short PlayerMoves
         {
             get => _playerMoves;
             private set

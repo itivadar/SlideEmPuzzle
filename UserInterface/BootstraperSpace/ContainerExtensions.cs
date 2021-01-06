@@ -52,7 +52,8 @@ namespace UserInterface.BootstraperSpace
         /// </summary>
         /// <typeparam name="TViewType">Type of the View</typeparam>
         /// <param name="name">The name of the page used for resolving.</param>
-        public static void RegisterNoViewModelPage<TViewType>(this IUnityContainer unityContainer, string name) where TViewType : FrameworkElement
+        public static void RegisterNoViewModelPage<TViewType>(this IUnityContainer unityContainer, string name) 
+            where TViewType : FrameworkElement
         {
             unityContainer.RegisterSingleton<object, TViewType>(name);
         }
