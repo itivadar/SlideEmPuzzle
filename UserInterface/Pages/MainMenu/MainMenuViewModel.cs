@@ -21,7 +21,7 @@ namespace UserInterface.Pages.MainMenu
 
         private void OnAbout()
         {
-            _navigationService.SetMainPage(AppPages.PuzzleSelectorPage);
+            _navigationService.ShowPage(AppPages.PuzzleSelectorPage);
         }
         
 

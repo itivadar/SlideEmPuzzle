@@ -21,13 +21,13 @@
                                    Command="{Binding OpenAboutCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="How to play"
-                                   Margin="0,15,2,0"/>
+                                   Margin="0,20,2,0"/>
             <customControls:MenuButton Width="200"
                                    Content="About"
-                                   Margin="0,15,2,0"/>
+                                   Margin="0,20,2,0"/>
             <customControls:MenuButton Width="200"
                                    Content="Exit"
-                                   Margin="0,15,2,0"/>
+                                   Margin="0,20,2,0"/>
         </StackPanel>
     </Grid>
 </Page>

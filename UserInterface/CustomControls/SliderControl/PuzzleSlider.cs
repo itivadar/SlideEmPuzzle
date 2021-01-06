@@ -13,12 +13,12 @@ using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.CustomControls
 {
-   /// <summary>
-   /// The delegate for defining events related to the dependecy property changing value.
-   /// </summary>
-   /// <param name="d"></param>
-   /// <param name="e"></param>
-    public delegate void DependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+    /// <summary>
+    /// The delegate for defining events related to the dependecy property changing value.
+    /// </summary>
+    /// <param name="sender"> The objects which triggered the property changed event. </param>
+    /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/>of the event</param>
+    public delegate void DependencyPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args);
     public class PuzzleSlider : Canvas
     {
         /// <summary>
@@ -83,11 +83,13 @@ namespace UserInterface.CustomControls
             }
         }
         
-
+        /// <summary>
+        /// Intializes a new Puzzle Slider control. 
+        /// </summary>
         public PuzzleSlider()
         {
             tagToPositionMap = new Dictionary<Tile, int>();
-            State = GetDefaultState();
+            State = GetEmptyBoard();
             InitSlider();
             StateChangedEvent += OnNewState;
             TileChangedEvent += OnNewTileSize;
@@ -95,14 +97,20 @@ namespace UserInterface.CustomControls
 
 
 
-        //returns the empty board
-        private static ObservableBoard GetDefaultState()
+        /// <summary>
+        /// Gets the empty board with no tiles.
+        /// </summary>
+        /// <returns></returns>
+        private static ObservableBoard GetEmptyBoard()
         {
             return new ObservableBoard(new byte[,] { });
 
         }
 
-        //creates the tiles for the puzzle
+        /// <summary>
+        /// Intializes the slider controls.
+        /// Created the tiles on specifed positions.
+        /// </summary>
         private void InitSlider()
         {
             Children.Clear();
@@ -188,8 +196,6 @@ namespace UserInterface.CustomControls
         /// <summary>
         /// Exchanges thickness between two tiles. Used on animating.
         /// </summary>
-        /// <param name="blankTile"></param>
-        /// <param name="valueTile"></param>
         private void ExchangeThickness(Tile blankTile, Tile valueTile)
         {
             var tempThickness = blankTile.DestinationMargin;
@@ -197,6 +203,11 @@ namespace UserInterface.CustomControls
             valueTile.DestinationMargin = tempThickness;
         }
 
+        /// <summary>
+        /// Exchanges positions between two given tiles. 
+        /// </summary>
+        /// <param name="blankTile"></param>
+        /// <param name="valueTile"></param>
         private void ExchangePositions(Tile blankTile, Tile valueTile)
         {
             var blankPosition = tagToPositionMap[blankTile];
@@ -210,6 +221,11 @@ namespace UserInterface.CustomControls
             State.MoveBlankTile(valuePosition, blankPosition);
         }
 
+        /// <summary>
+        /// Setup a storyboard to play animations.
+        /// </summary>
+        /// <param name="blankAnimation">The animation of the blank tile moving into its new positon.</param>
+        /// <param name="valueTileAnimation">The animation of a tag tile moving into its new position.</param>
         private void SetupStoryBoard(ThicknessAnimation blankAnimation, ThicknessAnimation valueTileAnimation)
         {
             // Create a Storyboard to contain and apply the animation.
@@ -279,7 +295,7 @@ namespace UserInterface.CustomControls
             {
                 return;
             }
-            State = (ObservableBoard)e.NewValue ?? GetDefaultState();
+            State = (ObservableBoard)e.NewValue ?? GetEmptyBoard();
         }
 
         /// <summary>

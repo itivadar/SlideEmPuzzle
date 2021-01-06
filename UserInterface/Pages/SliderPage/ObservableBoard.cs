@@ -30,6 +30,7 @@ namespace UserInterface.Pages.SliderPage
         public byte Rows => _board.Rows;
         public bool IsSolved => _board.IsSolved();
 
+        
 
         public byte this[int i]
         {
@@ -50,6 +51,25 @@ namespace UserInterface.Pages.SliderPage
         {
             _board.MoveBlankTile(direction);
             RaiseStateChangedEvent();
+        }
+
+        /// <summary>
+        /// Gets the goal board consisting of the given rows. 
+        /// </summary>
+        /// <param name="rows">Number of the rows in the board</param>
+        /// <returns></returns>
+        public static ObservableBoard GetGoalState(int rows)
+        {
+            byte[,] state = new byte[rows, rows];
+            byte tileTag = 1;
+            for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < rows; colIndex++)
+                {
+                    state[colIndex, rowIndex] = tileTag++;
+                }
+            }
+            return new ObservableBoard(state);
         }
 
         private void RaiseStateChangedEvent()

@@ -44,12 +44,18 @@ namespace UserInterface.Pages.SliderPage
 
             RandomizeCommand = new DelegateCommand(OnRandomize);
             OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
+
+            _eventAgreggator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the numbers of moves the player made.
+        /// A move is considered when the blank tile changes its position in any direction.
+        /// </summary>
         public short PlayerMoves
         {
             get => _playerMoves;
@@ -60,6 +66,9 @@ namespace UserInterface.Pages.SliderPage
             }
         }
 
+        /// <summary>
+        /// Gets the time since the player has started to solve the puzzle.
+        /// </summary>
         public TimeSpan PlayerTime
         {
             get => _playerTime;
@@ -71,7 +80,10 @@ namespace UserInterface.Pages.SliderPage
         }
 
         
-
+        /// <summary>
+        /// The state of the puzzle.
+        /// Its a puzzle board determining the position of each tile.
+        /// </summary>
         public ObservableBoard SliderState
         {
             get => _sliderState;
@@ -94,11 +106,24 @@ namespace UserInterface.Pages.SliderPage
         #endregion
         #region Private Methods
 
+        /// <summary>
+        /// Configure timer to have 1s interval ticks.
+        /// </summary>
         private void ConfigureTimer()
         {
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += OnTimerTick;
+        }
+
+        /// <summary>
+        /// Handles the timer ticks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTimerTick(object sender, EventArgs e)
+        {
+            PlayerTime = PlayerTime.Add(TimeSpan.FromSeconds(1));
         }
 
         private void OnRandomize()
@@ -111,9 +136,13 @@ namespace UserInterface.Pages.SliderPage
 
         private void OnOpenMainMenu()
         {
-            _navigationService.SetMainPage(AppPages.MainMenuPage);
+            _navigationService.ShowPage(AppPages.MainMenuPage);
         }
 
+        /// <summary>
+        /// Handles the state changed event.
+        /// Triggered every time the user moves a tile.
+        /// </summary>
         private void OnStateChanged()
         {
             PlayerMoves++;
@@ -125,22 +154,32 @@ namespace UserInterface.Pages.SliderPage
             }
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
-        {
-            PlayerTime = PlayerTime.Add(TimeSpan.FromSeconds(1));
-        }
-
+        /// <summary>
+        /// Resets the state (including timer and player moves).
+        /// </summary>
         private void ResetPlayerState()
         {
             PlayerMoves = 0;
             PlayerTime = TimeSpan.Zero;
         }
 
+        /// <summary>
+        /// Handles the game finished event.
+        /// Triggered when the user managed to solve the puzzle.
+        /// </summary>
         private void OnGameFinished()
         {
             //_navigationService.SetMainPage(AppPages.AboutPage);
             _eventAgreggator.GetEvent<GameFinishedEvent>().Publish();
             
+        }
+
+        private void OnPuzzleTypeSelected(string puzzleTypeSelected)
+        {
+            ResetPlayerState();
+            var board = _puzzleGenerator.GenerateRandomPuzzle(4);
+            SliderState = new ObservableBoard("1 2 3 4 5 6 7 8 0");
+            _timer.Start();
         }
 
         #endregion Private Methods

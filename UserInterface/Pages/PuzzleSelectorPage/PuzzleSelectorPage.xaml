@@ -19,6 +19,7 @@
                Content="Choose your destiny"
                HorizontalAlignment="Center"
                FontSize="35"
+               Margin="0 0 0 35"
                Foreground="Wheat"
                FontFamily="{StaticResource LangarRegular}"/>
         <Grid Grid.Row="1">
@@ -27,11 +28,28 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <customcontrols:MenuButton Content="3 x 3" 
-                                           Margin="20"
-                                           Command="{Binding StartGameCommand}">
+
+                <customcontrols:MenuButton Content="2 x 2" 
+                                           Margin="10"
+                                           Command="{Binding StartGameCommand}"
+                                           CommandParameter="2">
                     <i:Interaction.Triggers>
-                        
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="2"/>
+                        </i:EventTrigger>
+
+                        <i:EventTrigger EventName="MouseLeave">
+                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}"  />
+                        </i:EventTrigger>
+
+                    </i:Interaction.Triggers>
+                </customcontrols:MenuButton>
+
+                <customcontrols:MenuButton Content="3 x 3" 
+                                           Margin="10"
+                                           Command="{Binding StartGameCommand}"
+                                           CommandParameter="9">
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
                             <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="9"/>
                         </i:EventTrigger>
@@ -44,9 +62,11 @@
                 </customcontrols:MenuButton>
 
 
-                <customcontrols:MenuButton Content="4 x 4 " Margin="20">
+                <customcontrols:MenuButton Content="4 x 4 " 
+                                           Margin="10"
+                                           Command="{Binding StartGameCommand}"
+                                           CommandParameter="9">
                     <i:Interaction.Triggers>
-
                         <i:EventTrigger EventName="MouseEnter">
                             <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="15"/>
                         </i:EventTrigger>
@@ -56,11 +76,17 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
+
+                <customcontrols:MenuButton Content="Back" 
+                                           Margin="10"
+                                           Command="{Binding BackCommand}"/>
             </StackPanel>
             <customcontrols:PuzzleSlider Grid.Column="2"
                                          State="{Binding PuzzleState}"
                                          IsEnabled="False"
+                                         Margin="10"
                                          VerticalAlignment="Top"
+                                         HorizontalAlignment="Left"
                                          TileSize="70"/>
 
         </Grid>

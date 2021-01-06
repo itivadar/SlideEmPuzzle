@@ -34,9 +34,13 @@ namespace UserInterface.BootstraperSpace
             _mainViewModel = _unityContainer.Resolve<MainWindowViewModel>();
         }
 
-        public void SetMainPage(string page)
+        /// <summary>
+        /// Displays a page into the frame of the MainWindow.
+        /// </summary>
+        /// <param name="pageName">The name of the page.</param>
+        public void ShowPage(string pageName)
         {
-            _mainViewModel.MainFrame = GetPage(page);
+            _mainViewModel.MainFrame = GetPage(pageName);
         }
 
        /// <summary>

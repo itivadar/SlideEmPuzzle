@@ -19,7 +19,8 @@ namespace UserInterface
             base.OnStartup(e);
             var bootstraper = new Bootstraper();
             bootstraper.ConfigureContainer();
-            bootstraper.SetMainPage(AppPages.MainMenuPage);
+            //the inital page displayed when the game is started
+            bootstraper.ShowPage(AppPages.MainMenuPage);
             bootstraper.GetView<MainWindow>().Show();
         }
     }

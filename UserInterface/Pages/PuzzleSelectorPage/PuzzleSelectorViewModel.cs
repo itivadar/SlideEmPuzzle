@@ -10,13 +10,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UserInterface.BootstraperSpace;
+using UserInterface.Events;
 using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.Pages.PuzzleSelectorPage
 {
     public class PuzzleSelectorViewModel : BindableBase
     {
-        private readonly INavigationService _naviagationService;
+        private readonly INavigationService _navigationService;
         private readonly IEventAggregator _eventAggregator;
 
         private BitmapImage _puzzleImage;
@@ -24,28 +25,66 @@ namespace UserInterface.Pages.PuzzleSelectorPage
 
         private ObservableBoard _15puzzleBoard;
         private ObservableBoard _9puzzleBoard;
+        private ObservableBoard _2puzzleBoard;
 
+        /// <summary>
+        /// Initialize a new class of <see cref="PuzzleSelectorViewModel"/>
+        /// </summary>
+        /// <param name="navigationService">The service used for navigation between different pages. </param>
+        /// <param name="eventAggregate">The eventaggregate used for communicate between different pages.</param>
+        public PuzzleSelectorViewModel(INavigationService navigationService, IEventAggregator eventAggregate)
+        {
+            _navigationService = navigationService;
+            _eventAggregator = eventAggregate;
+
+            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver);
+            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft);
+            StartGameCommand = new DelegateCommand<string>(OnStartGame);
+            BackCommand = new DelegateCommand(OnGoBack);
+        }
+
+        /// <summary>
+        /// The goal board of 15-Puzzle.
+        /// </summary>
         private ObservableBoard Board15
         {
             get 
             {
                 if(_15puzzleBoard is null)
                 {
-                    _15puzzleBoard = new ObservableBoard("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0");
+                    _15puzzleBoard = ObservableBoard.GetGoalState(4);
                 }
                 return _15puzzleBoard;
             }
         }
 
+        /// <summary>
+        /// The goal board of 9-Puzzle.
+        /// </summary>
         private ObservableBoard Board9
         {
             get
             {
                 if (_9puzzleBoard is null)
                 {
-                    _9puzzleBoard = new ObservableBoard("1 2 3 4 5 6 7 8 9 0");
+                    _9puzzleBoard = ObservableBoard.GetGoalState(3);
                 }
                 return _9puzzleBoard;
+            }
+        }
+
+        /// <summary>
+        /// The goal board of 9-Puzzle.
+        /// </summary>
+        private ObservableBoard Board2
+        {
+            get
+            {
+                if (_2puzzleBoard is null)
+                {
+                    _2puzzleBoard = ObservableBoard.GetGoalState(2);
+                }
+                return _2puzzleBoard;
             }
         }
 
@@ -63,7 +102,12 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// Gets the command for starting puzzlin'.
         /// </summary>
         public ICommand StartGameCommand { get; private set; } 
-        
+
+        /// <summary>
+        /// Gets the command for displaying the main menu.
+        /// </summary>
+        public ICommand BackCommand { get; private set; }
+
         /// <summary>
         /// The image of the puzzle selected by the user. 
         /// </summary>
@@ -77,6 +121,9 @@ namespace UserInterface.Pages.PuzzleSelectorPage
             }
         }
 
+        /// <summary>
+        /// The state of the preview puzzle.
+        /// </summary>
         public ObservableBoard PuzzleState
         {
             get => _puzzleState;
@@ -85,21 +132,6 @@ namespace UserInterface.Pages.PuzzleSelectorPage
                 _puzzleState = value;
                 RaisePropertyChanged(nameof(PuzzleState));
             }
-        }
-
-        /// <summary>
-        /// Initialize a new class of <see cref="PuzzleSelectorViewModel"/>
-        /// </summary>
-        /// <param name="navigationService">The service used for navigation between different pages. </param>
-        /// <param name="eventAggregate">The eventaggregate used for communicate between different pages.</param>
-        public PuzzleSelectorViewModel(INavigationService navigationService,IEventAggregator eventAggregate)
-        {
-            _naviagationService = navigationService;
-            _eventAggregator = eventAggregate;
-
-            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver);
-            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft);
-            StartGameCommand = new DelegateCommand(OnStartGame);
         }
 
         /// <summary>
@@ -117,6 +149,11 @@ namespace UserInterface.Pages.PuzzleSelectorPage
             {
                 PuzzleState = Board9;
             }
+
+            if(args == "2")
+            {
+                PuzzleState = Board2;
+            }
         }
 
         /// <summary>
@@ -127,10 +164,15 @@ namespace UserInterface.Pages.PuzzleSelectorPage
            PuzzleState = null;
         }
 
-        private void OnStartGame()
-        {
-            _naviagationService.SetMainPage(AppPages.SliderPage);
+        private void OnStartGame(string puzzleTypeSelected)
+        {         
+            _navigationService.ShowPage(AppPages.SliderPage);
+            _eventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(puzzleTypeSelected);
         }
-        
+
+        private void OnGoBack()
+        {
+            _navigationService.ShowPage(AppPages.MainMenuPage);
+        }
     }
 }

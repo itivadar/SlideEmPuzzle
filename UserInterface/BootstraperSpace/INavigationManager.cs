@@ -23,9 +23,9 @@ namespace UserInterface.BootstraperSpace
         Page GetPage(string pageName);
 
         /// <summary>
-        /// Sets the main page
+        /// Displays a page into the frame of the MainWindow.
         /// </summary>
-        /// <param name="page"></param>
-        void SetMainPage(string page);
+        /// <param name="pageName">The name of the page.</param>
+        void ShowPage(string page);
     }
 }

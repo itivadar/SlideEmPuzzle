@@ -61,13 +61,26 @@ namespace SliderPuzzleGenerator
         //make legal moves until it is a more random solution
         public IBoard GenerateRandomPuzzle(int dimension)
         {
-            switch (dimension)
+            return dimension switch
             {
-                case 2: return Generate2x2Board();
-                case 3: return Generate3x3Board();
-                case 4: return Generate4x4Board();
-            }
-            return null;
+                2 => Generate2x2Board(),
+                3 => Generate3x3Board(),
+                4 => Generate4x4Board(),
+                _ => null,
+            };
+        }
+
+        //generate a random puzzle by starting from a  predefined position which is randomly selected
+        //make legal moves until it is a more random solution
+        public IBoard GenerateRandomPuzzle(string  type)
+        {
+            return type switch
+            {
+                "2" => GenerateRandomPuzzle(2),
+                "9" => GenerateRandomPuzzle(3),
+                "15" => GenerateRandomPuzzle(4),
+                _ => null,
+            };
         }
 
         //for 2 X 2 boards it is enough to pick one randomly from the possible boards;
