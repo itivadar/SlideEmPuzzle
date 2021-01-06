@@ -70,19 +70,6 @@ namespace SliderPuzzleGenerator
             };
         }
 
-        //generate a random puzzle by starting from a  predefined position which is randomly selected
-        //make legal moves until it is a more random solution
-        public IBoard GenerateRandomPuzzle(string  type)
-        {
-            return type switch
-            {
-                "2" => GenerateRandomPuzzle(2),
-                "9" => GenerateRandomPuzzle(3),
-                "15" => GenerateRandomPuzzle(4),
-                _ => null,
-            };
-        }
-
         //for 2 X 2 boards it is enough to pick one randomly from the possible boards;
         IBoard Generate2x2Board()
         {

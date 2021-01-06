@@ -48,10 +48,10 @@
                 <customcontrols:MenuButton Content="3 x 3" 
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
-                                           CommandParameter="9">
+                                           CommandParameter="3">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="9"/>
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="3"/>
                         </i:EventTrigger>
 
                         <i:EventTrigger EventName="MouseLeave">
@@ -65,10 +65,10 @@
                 <customcontrols:MenuButton Content="4 x 4 " 
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
-                                           CommandParameter="9">
+                                           CommandParameter="4">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="15"/>
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="4"/>
                         </i:EventTrigger>
 
                         <i:EventTrigger EventName="MouseLeave">

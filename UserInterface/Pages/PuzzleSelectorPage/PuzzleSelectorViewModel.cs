@@ -20,7 +20,6 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         private readonly INavigationService _navigationService;
         private readonly IEventAggregator _eventAggregator;
 
-        private BitmapImage _puzzleImage;
         private ObservableBoard _puzzleState;
 
         private ObservableBoard _15puzzleBoard;
@@ -109,19 +108,6 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         public ICommand BackCommand { get; private set; }
 
         /// <summary>
-        /// The image of the puzzle selected by the user. 
-        /// </summary>
-        public BitmapImage PuzzleImageSelected 
-        { 
-            get => _puzzleImage;
-            private set
-            {
-                _puzzleImage = value;
-                RaisePropertyChanged(nameof(PuzzleImageSelected));
-            }
-        }
-
-        /// <summary>
         /// The state of the preview puzzle.
         /// </summary>
         public ObservableBoard PuzzleState
@@ -140,12 +126,12 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// <param name="args">string argument which type of puzzle the user selected</param>
         private void OnMouseOver(string args)
         {
-            if (args == "15")
+            if (args == "4")
             {
                 PuzzleState = Board15;
             }
 
-            if (args == "9")
+            if (args == "3")
             {
                 PuzzleState = Board9;
             }

@@ -30,8 +30,6 @@ namespace UserInterface.Pages.SliderPage
         public byte Rows => _board.Rows;
         public bool IsSolved => _board.IsSolved();
 
-        
-
         public byte this[int i]
         {
             get => _board.GetTiles()[i];
@@ -66,12 +64,17 @@ namespace UserInterface.Pages.SliderPage
             {
                 for (int colIndex = 0; colIndex < rows; colIndex++)
                 {
-                    state[colIndex, rowIndex] = tileTag++;
+                    state[rowIndex, colIndex] = tileTag++;
                 }
             }
+            state[rows - 1, rows - 1] = 0;
             return new ObservableBoard(state);
         }
 
+        /// <summary>
+        /// Raised when the board state has been changed.
+        /// Triggred by any player moves.
+        /// </summary>
         private void RaiseStateChangedEvent()
         {
             StateChanged?.Invoke();

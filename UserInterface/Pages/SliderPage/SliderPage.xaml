@@ -92,7 +92,7 @@
             <custom:MenuButton Grid.Row="1"
                                Grid.ColumnSpan="2"
                                Content="MainMenu" 
-                               Command="{Binding RandomizeCommand}" 
+                               Command="{Binding OpenMainMenuCommand}" 
                                Margin="140,30,190,10" RenderTransformOrigin="0.5,0.5">
                 <custom:MenuButton.RenderTransform>
                     <TransformGroup>
