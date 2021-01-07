@@ -55,7 +55,8 @@ namespace UserInterface.Helpers
             AddGreetings("Well chosen!");
             AddGreetings("Very well then!");
             AddGreetings("Excellent!");
-            AddGreetings("Aye, capitan");
+            AddGreetings("Let's go!");
+            AddGreetings("Aye, capitan!");
             AddGreetings("Nice one!");
             AddGreetings("Bingo!");
             AddGreetings("Let's slide'em!");
