@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System.Windows;
 using Unity;
+using UserInterface.Helpers;
 
 namespace UserInterface.BootstraperSpace
 {
@@ -17,7 +18,7 @@ namespace UserInterface.BootstraperSpace
         /// <typeparam name="TViewModelType">Type of the ViewModel</typeparam>
         public static void RegisterWindow<TViewType, TViewModelType>(this IUnityContainer unityContainer) 
             where TViewType : FrameworkElement
-            where TViewModelType : BindableBase
+            where TViewModelType : ViewModelBase
         {
             unityContainer.RegisterSingleton<TViewType, TViewType>();
             unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();
@@ -36,7 +37,7 @@ namespace UserInterface.BootstraperSpace
         /// <param name="name">The name of the page used for resolving.</param>
         public static void RegisterPage<TViewType, TViewModelType>(this IUnityContainer unityContainer, string name) 
             where TViewType : FrameworkElement 
-            where TViewModelType : BindableBase
+            where TViewModelType : ViewModelBase
         {
             unityContainer.RegisterSingleton<object, TViewType>(name);
             unityContainer.RegisterSingleton<TViewModelType, TViewModelType>();

@@ -9,8 +9,28 @@
     <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="MenuButtonTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="TileTexture" ImageSource="/Resources/tileTexture.jpg" Stretch="UniformToFill"/>
+
+    <!--Foreground brush for general text -->
+    <SolidColorBrush x:Key="TextForegroundBrush" Color="Wheat"/>
     
     <!--Font family used -->
     <FontFamily x:Key="LangarRegular">pack://application:,,,/Fonts/Langar-Regular.ttf#Langar</FontFamily>
+
+    <!-- Text will be revealed -->
+    <Style x:Key="AnimatedText" TargetType="{x:Type TextBlock}">
+       <Style.Triggers>
+            <Trigger Property="IsVisible"  Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                           <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             From="0" To="1" Duration="0:0:0.500"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>    
+       </Style.Triggers>
+        
+    </Style>
 
 </ResourceDictionary>

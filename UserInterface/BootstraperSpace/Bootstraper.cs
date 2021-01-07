@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Unity;
 using UserInterface;
+using UserInterface.Helpers;
 using UserInterface.Pages.About;
 using UserInterface.Pages.MainMenu;
 using UserInterface.Pages.PuzzleSelectorPage;
@@ -40,6 +41,11 @@ namespace UserInterface.BootstraperSpace
         /// <param name="pageName">The name of the page.</param>
         public void ShowPage(string pageName)
         {
+            var page = GetPage(pageName);
+            //Improve mechanism            
+            var viewModel = page.DataContext as ViewModelBase;
+            viewModel?.OnDisplayed();
+
             _mainViewModel.MainFrame = GetPage(pageName);
         }
 
@@ -68,9 +74,12 @@ namespace UserInterface.BootstraperSpace
         private void RegisterTypes()
         {
             _unityContainer.RegisterSingleton<IEventAggregator, EventAggregator>();
-            _unityContainer.RegisterType<IPuzzleSolver, PuzzleSolver>();
-            _unityContainer.RegisterType<IPuzzleGenerator, PuzzleGenerator>();
+            _unityContainer.RegisterSingleton<IPuzzleSolver, PuzzleSolver>();
+            _unityContainer.RegisterSingleton<IPuzzleGenerator, PuzzleGenerator>();
+            _unityContainer.RegisterSingleton<IGreetingsProvider, GreetingsProvider>();
+
             _unityContainer.RegisterInstance<INavigationService>(this);
+
 
         }
 

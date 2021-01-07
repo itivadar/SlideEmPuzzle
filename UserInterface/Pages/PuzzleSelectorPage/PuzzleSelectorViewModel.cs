@@ -9,37 +9,41 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
 using UserInterface.Events;
+using UserInterface.Helpers;
 using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.Pages.PuzzleSelectorPage
 {
-    public class PuzzleSelectorViewModel : BindableBase
+    public class PuzzleSelectorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IGreetingsProvider _greetingsProvider;
+        private readonly DispatcherTimer _timer;
 
         private ObservableBoard _puzzleState;
+        private Visibility _greetingsVisibility;
+        private string _greetings;
 
         private ObservableBoard _15puzzleBoard;
         private ObservableBoard _9puzzleBoard;
         private ObservableBoard _2puzzleBoard;
+        private string _puzzleSelected;
 
         /// <summary>
-        /// Initialize a new class of <see cref="PuzzleSelectorViewModel"/>
+        /// The state of the preview puzzle.
         /// </summary>
-        /// <param name="navigationService">The service used for navigation between different pages. </param>
-        /// <param name="eventAggregate">The eventaggregate used for communicate between different pages.</param>
-        public PuzzleSelectorViewModel(INavigationService navigationService, IEventAggregator eventAggregate)
+        public ObservableBoard PuzzleState
         {
-            _navigationService = navigationService;
-            _eventAggregator = eventAggregate;
-
-            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver);
-            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft);
-            StartGameCommand = new DelegateCommand<string>(OnStartGame);
-            BackCommand = new DelegateCommand(OnGoBack);
+            get => _puzzleState;
+            set
+            {
+                _puzzleState = value;
+                RaisePropertyChanged(nameof(PuzzleState));
+            }
         }
 
         /// <summary>
@@ -47,9 +51,9 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// </summary>
         private ObservableBoard Board15
         {
-            get 
+            get
             {
-                if(_15puzzleBoard is null)
+                if (_15puzzleBoard is null)
                 {
                     _15puzzleBoard = ObservableBoard.GetGoalState(4);
                 }
@@ -88,6 +92,57 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         }
 
         /// <summary>
+        /// Initialize a new class of <see cref="PuzzleSelectorViewModel"/>
+        /// </summary>
+        /// <param name="navigationService">The service used for navigation between different pages. </param>
+        /// <param name="eventAggregate">The eventaggregate used for communicate between different pages.</param>
+        public PuzzleSelectorViewModel(
+                    INavigationService navigationService, 
+                    IEventAggregator eventAggregate,
+                    IGreetingsProvider greetingsProvider)
+        {
+            _navigationService = navigationService;
+            _eventAggregator = eventAggregate;
+            _greetingsProvider = greetingsProvider;
+
+            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver);
+            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft);
+            StartGameCommand = new DelegateCommand<string>(OnStartGame);
+            BackCommand = new DelegateCommand(OnGoBack);
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromMilliseconds(1200);
+            _timer.Tick += OnTimerTick ;
+        }
+
+       
+
+        /// <summary>
+        /// Sets the visibility of the greetings text after selecting a puzzle.
+        /// </summary>
+        public Visibility GreetingsVisibility
+        {
+            get => _greetingsVisibility;
+            private set
+            {
+                _greetingsVisibility = value;
+                RaisePropertyChanged(nameof(GreetingsVisibility));
+            }
+        }
+
+        /// <summary>
+        /// Gets the greetings for the user after chosing to start the game.
+        /// </summary>
+        public string Greetings
+        {
+            get => _greetings;
+            private set
+            {
+                _greetings = value;
+                RaisePropertyChanged(nameof(Greetings));
+            }
+        }
+        /// <summary>
         /// Command triggered when the mouse is over the button.
         /// </summary>
         public ICommand OnMouseOverCommand { get; private set; }
@@ -108,16 +163,11 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         public ICommand BackCommand { get; private set; }
 
         /// <summary>
-        /// The state of the preview puzzle.
+        /// Triggered on page displayed.
         /// </summary>
-        public ObservableBoard PuzzleState
+        public override void OnDisplayed()
         {
-            get => _puzzleState;
-            set
-            {
-                _puzzleState = value;
-                RaisePropertyChanged(nameof(PuzzleState));
-            }
+            GreetingsVisibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -151,14 +201,23 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         }
 
         private void OnStartGame(string puzzleTypeSelected)
-        {         
-            _navigationService.ShowPage(AppPages.SliderPage);
-            _eventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(puzzleTypeSelected);
+        {
+            GreetingsVisibility = Visibility.Visible;
+            Greetings = _greetingsProvider.GetRandomGreeting();
+            _puzzleSelected = puzzleTypeSelected;
+            _timer.Start();        
         }
 
         private void OnGoBack()
         {
             _navigationService.ShowPage(AppPages.MainMenuPage);
+        }
+
+        private void OnTimerTick(object sender, EventArgs e)
+        {
+            _timer.Stop();
+            _navigationService.ShowPage(AppPages.SliderPage);
+            _eventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(_puzzleSelected);
         }
     }
 }

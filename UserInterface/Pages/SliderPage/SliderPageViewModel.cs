@@ -9,10 +9,11 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
 using UserInterface.Events;
+using UserInterface.Helpers;
 
 namespace UserInterface.Pages.SliderPage
 {
-    public class SliderPageViewModel : BindableBase
+    public class SliderPageViewModel : ViewModelBase
     {
         #region Private Fields
 

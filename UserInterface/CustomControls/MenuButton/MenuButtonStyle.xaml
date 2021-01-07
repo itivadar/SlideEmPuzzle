@@ -9,7 +9,6 @@
     <SolidColorBrush x:Key="LowerRectangleColorBrush" Color="IndianRed"/>
     <SolidColorBrush x:Key="ButtonFillBrush" Color="DarkOliveGreen"/>
     <system:Double x:Key="SmallRectangleDimension">18</system:Double>
-    <SolidColorBrush x:Key="TextForegroundBrush" Color="Wheat"/>
 
     <Style TargetType="local:MenuButton" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="BorderThickness" Value="1"/>

@@ -7,11 +7,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
 using UserInterface.CustomControls;
+using UserInterface.Helpers;
 using UserInterface.Pages.SliderPage;
 
 namespace UserInterface
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : ViewModelBase
     {
 
         private FrameworkElement _mainFrame;

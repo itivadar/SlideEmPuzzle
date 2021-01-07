@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
+using UserInterface.Helpers;
 
 namespace UserInterface.Pages.MainMenu
 {
-    public class MainMenuViewModel :BindableBase
+    public class MainMenuViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         public ICommand OpenAboutCommand { get;  set; }
