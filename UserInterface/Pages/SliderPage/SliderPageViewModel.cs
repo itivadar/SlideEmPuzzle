@@ -43,7 +43,6 @@ namespace UserInterface.Pages.SliderPage
 
             ConfigureTimer();
 
-            RandomizeCommand = new DelegateCommand(OnRandomize);
             OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
 
             _eventAgreggator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
@@ -80,7 +79,6 @@ namespace UserInterface.Pages.SliderPage
             }
         }
 
-        
         /// <summary>
         /// The state of the puzzle.
         /// Its a puzzle board determining the position of each tile.
@@ -100,11 +98,27 @@ namespace UserInterface.Pages.SliderPage
         #endregion Public Properties
 
         #region Public Commands
-        public ICommand RandomizeCommand { get; private set; }
 
+        /// <summary>
+        /// Gets the command to open the MainMenu
+        /// </summary>
         public ICommand OpenMainMenuCommand { get; private set; }
 
         #endregion
+
+        #region Public 
+
+        /// <summary>
+        /// Triggered when the page is displayed.
+        /// </summary>
+        public override void OnDisplayed()
+        {
+            //starts the timer only when the page displayed to avoid delays.
+            StartGame();
+        }
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>
@@ -127,13 +141,9 @@ namespace UserInterface.Pages.SliderPage
             PlayerTime = PlayerTime.Add(TimeSpan.FromSeconds(1));
         }
 
-        private void OnRandomize()
-        {
-            ResetPlayerState();
-            SliderState = new ObservableBoard("1 2 3 4 5 6 7 8 0");
-            _timer.Start();
-        }
-
+        /// <summary>
+        /// Displays MainMenu window.
+        /// </summary>
         private void OnOpenMainMenu()
         {
             _navigationService.ShowPage(AppPages.MainMenuPage);
@@ -150,7 +160,6 @@ namespace UserInterface.Pages.SliderPage
             {
                 MessageBox.Show("You did it motherforker");
                 OnGameFinished();
-                _timer.Stop();
             }
         }
 
@@ -169,16 +178,22 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         private void OnGameFinished()
         {
-            //_navigationService.SetMainPage(AppPages.AboutPage);
-            _eventAgreggator.GetEvent<GameFinishedEvent>().Publish();
-            
+            _timer.Stop();
+            _eventAgreggator.GetEvent<GameFinishedEvent>().Publish();     
         }
 
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
-            ResetPlayerState();
             var puzzleRows = int.Parse(puzzleTypeSelected);
             SliderState = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));     
+        }
+
+        /// <summary>
+        /// Starts the timer for a new game.
+        /// </summary>
+        private void StartGame()
+        {
+            ResetPlayerState();
             _timer.Start();
         }
 

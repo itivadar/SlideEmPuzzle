@@ -19,10 +19,10 @@ namespace UserInterface.BootstraperSpace
     {
         private readonly IUnityContainer _unityContainer;
         private  MainWindowViewModel _mainViewModel;
+
         public Bootstraper()
         {
             _unityContainer = new UnityContainer();
-            
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace UserInterface.BootstraperSpace
         public void ShowPage(string pageName)
         {
             var page = GetPage(pageName);
-            //Improve mechanism            
+            //Improve mechanism
             var viewModel = page.DataContext as ViewModelBase;
             viewModel?.OnDisplayed();
 
@@ -50,7 +50,7 @@ namespace UserInterface.BootstraperSpace
         }
 
        /// <summary>
-       /// Gets a <see cref="Page"/> object by name. 
+       /// Gets a <see cref="Page"/> object by name.
        /// </summary>
        /// <param name="pageName">The page name</param>
        /// <returns>a page</returns>
@@ -67,7 +67,6 @@ namespace UserInterface.BootstraperSpace
             return _unityContainer.Resolve<TViewType>();
         }
 
-
         /// <summary>
         /// Register types into the container.
         /// </summary>
@@ -79,8 +78,6 @@ namespace UserInterface.BootstraperSpace
             _unityContainer.RegisterSingleton<IGreetingsProvider, GreetingsProvider>();
 
             _unityContainer.RegisterInstance<INavigationService>(this);
-
-
         }
 
         /// <summary>
@@ -94,7 +91,6 @@ namespace UserInterface.BootstraperSpace
             _unityContainer.RegisterPage<PuzzleSelectorPage, PuzzleSelectorViewModel>(AppPages.PuzzleSelectorPage);
 
             _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
-            
         }
     }
 }

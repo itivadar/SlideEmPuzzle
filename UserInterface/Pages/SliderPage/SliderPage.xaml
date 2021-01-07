@@ -87,7 +87,6 @@
             </Grid>
             <custom:MenuButton Grid.Row="1"
                                Content="Autosolve" 
-                               Command="{Binding RandomizeCommand}" 
                                Margin="10,30,190,10"/>
             <custom:MenuButton Grid.Row="1"
                                Grid.ColumnSpan="2"

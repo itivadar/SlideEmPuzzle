@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserInterface.Helpers
+﻿namespace UserInterface.Helpers
 {
     /// <summary>
     /// Defines the interface for the provider.
@@ -14,5 +10,5 @@ namespace UserInterface.Helpers
         /// </summary>
         /// <returns>a string with the greeting about the user choise</returns>
         string GetRandomGreeting();
-    } 
+    }
 }

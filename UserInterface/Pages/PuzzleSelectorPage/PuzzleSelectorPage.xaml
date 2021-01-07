@@ -1,11 +1,11 @@
 ﻿<Page x:Class="UserInterface.Pages.PuzzleSelectorPage.PuzzleSelectorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:customcontrols="clr-namespace:UserInterface.CustomControls"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PuzzleSelectorPage">
 
@@ -22,7 +22,7 @@
                FontSize="35"
                Margin="0 0 0 35"
                Foreground= "{StaticResource TextForegroundBrush }"
-               FontFamily="{StaticResource LangarRegular}"/>
+               FontFamily="{StaticResource LangarRegular}" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -30,57 +30,54 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
 
-                <customcontrols:MenuButton Content="2 x 2" 
+                <customcontrols:MenuButton Content="2 x 2"
                                            Margin="10 0 10 10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="2">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="2"/>
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="2" />
                         </i:EventTrigger>
 
                         <i:EventTrigger EventName="MouseLeave">
-                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}"  />
+                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}" />
                         </i:EventTrigger>
-
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
 
-                <customcontrols:MenuButton Content="3 x 3" 
+                <customcontrols:MenuButton Content="3 x 3"
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="3">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="3"/>
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="3" />
                         </i:EventTrigger>
 
                         <i:EventTrigger EventName="MouseLeave">
-                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}"  />
+                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}" />
                         </i:EventTrigger>
-
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
 
-
-                <customcontrols:MenuButton Content="4 x 4 " 
+                <customcontrols:MenuButton Content="4 x 4 "
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="4">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="4"/>
+                            <i:InvokeCommandAction Command="{Binding OnMouseOverCommand}"   CommandParameter="4" />
                         </i:EventTrigger>
 
                         <i:EventTrigger EventName="MouseLeave">
-                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}"  />
+                            <i:InvokeCommandAction Command="{Binding OnMouseLeftCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
 
-                <customcontrols:MenuButton Content="Back" 
+                <customcontrols:MenuButton Content="Back"
                                            Margin="10"
-                                           Command="{Binding BackCommand}"/>
+                                           Command="{Binding BackCommand}" />
             </StackPanel>
             <customcontrols:PuzzleSlider Grid.Column="2"
                                          State="{Binding PuzzleState}"
@@ -88,8 +85,7 @@
                                          Margin="10"
                                          VerticalAlignment="Top"
                                          HorizontalAlignment="Left"
-                                         TileSize="70"/>
-
+                                         TileSize="70" />
         </Grid>
         <TextBlock Grid.Row="2"
                    Text="{Binding Greetings}"
@@ -100,6 +96,6 @@
                    Foreground= "{StaticResource TextForegroundBrush }"
                    Style="{StaticResource AnimatedText}"
                    FontStyle="Italic"
-                   FontFamily="{StaticResource LangarRegular}"/>
+                   FontFamily="{StaticResource LangarRegular}" />
     </Grid>
 </Page>
