@@ -1,22 +1,21 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
-using UserInterface.CustomControls;
 using UserInterface.Helpers;
-using UserInterface.Pages.SliderPage;
 
 namespace UserInterface
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region Private Fields
 
-        private FrameworkElement _mainFrame;
         private readonly INavigationService _navigationService;
+        private FrameworkElement _mainFrame;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public MainWindowViewModel(INavigationService navigationService)
         {
@@ -24,6 +23,12 @@ namespace UserInterface
             PlayCommand = new DelegateCommand(OnClear);
             MainFrame = navigationService.GetPage(AppPages.MainMenuPage);
         }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        public ICommand AboutCommand { get; private set; }
 
         public FrameworkElement MainFrame
         {
@@ -34,10 +39,11 @@ namespace UserInterface
                 RaisePropertyChanged(nameof(MainFrame));
             }
         }
-
-        public ICommand AboutCommand { get; private set; }
         public ICommand PlayCommand { get; private set; }
 
+        #endregion Public Properties
+
+        #region Private Methods
 
         private void OnClear()
         {
@@ -49,6 +55,7 @@ namespace UserInterface
         {
             Application.Current.Shutdown();
         }
- 
+
+        #endregion Private Methods
     }
 }
