@@ -42,6 +42,7 @@ namespace UserInterface.Helpers
             AddGreetings("You're on the right path!");
             AddGreetings("Oh..again?");
             AddGreetings("Same puzzle? Again? ...");
+            AddGreetings("Evidence of a fine taste");
         }
 
         /// <summary>

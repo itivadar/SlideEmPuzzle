@@ -95,6 +95,7 @@
                    Text="{Binding Greetings}"
                    FontSize="35"
                    HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
                    Visibility="{Binding GreetingsVisibility}"
                    Foreground= "{StaticResource TextForegroundBrush }"
                    Style="{StaticResource AnimatedText}"

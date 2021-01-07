@@ -105,17 +105,25 @@ namespace UserInterface.Pages.PuzzleSelectorPage
             _eventAggregator = eventAggregate;
             _greetingsProvider = greetingsProvider;
 
-            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver);
-            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft);
-            StartGameCommand = new DelegateCommand<string>(OnStartGame);
-            BackCommand = new DelegateCommand(OnGoBack);
+            OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver, CanExecute).ObservesProperty(() => PuzzleSelected);
+            OnMouseLeftCommand = new DelegateCommand(OnMouseLeft, CanExecute).ObservesProperty(() => PuzzleSelected);
+            StartGameCommand = new DelegateCommand<string>(OnStartGame, CanExecute).ObservesProperty(() => PuzzleSelected);
+            BackCommand = new DelegateCommand(OnGoBack, CanExecute).ObservesProperty(() => PuzzleSelected);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(1200);
             _timer.Tick += OnTimerTick ;
         }
 
-       
+       public string PuzzleSelected
+       {
+            get => _puzzleSelected;
+            private set 
+            {
+                _puzzleSelected = value;
+                RaisePropertyChanged(nameof(PuzzleSelected));
+            }
+       }
 
         /// <summary>
         /// Sets the visibility of the greetings text after selecting a puzzle.
@@ -142,6 +150,7 @@ namespace UserInterface.Pages.PuzzleSelectorPage
                 RaisePropertyChanged(nameof(Greetings));
             }
         }
+
         /// <summary>
         /// Command triggered when the mouse is over the button.
         /// </summary>
@@ -168,6 +177,7 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         public override void OnDisplayed()
         {
             GreetingsVisibility = Visibility.Collapsed;
+            PuzzleSelected = string.Empty;
         }
 
         /// <summary>
@@ -200,24 +210,59 @@ namespace UserInterface.Pages.PuzzleSelectorPage
            PuzzleState = null;
         }
 
+        /// <summary>
+        /// Starts the game after the user has chosen the puzzle type.
+        /// </summary>
+        /// <param name="puzzleTypeSelected"></param>
         private void OnStartGame(string puzzleTypeSelected)
         {
             GreetingsVisibility = Visibility.Visible;
             Greetings = _greetingsProvider.GetRandomGreeting();
-            _puzzleSelected = puzzleTypeSelected;
+            PuzzleSelected = puzzleTypeSelected;
             _timer.Start();        
         }
 
+        /// <summary>
+        /// Gets the playe back to the main menu. 
+        /// </summary>
         private void OnGoBack()
         {
             _navigationService.ShowPage(AppPages.MainMenuPage);
         }
 
+        /// <summary>
+        /// Handles the timer tick.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTimerTick(object sender, EventArgs e)
         {
             _timer.Stop();
             _navigationService.ShowPage(AppPages.SliderPage);
             _eventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(_puzzleSelected);
         }
+
+        /// <summary>
+        /// Determines if the buttons are enabled.
+        /// Buttons are enabled until the user choices a puzzle type.
+        /// </summary>
+        /// <param name="args">command parameters</param>
+        /// <returns>true, if the a puzzle type has been selected</returns>
+        private bool CanExecute(string args)
+        {
+            return CanExecute();
+        }
+
+        /// <summary>
+        /// Determines if the buttons are enabled.
+        /// Buttons are enabled until the user choices a puzzle type.
+        /// </summary>
+        /// <param name="args">command parameters</param>
+        /// <returns>true, if the a puzzle type has been selected</returns>
+        private bool CanExecute()
+        {
+            return PuzzleSelected == string.Empty;
+        }
+        
     }
 }
