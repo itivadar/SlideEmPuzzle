@@ -51,7 +51,8 @@ namespace UserInterface.Helpers
         private void Initialize()
         {
             AddGreetings("Good choice!");
-            AddGreetings("A wise choice!");
+            AddGreetings("Wonderful option!");
+            AddGreetings("Wise decision!");
             AddGreetings("Well chosen!");
             AddGreetings("Very well then!");
             AddGreetings("Excellent!");
@@ -60,12 +61,12 @@ namespace UserInterface.Helpers
             AddGreetings("Nice one!");
             AddGreetings("Bingo!");
             AddGreetings("Let's slide'em!");
-            AddGreetings("You gotta slide'em!");
+            AddGreetings("Start sliding!");
             AddGreetings("Go  Slide'em!");
             AddGreetings("You're on the right path!");
             AddGreetings("Oh..again?");
             AddGreetings("Same puzzle? Again? ...");
-            AddGreetings("Evidence of a fine taste");
+            AddGreetings("A fine taste for puzzles!");
         }
 
         #endregion Private Methods
