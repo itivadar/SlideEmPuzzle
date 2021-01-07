@@ -1,36 +1,54 @@
 ﻿using Prism.Commands;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
 using UserInterface.Helpers;
 
 namespace UserInterface
 {
+    /// <summary>
+    /// The ViewModel for the MainWindow.
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase
     {
         #region Private Fields
 
         private readonly INavigationService _navigationService;
-        private FrameworkElement _mainFrame;
+        private Page _mainFrame;
 
         #endregion Private Fields
 
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new ViewModel
+        /// </summary>
+        /// <param name="navigationService">nagivation service used for displaying pages.</param>
         public MainWindowViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            PlayCommand = new DelegateCommand(OnClear);
-            MainFrame = navigationService.GetPage(AppPages.MainMenuPage);
+            PlayCommand = new DelegateCommand(OnPlay);
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the command for displaying the about page.
+        /// </summary>
         public ICommand AboutCommand { get; private set; }
 
-        public FrameworkElement MainFrame
+        /// <summary>
+        /// Gets the command for displaying playing page.
+        /// </summary>
+        public ICommand PlayCommand { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the page displayed in the main area.
+        /// </summary>
+        public Page MainFrame
         {
             get => _mainFrame;
             set
@@ -39,18 +57,23 @@ namespace UserInterface
                 RaisePropertyChanged(nameof(MainFrame));
             }
         }
-        public ICommand PlayCommand { get; private set; }
+        
 
         #endregion Public Properties
 
         #region Private Methods
 
-        private void OnClear()
+        /// <summary>
+        /// Opens the puzzle selection page.
+        /// </summary>
+        private void OnPlay()
         {
-            MainFrame = default;
             MainFrame = _navigationService.GetPage(AppPages.PuzzleSelectorPage);
         }
 
+        /// <summary>
+        /// Exits the application.
+        /// </summary>
         private void OnExit()
         {
             Application.Current.Shutdown();
