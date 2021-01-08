@@ -19,6 +19,8 @@
     <None Remove="Fonts\DarkerGrotesque-Regular.ttf" />
     <None Remove="Fonts\Langar-Regular.ttf" />
     <None Remove="Fonts\NovaFlat-Regular.ttf" />
+    <None Remove="Resources\confettiLeft.png" />
+    <None Remove="Resources\confettiRight.png" />
     <None Remove="Resources\Earth_Pointer.ani" />
     <None Remove="Resources\ico1.png" />
     <None Remove="Resources\labelTexture.jpg" />
@@ -47,6 +49,10 @@
     <Resource Include="Fonts\NovaFlat-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\confettiLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\confettiRight.png" />
     <Resource Include="Resources\Earth_Pointer.ani">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

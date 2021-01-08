@@ -8,24 +8,28 @@ namespace UserInterface
     public static class AppPages
     {
         /// <summary>
-        /// The URI of the About page. 
+        /// The name of the About page. 
         /// </summary>
-        public static string AboutPage = "AboutPage";
+        public static string AboutPage => nameof(AboutPage);
 
         /// <summary>
-        /// The URI of the About page. 
+        /// The name of the Game page. 
         /// </summary>
-        public static string SliderPage = "SliderPage";
+        public static string SliderPage => nameof(SliderPage);
 
         /// <summary>
-        /// The URI of the About page. 
+        /// The name of the Main Menu. 
         /// </summary>
-        public static string MainMenuPage = "MainMenuPage";
+        public static string MainMenuPage => nameof(MainMenuPage);
 
         /// <summary>
-        /// The URI of the About page. 
+        /// The name of the Puzzle Selector page. 
         /// </summary>
-        public static string PuzzleSelectorPage = "PuzzleSelectorPage";
+        public static string PuzzleSelectorPage => nameof(PuzzleSelectorPage);
 
+        /// <summary>
+        /// The name of the Puzzle Selector page. 
+        /// </summary>
+        public static string GameOverPage => nameof(GameOverPage);
     }
 }

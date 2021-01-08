@@ -1,10 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 using SliderPuzzleGenerator;
 using SliderPuzzleSolver.Interfaces;
 using System;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
@@ -19,8 +17,6 @@ namespace UserInterface.Pages.SliderPage
 
         private readonly IPuzzleGenerator _puzzleGenerator;
         private readonly IPuzzleSolver _puzzleSolver;
-        private readonly INavigationService _navigationService;
-        private readonly IEventAggregator _eventAgreggator;
 
         private short _playerMoves;
         private TimeSpan _playerTime;
@@ -31,21 +27,18 @@ namespace UserInterface.Pages.SliderPage
 
         #region Public Constructors
 
-        public SliderPageViewModel(IPuzzleSolver puzzleSolver, 
+        public SliderPageViewModel(IPuzzleSolver puzzleSolver,
                                    IPuzzleGenerator puzzleGenerator,
-                                   INavigationService navigationService, 
-                                   IEventAggregator eventAggregator)
+                                   INavigationService navigationService,
+                                   IEventAggregator eventAggregator) : base(eventAggregator, navigationService)
         {
-            _puzzleSolver = puzzleSolver;
             _puzzleGenerator = puzzleGenerator;
-            _navigationService = navigationService;
-            _eventAgreggator = eventAggregator;
-
+            _puzzleSolver = puzzleSolver;
             ConfigureTimer();
 
             OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
 
-            _eventAgreggator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
+            EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
         }
 
         #endregion Public Constructors
@@ -104,9 +97,9 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         public ICommand OpenMainMenuCommand { get; private set; }
 
-        #endregion
+        #endregion Public Commands
 
-        #region Public 
+        #region Public
 
         /// <summary>
         /// Triggered when the page is displayed.
@@ -117,7 +110,7 @@ namespace UserInterface.Pages.SliderPage
             StartGame();
         }
 
-        #endregion
+        #endregion Public
 
         #region Private Methods
 
@@ -146,7 +139,7 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         private void OnOpenMainMenu()
         {
-            _navigationService.ShowPage(AppPages.MainMenuPage);
+            NavigationService.ShowPage(AppPages.MainMenuPage);
         }
 
         /// <summary>
@@ -158,7 +151,6 @@ namespace UserInterface.Pages.SliderPage
             PlayerMoves++;
             if (SliderState.IsSolved)
             {
-                MessageBox.Show("You did it motherforker");
                 OnGameFinished();
             }
         }
@@ -179,13 +171,15 @@ namespace UserInterface.Pages.SliderPage
         private void OnGameFinished()
         {
             _timer.Stop();
-            _eventAgreggator.GetEvent<GameFinishedEvent>().Publish();     
+            NavigationService.ShowPage(AppPages.GameOverPage);
+
+            EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent { ElapsedTime= TimeSpan.FromSeconds(1), MovesCount = 2 });
         }
 
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
             var puzzleRows = int.Parse(puzzleTypeSelected);
-            SliderState = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));     
+            SliderState = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));
         }
 
         /// <summary>

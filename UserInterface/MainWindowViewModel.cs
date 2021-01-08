@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,8 +14,6 @@ namespace UserInterface
     public class MainWindowViewModel : ViewModelBase
     {
         #region Private Fields
-
-        private readonly INavigationService _navigationService;
         private Page _mainFrame;
 
         #endregion Private Fields
@@ -25,9 +24,9 @@ namespace UserInterface
         /// Initializes a new ViewModel
         /// </summary>
         /// <param name="navigationService">nagivation service used for displaying pages.</param>
-        public MainWindowViewModel(INavigationService navigationService)
+        public MainWindowViewModel(IEventAggregator eventAggregator, INavigationService navigationService) :
+                base(eventAggregator, navigationService)
         {
-            _navigationService = navigationService;
             PlayCommand = new DelegateCommand(OnPlay);
         }
 
@@ -68,7 +67,7 @@ namespace UserInterface
         /// </summary>
         private void OnPlay()
         {
-            MainFrame = _navigationService.GetPage(AppPages.PuzzleSelectorPage);
+            MainFrame = NavigationService.GetPage(AppPages.PuzzleSelectorPage);
         }
 
         /// <summary>

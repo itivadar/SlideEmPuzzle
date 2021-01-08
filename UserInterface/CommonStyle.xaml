@@ -9,7 +9,11 @@
     <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="MenuButtonTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="TileTexture" ImageSource="/Resources/tileTexture.jpg" Stretch="UniformToFill"/>
-
+    
+    <!--Confetti images used at the game final -->
+    <ImageSource x:Key="LeftConfettiIcon" >/Resources/confettiLeft.png</ImageSource>
+    <ImageSource x:Key="RightConfettiIcon" >/Resources/confettiRight.png</ImageSource>
+ 
     <!--Foreground brush for general text -->
     <SolidColorBrush x:Key="TextForegroundBrush" Color="Wheat"/>
     

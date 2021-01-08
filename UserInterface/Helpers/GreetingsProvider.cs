@@ -54,6 +54,7 @@ namespace UserInterface.Helpers
         {
             AddGreetings("Marvelous choice!");
             AddGreetings("Wonderful option!");
+            AddGreetings("Brave decision!");
             AddGreetings("Wise decision!");
             AddGreetings("Well chosen!");
             AddGreetings("Very well then!");

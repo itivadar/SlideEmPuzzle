@@ -2,12 +2,12 @@
 using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace SliderPuzzleGenerator
 {
     public class PuzzleGenerator : IPuzzleGenerator
     {
+        private Random _rand;
 
         //Predefined 2 x 2 boards
         private readonly string[] _2x2Boards =
@@ -19,18 +19,17 @@ namespace SliderPuzzleGenerator
           "2 3 1 0",
         };
 
-        //Predefined 3 X 3 starting boards 
+        //Predefined 3 X 3 starting boards
         private readonly string[] _3x3Boards =
         {
           "4 1 2 3 0 6 5 7 8",
           "6 0 8 4 3 5 1 2 7",
           "6 4 7 8 5 0 3 2 1", //31 moves
-          "4 1 2 3 0 6 5 7 8", //22 moves   
+          "4 1 2 3 0 6 5 7 8", //22 moves
           "1 0 2 4 6 3 7 5 8"  //5 moves
         };
 
-
-        //Predefined 4 X 4 starting boards 
+        //Predefined 4 X 4 starting boards
         private readonly string[] _4x4Boards =
         {
           "1 2 4 12 5 6 3 0 9 10 8 7 13 14 11 15", //10 moves
@@ -40,8 +39,6 @@ namespace SliderPuzzleGenerator
           "1 2 3 4 6 10 7 8 5 0 11 12 9 13 14 15", //7 moves
           "6 3 7 4 2 9 10 8 1 5 12 15 13 0 14 11" //20 moves
         };
-
-        private Random _rand;
 
         //We map last selected position to each dimension to avoid generating same board twice
         private Dictionary<int, int> _lastRandomIndexByDimension;
@@ -71,7 +68,7 @@ namespace SliderPuzzleGenerator
         }
 
         //for 2 X 2 boards it is enough to pick one randomly from the possible boards;
-        IBoard Generate2x2Board()
+        private IBoard Generate2x2Board()
         {
             var randIndex = _rand.Next(_2x2Boards.Length);
 
@@ -85,16 +82,16 @@ namespace SliderPuzzleGenerator
             return new Board(_2x2Boards[randIndex]);
         }
 
-        //for 3 X 3 puzzle start from a random position from the predefined 
+        //for 3 X 3 puzzle start from a random position from the predefined
         //move the blank randomly
-        IBoard Generate3x3Board()
+        private IBoard Generate3x3Board()
         {
             return GetRandomBoard(3, _3x3Boards, 8);
         }
 
-        //for 4 X 4 puzzle start from a random position from the predefined 
+        //for 4 X 4 puzzle start from a random position from the predefined
         //move the blank randomly
-        IBoard Generate4x4Board()
+        private IBoard Generate4x4Board()
         {
             return GetRandomBoard(4, _4x4Boards, 6);
         }

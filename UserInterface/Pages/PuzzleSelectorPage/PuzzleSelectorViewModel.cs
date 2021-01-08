@@ -15,14 +15,13 @@ namespace UserInterface.Pages.PuzzleSelectorPage
     {
         #region Private Fields
 
-        private readonly IEventAggregator _eventAggregator;
         private readonly IGreetingsProvider _greetingsProvider;
-        private readonly INavigationService _navigationService;
         private readonly DispatcherTimer _timer;
 
         private ObservableBoard _15puzzleBoard;
         private ObservableBoard _2puzzleBoard;
         private ObservableBoard _9puzzleBoard;
+
         private string _greetings;
         private Visibility _greetingsVisibility;
         private string _puzzleSelected;
@@ -37,13 +36,12 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// </summary>
         /// <param name="navigationService">The service used for navigation between different pages. </param>
         /// <param name="eventAggregate">The eventaggregate used for communicate between different pages.</param>
-        public PuzzleSelectorViewModel(
-                    INavigationService navigationService,
-                    IEventAggregator eventAggregate,
-                    IGreetingsProvider greetingsProvider)
+        public PuzzleSelectorViewModel(INavigationService navigationService,
+                                       IEventAggregator eventAggregator,
+                                       IGreetingsProvider greetingsProvider) : base(eventAggregator, navigationService)
+
+
         {
-            _navigationService = navigationService;
-            _eventAggregator = eventAggregate;
             _greetingsProvider = greetingsProvider;
 
             OnMouseOverCommand = new DelegateCommand<string>(OnMouseOver, CanExecute).ObservesProperty(() => PuzzleSelected);
@@ -129,7 +127,7 @@ namespace UserInterface.Pages.PuzzleSelectorPage
             }
         }
 
-       
+
 
         #endregion Public Properties
 
@@ -224,7 +222,7 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// </summary>
         private void OnGoBack()
         {
-            _navigationService.ShowPage(AppPages.MainMenuPage);
+            NavigationService.ShowPage(AppPages.MainMenuPage);
         }
 
         /// <summary>
@@ -277,8 +275,8 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         private void OnTimerTick(object sender, EventArgs e)
         {
             _timer.Stop();
-            _navigationService.ShowPage(AppPages.SliderPage);
-            _eventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(_puzzleSelected);
+            NavigationService.ShowPage(AppPages.SliderPage);
+            EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(_puzzleSelected);
         }
 
         #endregion Private Methods

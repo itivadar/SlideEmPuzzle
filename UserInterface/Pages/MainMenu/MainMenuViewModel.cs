@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,17 @@ namespace UserInterface.Pages.MainMenu
 {
     public class MainMenuViewModel : ViewModelBase
     {
-        private readonly INavigationService _navigationService;
         public ICommand OpenAboutCommand { get;  set; }
-        public MainMenuViewModel(INavigationService nagivation)
+        public MainMenuViewModel(IEventAggregator eventAggregator, INavigationService navigationService)  :
+                    base(eventAggregator, navigationService)
         {
-            _navigationService = nagivation;
             OpenAboutCommand = new DelegateCommand(OnAbout);
         }
 
 
         private void OnAbout()
         {
-            _navigationService.ShowPage(AppPages.PuzzleSelectorPage);
+            NavigationService.ShowPage(AppPages.PuzzleSelectorPage);
         }
         
 

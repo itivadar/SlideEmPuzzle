@@ -10,10 +10,11 @@ namespace UserInterface.CustomControls
 {
     public class MenuButton : Button
     {
-        public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image),
-                                                                                              typeof(ImageSource),
-                                                                                              typeof(MenuButton),
-                                                                                              new PropertyMetadata(null));
+        public static readonly DependencyProperty ImageProperty = 
+            DependencyProperty.Register(nameof(Image),
+            typeof(ImageSource),
+            typeof(MenuButton),
+            new PropertyMetadata(null));
 
         public ImageSource Image
         {

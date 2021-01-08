@@ -9,6 +9,7 @@ using Unity;
 using UserInterface;
 using UserInterface.Helpers;
 using UserInterface.Pages.About;
+using UserInterface.Pages.GameOverPage;
 using UserInterface.Pages.MainMenu;
 using UserInterface.Pages.PuzzleSelectorPage;
 using UserInterface.Pages.SliderPage;
@@ -85,10 +86,13 @@ namespace UserInterface.BootstraperSpace
         /// </summary>
         private void RegisterViews()
         {
+            //a Main Window need no name :) 
             _unityContainer.RegisterWindow<MainWindow, MainWindowViewModel>();
+
             _unityContainer.RegisterPage<SliderPage, SliderPageViewModel>(AppPages.SliderPage);
             _unityContainer.RegisterPage<MainMenuPage, MainMenuViewModel>(AppPages.MainMenuPage);
             _unityContainer.RegisterPage<PuzzleSelectorPage, PuzzleSelectorViewModel>(AppPages.PuzzleSelectorPage);
+            _unityContainer.RegisterPage<GameOverPage, GameOverViewModel>(AppPages.GameOverPage);
 
             _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
         }
