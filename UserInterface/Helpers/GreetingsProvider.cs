@@ -12,7 +12,9 @@ namespace UserInterface.Helpers
         #endregion Private Fields
 
         #region Public Constructors
-
+        /// <summary>
+        /// Initializes a new greetings proviedrer.
+        /// </summary>
         public GreetingsProvider()
         {
             _randomGenerator = new Random();
@@ -57,16 +59,16 @@ namespace UserInterface.Helpers
             AddGreetings("Very well then!");
             AddGreetings("Excellent!");
             AddGreetings("Let's go!");
-            AddGreetings("Aye, capitan!");
+            AddGreetings("Aye, captain!");
             AddGreetings("So be it!");
             AddGreetings("Nice one!");
             AddGreetings("Bingo!");
             AddGreetings("Let's slide'em!");
             AddGreetings("Start sliding!");
-            AddGreetings("Go  Slide'em!");
+            AddGreetings("Go  slide'em!");
             AddGreetings("You're on the right path!");
             AddGreetings("Oh..again?");
-            AddGreetings("Same puzzle? Again? ...");
+            AddGreetings("Same puzzle? Again? . . .");
             AddGreetings("A fine taste for puzzles!");
         }
 
