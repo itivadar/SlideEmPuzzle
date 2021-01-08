@@ -50,7 +50,7 @@ namespace UserInterface.Helpers
         /// </summary>
         private void Initialize()
         {
-            AddGreetings("Good choice!");
+            AddGreetings("Marvelous choice!");
             AddGreetings("Wonderful option!");
             AddGreetings("Wise decision!");
             AddGreetings("Well chosen!");
@@ -58,6 +58,7 @@ namespace UserInterface.Helpers
             AddGreetings("Excellent!");
             AddGreetings("Let's go!");
             AddGreetings("Aye, capitan!");
+            AddGreetings("So be it!");
             AddGreetings("Nice one!");
             AddGreetings("Bingo!");
             AddGreetings("Let's slide'em!");
