@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
 
-                <customcontrols:MenuButton Content="2 x 2"
+                <customcontrols:MenuButton Content="Easy"
                                            Margin="10 0 10 10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="2">
@@ -45,7 +45,7 @@
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
 
-                <customcontrols:MenuButton Content="3 x 3"
+                <customcontrols:MenuButton Content="Medium"
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="3">
@@ -60,7 +60,7 @@
                     </i:Interaction.Triggers>
                 </customcontrols:MenuButton>
 
-                <customcontrols:MenuButton Content="4 x 4 "
+                <customcontrols:MenuButton Content="Hard "
                                            Margin="10"
                                            Command="{Binding StartGameCommand}"
                                            CommandParameter="4">
