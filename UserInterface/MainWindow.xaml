@@ -21,13 +21,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Frame Grid.Row="0" 
                Content="{Binding MainFrame}"
-               NavigationUIVisibility="Hidden" 
-               BorderThickness="1,0,2,0">
+               NavigationUIVisibility="Hidden">
             <Frame.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF24307E"/>
@@ -35,13 +33,5 @@
                 </LinearGradientBrush>
             </Frame.Background>
         </Frame>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock VerticalAlignment="Center"
-                       Text="&#xA9; Tivadar Ionut"/>
-        </Grid>
     </Grid>
 </Window>
