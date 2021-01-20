@@ -11,19 +11,14 @@
         Width="900"
         WindowStyle="SingleBorderWindow"
         Background="#FF933C3C" 
-        Foreground="White" 
-        Template="{DynamicResource PopupContentClassicTemplate}" 
+        Foreground="White"  
         WindowStartupLocation="CenterScreen"
         Cursor="{StaticResource GameCursor}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-
+      
         <Frame Grid.Row="0" 
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
                Content="{Binding MainFrame}"
                NavigationUIVisibility="Hidden">
             <Frame.Background>
