@@ -173,9 +173,13 @@ namespace UserInterface.Pages.SliderPage
             _timer.Stop();
             NavigationService.ShowPage(AppPages.GameOverPage);
 
-            EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent { ElapsedTime= TimeSpan.FromSeconds(1), MovesCount = 2 });
+            EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent { ElapsedTime = PlayerTime, MovesCount = PlayerMoves });
         }
 
+        /// <summary>
+        /// Draw the selected slider type.
+        /// </summary>
+        /// <param name="puzzleTypeSelected">The type selected by the puzzle</param>
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
             var puzzleRows = int.Parse(puzzleTypeSelected);

@@ -56,7 +56,7 @@
                    Text="{Binding Time}"
                    Foreground="{StaticResource TextForegroundBrush}"
                    HorizontalAlignment="Left"
-                   Margin="55 90 0 0"
+                   Margin="0 90 0 0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
