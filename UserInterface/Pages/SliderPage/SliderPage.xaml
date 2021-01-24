@@ -3,14 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:UserInterface.Pages.SliderPage" xmlns:custom="clr-namespace:UserInterface.CustomControls"
+      xmlns:helper="clr-namespace:UserInterface.Helpers" xmlns:custom="clr-namespace:UserInterface.CustomControls"
       mc:Ignorable="d"
       xmlns:prism="http://prismlibrary.com/"
       d:DesignHeight="600" 
       d:DesignWidth="850"
       Title="SliderPage">
     <Page.Resources>
-        <local:TimeSpanToStringFormatConverter x:Key="TimeSpanToStringFormatConverter"></local:TimeSpanToStringFormatConverter>
+        <helper:TimeSpanToStringFormatConverter x:Key="TimeSpanToStringFormatConverter"></helper:TimeSpanToStringFormatConverter>
     </Page.Resources>
     <Grid>
         <Grid Margin="0,0,0,0">
@@ -67,7 +67,7 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="1"
-                           Content="Moves " 
+                           Content="Slides " 
                            Width="100"
                            Margin="5"
                            Style="{StaticResource InfoLabelStyle}"

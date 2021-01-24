@@ -5,43 +5,96 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UserInterface.Pages.GameOverPage" xmlns:customcontrols="clr-namespace:UserInterface.CustomControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" 
+      d:DesignWidth="800"
       Title="GameOverPage">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Text="Congrats! You succeded!"
+                   Text="Astonishing result!"
                    Foreground="{StaticResource TextForegroundBrush}"
                    HorizontalAlignment="Center"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition />
+                <ColumnDefinition Width="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
                    Source ="{StaticResource LeftConfettiIcon}"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="1"
-                   Text="{Binding MovesMade}"
+                    <TextBlock
+                   Grid.Column="0"
+                   Text="Time: "
+                   FontStyle="Oblique"
                    Foreground="{StaticResource TextForegroundBrush}"
-                   HorizontalAlignment="Center"
+                   Margin="55 90 0 0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
 
-            <customcontrols:MenuButton Grid.Column="1"
-                                       Command="{Binding OpenMainMenuCommand}"
-                                       Content="Main menu"
-                                       VerticalAlignment="Bottom"/>
+                    <TextBlock
+                   Grid.Column="1"
+                   Text="{Binding Time}"
+                   Foreground="{StaticResource TextForegroundBrush}"
+                   HorizontalAlignment="Left"
+                   Margin="55 90 0 0"
+                   FontSize="26"
+                   FontFamily="{StaticResource LangarRegular}"/>
+                </Grid>
+                <Grid Grid.Row="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="67*"></ColumnDefinition>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="75*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
+                    <TextBlock
+                   Grid.Column="0"
+                   Text="Slides: "
+                   FontStyle="Oblique"
+                   Foreground="{StaticResource TextForegroundBrush}"
+                   Margin="55 5 0 0"
+                   FontSize="26"
+                   FontFamily="{StaticResource LangarRegular}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock
+                   Grid.Column="2"
+                   Text="{Binding MovesMade}"
+                   FontStyle="Oblique"
+                   Foreground="{StaticResource TextForegroundBrush}"
+                   HorizontalAlignment="Left"
+                   Margin="55 5 0 0"
+                   FontSize="26"
+                   FontFamily="{StaticResource LangarRegular}"/>
+                </Grid>
+            </Grid>
+            
             <Image Grid.Column="3"
                    Source ="{StaticResource RightConfettiIcon}"/>
         </Grid>
+        <customcontrols:MenuButton Grid.Row="2"
+                                       Command="{Binding OpenMainMenuCommand}"
+                                       Content="Main menu"
+                                       VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="50,0,50,0"/>
+
     </Grid>
 </Page>

@@ -13,6 +13,7 @@ namespace UserInterface.Pages.GameOverPage
     internal class GameOverViewModel : ViewModelBase
     {
         private string _movesMade;
+        private TimeSpan _time;
 
         public GameOverViewModel(IEventAggregator eventAggregator, INavigationService navigationService)
             : base(eventAggregator, navigationService)
@@ -22,6 +23,9 @@ namespace UserInterface.Pages.GameOverPage
             EventAggregator.GetEvent<GameFinishedEvent>().Subscribe(UpdateStats);
         }
 
+        /// <summary>
+        /// Command for open MainMenu
+        /// </summary>
         public ICommand OpenMainMenuCommand { get; set; }
 
         /// <summary>
@@ -38,12 +42,27 @@ namespace UserInterface.Pages.GameOverPage
         }
 
         /// <summary>
+        /// Gets the player time to solve the puzzle.
+        /// </summary>
+        public TimeSpan Time
+        {
+            get => _time;
+            private set
+            {
+                _time = value;
+                RaisePropertyChanged(nameof(Time));
+            }
+
+        }
+
+        /// <summary>
         /// Updates the game stats displayed at the end of the game.
         /// </summary>
         /// <param name="gameFinished">The  event received at the game end.</param>
         private void UpdateStats(GameFinishedEvent gameFinished)
         {
-            MovesMade = gameFinished.MovesCount.ToString();   
+            MovesMade = gameFinished.MovesCount.ToString();
+            Time = gameFinished.ElapsedTime;
         }
 
         /// <summary>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace UserInterface.Pages.SliderPage
+namespace UserInterface.Helpers
 {
-    class TimeSpanToStringFormatConverter : System.Windows.Data.IValueConverter
+    public class TimeSpanToStringFormatConverter : System.Windows.Data.IValueConverter
     {
         /// <summary>
         /// Converts a time span to a player friendly display format.
