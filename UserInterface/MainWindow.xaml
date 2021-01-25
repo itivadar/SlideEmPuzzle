@@ -15,18 +15,17 @@
         WindowStartupLocation="CenterScreen"
         Cursor="{StaticResource GameCursor}">
     <Grid>
-      
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF24307E"/>
+                <GradientStop Color="#FF104C6E" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Frame Grid.Row="0" 
                HorizontalAlignment="Stretch"
                VerticalAlignment="Stretch"
                Content="{Binding MainFrame}"
                NavigationUIVisibility="Hidden">
-            <Frame.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF24307E"/>
-                    <GradientStop Color="#FF104C6E" Offset="1"/>
-                </LinearGradientBrush>
-            </Frame.Background>
         </Frame>
     </Grid>
 </Window>

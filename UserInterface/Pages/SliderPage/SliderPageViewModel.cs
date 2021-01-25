@@ -108,7 +108,6 @@ namespace UserInterface.Pages.SliderPage
         {
             //starts the timer only when the page displayed to avoid delays.
             StartGame();
-            var bestMoves = _puzzleSolver.SolutionSteps(_sliderState.Board);
         }
 
         #endregion Public
