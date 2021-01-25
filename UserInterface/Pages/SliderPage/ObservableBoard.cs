@@ -1,16 +1,19 @@
 ﻿using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserInterface.Pages.SliderPage
 {
     public delegate void PropertyChangedEvent();
+
     public class ObservableBoard
     {
+        #region Private Fields
+
         private IBoard _board;
-        public event PropertyChangedEvent StateChanged;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public ObservableBoard(IBoard board)
         {
@@ -27,32 +30,52 @@ namespace UserInterface.Pages.SliderPage
             _board = new Board(board);
         }
 
-        public byte Rows => _board.Rows;
+        #endregion Public Constructors
+
+        #region Public Events
+        /// <summary>
+        /// Event raised when the board state is changed. 
+        /// </summary>
+        public event PropertyChangedEvent StateChanged;
+
+        #endregion Public Events
+
+        #region Public Properties
+        /// <summary>
+        /// Determines if the board is solved or not.
+        /// </summary>
         public bool IsSolved => _board.IsSolved();
 
+        /// <summary>
+        /// Gets the board.
+        /// </summary>
+        public IBoard Board => _board.Clone();
+
+        /// <summary>
+        /// Gets the board rows.
+        /// </summary>
+        public byte Rows => _board.Rows;
+
+        #endregion Public Properties
+
+        #region Public Indexers
+        
+        /// <summary>
+        /// Gets the tile at a specific index.
+        /// </summary>
+        /// <param name="i">the index of the requested tile</param>
+        /// <returns>the tile tag at the given index.</returns>
         public byte this[int i]
         {
             get => _board.GetTiles()[i];
         }
 
-        public void MoveBlankTile(int tilePosition, int blankPosition)
-        {
-            var direction = Direction.Up;
-            if (blankPosition - tilePosition == 1)      direction = Direction.Left;
-            if (blankPosition - tilePosition == -1)     direction = Direction.Right;
-            if (blankPosition - tilePosition == -Rows)  direction = Direction.Down;
+        #endregion Public Indexers
 
-            MoveBlankTile(direction);
-        }
-
-        public void MoveBlankTile(Direction direction)
-        {
-            _board.MoveBlankTile(direction);
-            RaiseStateChangedEvent();
-        }
+        #region Public Methods
 
         /// <summary>
-        /// Gets the goal board consisting of the given rows. 
+        /// Gets the goal board consisting of the given rows.
         /// </summary>
         /// <param name="rows">Number of the rows in the board</param>
         /// <returns></returns>
@@ -71,6 +94,26 @@ namespace UserInterface.Pages.SliderPage
             return new ObservableBoard(state);
         }
 
+        public void MoveBlankTile(int tilePosition, int blankPosition)
+        {
+            var direction = Direction.Up;
+            if (blankPosition - tilePosition == 1) direction = Direction.Left;
+            if (blankPosition - tilePosition == -1) direction = Direction.Right;
+            if (blankPosition - tilePosition == -Rows) direction = Direction.Down;
+
+            MoveBlankTile(direction);
+        }
+
+        public void MoveBlankTile(Direction direction)
+        {
+            _board.MoveBlankTile(direction);
+            RaiseStateChangedEvent();
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
         /// <summary>
         /// Raised when the board state has been changed.
         /// Triggred by any player moves.
@@ -79,5 +122,7 @@ namespace UserInterface.Pages.SliderPage
         {
             StateChanged?.Invoke();
         }
+
+        #endregion Private Methods
     }
 }

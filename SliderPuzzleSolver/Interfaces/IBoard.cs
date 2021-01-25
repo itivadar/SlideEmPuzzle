@@ -48,5 +48,8 @@ namespace SliderPuzzleSolver.Interfaces
     //// a board that is obtained by exchanging any pair of tiles
     public IBoard Twin();
 
+    /// creates a new board with the same state.
+    public IBoard Clone();
+
   }
 }
