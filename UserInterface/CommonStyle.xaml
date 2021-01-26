@@ -5,6 +5,9 @@
     <!--The cursor used in the game-->
     <Cursor x:Key="GameCursor">pack://application:,,,/Resources/Earth_Pointer.ani</Cursor>
     
+    <!-- The game logo -->
+    <ImageSource x:Key="GameLogo">/Resources/logo.png</ImageSource>
+
     <!--Textures used for the controls -->
     <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="MenuButtonTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>

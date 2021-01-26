@@ -24,6 +24,7 @@
     <None Remove="Resources\Earth_Pointer.ani" />
     <None Remove="Resources\ico1.png" />
     <None Remove="Resources\labelTexture.jpg" />
+    <None Remove="Resources\logo.png" />
     <None Remove="Resources\menuButton4.jpg" />
     <None Remove="Resources\tileTexture.jpg" />
   </ItemGroup>
@@ -57,6 +58,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\labelTexture.jpg" />
+    <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\menuButton4.jpg" />
     <Resource Include="Resources\tileTexture.jpg" />
   </ItemGroup>
