@@ -69,7 +69,7 @@ namespace UserInterface.CustomControls
         /// </summary>
         private const byte Spacing = 5;
 
-        private readonly Dictionary<Tile, int> tagToPositionMap;
+        private readonly Dictionary<Tile, int> _tagToPositionMap;
 
         private Tile blankTile;
 
@@ -82,7 +82,7 @@ namespace UserInterface.CustomControls
         /// </summary>
         public PuzzleSlider()
         {
-            tagToPositionMap = new Dictionary<Tile, int>();
+            _tagToPositionMap = new Dictionary<Tile, int>();
             State = GetEmptyBoard();
             InitSlider();
             StateChangedEvent += OnNewState;
@@ -161,10 +161,10 @@ namespace UserInterface.CustomControls
 
         private void AnimateInDirection(int animationDirection)
         {
-            var blankPosition = tagToPositionMap[blankTile];
+            var blankPosition = _tagToPositionMap[blankTile];
             Tile otherTile = null;
 
-            foreach (var keyPair in tagToPositionMap)
+            foreach (var keyPair in _tagToPositionMap)
             {
                 if (keyPair.Value == blankPosition + animationDirection)
                 {
@@ -249,12 +249,12 @@ namespace UserInterface.CustomControls
         /// <param name="valueTile"></param>
         private void ExchangePositions(Tile blankTile, Tile valueTile)
         {
-            var blankPosition = tagToPositionMap[blankTile];
-            var valuePosition = tagToPositionMap[valueTile];
+            var blankPosition = _tagToPositionMap[blankTile];
+            var valuePosition = _tagToPositionMap[valueTile];
 
             //exchange position in the mapping
-            tagToPositionMap[blankTile] = valuePosition;
-            tagToPositionMap[valueTile] = blankPosition;
+            _tagToPositionMap[blankTile] = valuePosition;
+            _tagToPositionMap[valueTile] = blankPosition;
 
             //move the blank tile to the new position
             State.MoveBlankTile(valuePosition, blankPosition);
@@ -277,15 +277,17 @@ namespace UserInterface.CustomControls
         private void InitSlider()
         {
             Children.Clear();
-            tagToPositionMap.Clear();
+            _tagToPositionMap.Clear();
             _rowsCount = State.Rows;
 
             for (int tileIndex = 0; tileIndex < _rowsCount * _rowsCount; tileIndex++)
             {
                 var sliderTile = BuildTile(tileIndex);
                 Children.Add(sliderTile);
-                tagToPositionMap.Add(sliderTile, tileIndex);
+                _tagToPositionMap.Add(sliderTile, tileIndex);
             }
+
+            DisableImposibleMoves();
         }
 
         /// <summary>
@@ -295,8 +297,8 @@ namespace UserInterface.CustomControls
         /// <returns></returns>
         private bool IsMovePossible(Tile sliderTile)
         {
-            var tilePosition = tagToPositionMap[sliderTile];
-            var blankPosition = tagToPositionMap[blankTile];
+            var tilePosition = _tagToPositionMap[sliderTile];
+            var blankPosition = _tagToPositionMap[blankTile];
             var tileRow = tilePosition / _rowsCount;
             var blankRow = blankPosition / _rowsCount;
 
@@ -342,8 +344,25 @@ namespace UserInterface.CustomControls
             if (IsMovePossible(clickedTile))
             {
                 AnimateSwitching(clickedTile);
+                DisableImposibleMoves();
             }
         }
+
+        /// <summary>
+        /// Keeps enabled only tiles the playes can switch them.
+        /// </summary>
+        private void DisableImposibleMoves()
+        {
+            foreach (var tile in _tagToPositionMap.Keys)
+            {
+                tile.IsEnabled = false;
+                if (IsMovePossible(tile) || tile == blankTile)
+                {
+                    tile.IsEnabled = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Setup a storyboard to play animations.
         /// </summary>
