@@ -34,7 +34,7 @@
                                               Content="{TemplateBinding Content}"
                                               TextBlock.FontSize="22" 
                                               TextBlock.FontWeight="DemiBold"
-                                              TextBlock.Foreground=" #041961 "
+                                              TextBlock.Foreground="Orange"
                                               TextBlock.FontFamily="{StaticResource LangarRegular}"/>
                         </DockPanel>
                     </Grid>

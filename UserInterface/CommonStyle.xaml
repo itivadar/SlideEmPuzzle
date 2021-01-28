@@ -9,7 +9,7 @@
     <ImageSource x:Key="GameLogo">/Resources/logo.png</ImageSource>
 
     <!--Textures used for the controls -->
-    <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/labelTexture.jpg" Stretch="UniformToFill"/>
+    <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="MenuButtonTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>
     <ImageBrush x:Key="TileTexture" ImageSource="/Resources/tileTexture.jpg" Stretch="UniformToFill"/>
     
