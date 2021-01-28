@@ -275,8 +275,9 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         private void OnTimerTick(object sender, EventArgs e)
         {
             _timer.Stop();
-            NavigationService.ShowPage(AppPages.SliderPage);
             EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Publish(_puzzleSelected);
+            NavigationService.ShowPage(AppPages.SliderPage);
+            
         }
 
         #endregion Private Methods
