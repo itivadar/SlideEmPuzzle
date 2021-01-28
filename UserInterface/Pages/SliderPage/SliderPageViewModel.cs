@@ -13,6 +13,23 @@ namespace UserInterface.Pages.SliderPage
 {
     public class SliderPageViewModel : ViewModelBase
     {
+
+        #region Constants
+
+        /// <summary>
+        /// Gets the spacing between tiles of the puzzles.
+        /// Defined in the slider puzzle control.
+        /// TODO: extract it in a separate constant class.
+        /// </summary>
+        private const int TileSpacing = 5;
+
+        /// <summary>
+        /// Gets the maximum size of the puzzle.
+        /// The height of puzzle is considered.
+        /// </summary>
+        private const int MaxPuzzleSize = 220;
+        #endregion
+
         #region Private Fields
 
         private readonly IPuzzleGenerator _puzzleGenerator;
@@ -24,6 +41,7 @@ namespace UserInterface.Pages.SliderPage
         private DispatcherTimer _timer;
         private double _puzzleScale;
         private short _tileSize;
+        private int _maxSize;
 
         #endregion Private Fields
 
@@ -105,7 +123,7 @@ namespace UserInterface.Pages.SliderPage
         /// The state of the puzzle.
         /// Its a puzzle board determining the position of each tile.
         /// </summary>
-        public ObservableBoard SliderState
+        public ObservableBoard PuzzleBoard
         {
             get => _sliderState;
             set
@@ -113,7 +131,7 @@ namespace UserInterface.Pages.SliderPage
                 _sliderState = value;
                 _sliderState.StateChanged -= OnStateChanged;
                 _sliderState.StateChanged += OnStateChanged;
-                RaisePropertyChanged(nameof(SliderState));
+                RaisePropertyChanged(nameof(PuzzleBoard));
             }
         }
 
@@ -137,6 +155,9 @@ namespace UserInterface.Pages.SliderPage
         {
             //starts the timer only when the page displayed to avoid delays.
             StartGame();
+            _maxSize = (MaxPuzzleSize- (PuzzleBoard.Rows - 1) * 2* TileSpacing) / PuzzleBoard.Rows;
+            PuzzleScale = 50;
+
         }
 
         #endregion Public
@@ -178,7 +199,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnStateChanged()
         {
             PlayerMoves++;
-            if (SliderState.IsSolved)
+            if (PuzzleBoard.IsSolved)
             {
                 OnGameFinished();
             }
@@ -196,7 +217,7 @@ namespace UserInterface.Pages.SliderPage
         private void ScalePuzzle()
         {
             var scale = (PuzzleScale / 100);
-            TileSize = (short)(60 + scale * 80);
+            TileSize = (short)(60 + scale * _maxSize);
         }
 
         /// <summary>
@@ -218,7 +239,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
             var puzzleRows = int.Parse(puzzleTypeSelected);
-            SliderState = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));
+            PuzzleBoard = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));
         }
 
         /// <summary>
