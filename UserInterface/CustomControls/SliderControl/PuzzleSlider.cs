@@ -333,6 +333,7 @@ namespace UserInterface.CustomControls
             }
 
             TileSize = (short?)args.NewValue ?? DefaultTileSize;
+            InitSlider();
         }
 
         /// <summary>

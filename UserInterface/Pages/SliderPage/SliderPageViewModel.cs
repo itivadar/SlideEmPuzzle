@@ -22,6 +22,8 @@ namespace UserInterface.Pages.SliderPage
         private TimeSpan _playerTime;
         private ObservableBoard _sliderState;
         private DispatcherTimer _timer;
+        private double _puzzleScale;
+        private short _tileSize;
 
         #endregion Private Fields
 
@@ -60,6 +62,33 @@ namespace UserInterface.Pages.SliderPage
         }
 
         /// <summary>
+        /// Gets or sets the puzzle scale on a scale from 1 to 100. 
+        /// </summary>
+        public double PuzzleScale
+        {
+            get => _puzzleScale;
+            set 
+            {
+                _puzzleScale = value;
+                RaisePropertyChanged(nameof(PuzzleScale));
+                ScalePuzzle();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tile size of the puzzle.
+        /// </summary>
+        public short TileSize
+        {
+            get => _tileSize;
+            set
+            {
+                _tileSize = value;
+                RaisePropertyChanged(nameof(TileSize));
+            }
+        }
+
+        /// <summary
         /// Gets the time since the player has started to solve the puzzle.
         /// </summary>
         public TimeSpan PlayerTime
@@ -162,6 +191,12 @@ namespace UserInterface.Pages.SliderPage
         {
             PlayerMoves = 0;
             PlayerTime = TimeSpan.Zero;
+        }
+
+        private void ScalePuzzle()
+        {
+            var scale = (PuzzleScale / 100);
+            TileSize = (short)(60 + scale * 80);
         }
 
         /// <summary>

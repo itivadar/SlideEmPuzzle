@@ -103,7 +103,7 @@
                                  Grid.Row="1"
                                  State="{Binding SliderState}"
                                  Margin="30 40 0 0"
-                                 TileSize="220"
+                                 TileSize="{Binding TileSize}"
                                  Height="400"
                                  Width="400"
                                  HorizontalAlignment="Left"
@@ -113,7 +113,8 @@
                     Margin="20"
                     Maximum="100"
                     Minimum="0"
-                    Value="{Binding Scale}"/>
+                    TickFrequency="5"
+                    Value="{Binding PuzzleScale}"/>
 
 
 
