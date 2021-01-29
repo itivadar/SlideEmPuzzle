@@ -27,7 +27,13 @@ namespace UserInterface.Pages.SliderPage
         /// Gets the maximum size of the puzzle.
         /// The height of puzzle is considered.
         /// </summary>
-        private const int MaxPuzzleSize = 220;
+        private const int MaxPuzzleSize = 480;
+
+        /// <summary>
+        /// Gets the minimum size of the puzzle.
+        /// The height of puzzle is considered.
+        /// </summary>
+        private const int MinPuzzleSize = 290;
         #endregion
 
         #region Private Fields
@@ -41,7 +47,7 @@ namespace UserInterface.Pages.SliderPage
         private DispatcherTimer _timer;
         private double _puzzleScale;
         private short _tileSize;
-        private int _maxSize;
+
 
         #endregion Private Fields
 
@@ -155,8 +161,7 @@ namespace UserInterface.Pages.SliderPage
         {
             //starts the timer only when the page displayed to avoid delays.
             StartGame();
-            _maxSize = (MaxPuzzleSize- (PuzzleBoard.Rows - 1) * 2* TileSpacing) / PuzzleBoard.Rows;
-            PuzzleScale = 50;
+            PuzzleScale = 100;
 
         }
 
@@ -214,10 +219,15 @@ namespace UserInterface.Pages.SliderPage
             PlayerTime = TimeSpan.Zero;
         }
 
+        /// <summary>
+        /// Scales the puzzle sizes acording to the slider value. 
+        /// </summary>
         private void ScalePuzzle()
         {
-            var scale = (PuzzleScale / 100);
-            TileSize = (short)(60 + scale * _maxSize);
+           var  puzzleMaxSize = (MaxPuzzleSize - (PuzzleBoard.Rows - 1) * 2 * TileSpacing) / PuzzleBoard.Rows;
+           var  puzzleMinSize = (MinPuzzleSize - (PuzzleBoard.Rows - 1) * 2 * TileSpacing) / PuzzleBoard.Rows;
+           var scale = (PuzzleScale / 100);
+           TileSize = (short)((puzzleMaxSize - puzzleMinSize)*scale + puzzleMinSize);
         }
 
         /// <summary>

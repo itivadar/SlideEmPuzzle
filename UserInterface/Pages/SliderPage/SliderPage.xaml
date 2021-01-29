@@ -98,7 +98,8 @@
                 
                 <custom:MenuButton Grid.Row="4"
                                    Margin="0 10 0 10"
-                                   Content="Main menu"/>
+                                   Content="Main menu"
+                                   Command="{Binding OpenMainMenuCommand}"/>
             </Grid>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>

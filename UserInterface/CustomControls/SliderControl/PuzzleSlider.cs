@@ -60,7 +60,6 @@ namespace UserInterface.CustomControls
 
         /// <summary>
         /// The default size of the tiles (height and width).
-        /// Used when there is no other size specified in the XAML file.
         /// </summary>
         private const short DefaultTileSize = 100;
 
@@ -237,6 +236,7 @@ namespace UserInterface.CustomControls
                 blankTile = sliderTile;
             }
 
+            //react to user's click
             sliderTile.PreviewMouseLeftButtonDown += OnTileClicked;
 
             return sliderTile;
