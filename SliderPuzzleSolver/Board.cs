@@ -321,14 +321,19 @@ namespace SliderPuzzleSolver
         private byte[,] GetTiles(string stringRepresentation)
         {
             var tilesValues = stringRepresentation.Split(" ");
-            int n = (int)Math.Sqrt(tilesValues.Length);
-            byte[,] tiles = new byte[n, n];
+            int rows = (int)Math.Sqrt(tilesValues.Length);
 
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
+            //the board is empty.
+            if (rows == 1) return new byte[,] { };
+
+            byte[,] tiles = new byte[rows, rows];
+
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < rows; j++)
                 {
-                    tiles[i, j] = byte.Parse(tilesValues[i * n + j]);
+                    tiles[i, j] = byte.Parse(tilesValues[i * rows + j]);
                 }
+
             return tiles;
         }
 

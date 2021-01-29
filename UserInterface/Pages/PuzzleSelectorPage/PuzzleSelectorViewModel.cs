@@ -230,7 +230,8 @@ namespace UserInterface.Pages.PuzzleSelectorPage
         /// </summary>
         private void OnMouseLeft()
         {
-            PuzzleState = null;
+            //no puzzle is displayed
+            PuzzleState = new ObservableBoard(string.Empty);
         }
 
         /// <summary>

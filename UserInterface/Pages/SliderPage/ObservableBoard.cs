@@ -94,6 +94,11 @@ namespace UserInterface.Pages.SliderPage
             return new ObservableBoard(state);
         }
 
+        /// <summary>
+        /// Switch the blank tile with another tile. 
+        /// </summary>
+        /// <param name="tilePosition">blank tile.</param>
+        /// <param name="blankPosition">a numbered tile.</param>
         public void MoveBlankTile(int tilePosition, int blankPosition)
         {
             var direction = Direction.Up;
@@ -104,6 +109,10 @@ namespace UserInterface.Pages.SliderPage
             MoveBlankTile(direction);
         }
 
+        /// <summary>
+        /// Move the blank tile in a given direction.
+        /// </summary>
+        /// <param name="direction">The direction in which we want to move the blank tile.</param>
         public void MoveBlankTile(Direction direction)
         {
             _board.MoveBlankTile(direction);

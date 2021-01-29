@@ -2,23 +2,41 @@
 using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SliderPuzzleSolver
 {
-  public sealed class PuzzleSolver : IPuzzleSolver
+    public sealed class PuzzleSolver : IPuzzleSolver
     {
         #region Helper Classes
-        public class Node : IComparable
-        {
-            public Node ParentNode { get; set; }
-            public IBoard Board { get; set; }
-            public ushort Depth { get; set; }         
-            public ushort ManhattanDistance { get; set; }
 
+        /// <summary>
+        /// Node used in the search tree.
+        /// Each node has a board associated.
+        /// </summary>
+        public class Node : IComparable
+        {   
+            /// <summary>
+            /// The previous node from which the current node has been reached.
+            /// </summary>
+            public Node ParentNode { get; set; }
+
+            /// <summary>
+            /// The board associated with the node.
+            /// </summary>
+            public IBoard Board { get; set; }
+
+            /// <summary>
+            /// The depth of the node.
+            /// It gives the numbers of steps required to reach this node from the initial position.
+            /// </summary>
+            public ushort Depth { get; set; }
+
+            /// <summary>
+            /// The sum of  Manhattan distance from each tile to its position in the solved board.
+            /// The function aproximates how far the current board is from being solved.
+            /// </summary>
+            public ushort ManhattanDistance { get; set; }
+           
             ///used for comparing nodes to maintain the MinHeap property
             public int CompareTo(object obj)
             {
@@ -29,25 +47,28 @@ namespace SliderPuzzleSolver
         /// <summary>
         /// Compare used to compare nodes in the A* search algorithm
         /// </summary>
-        public class ManhattanPriorityFunction: IComparer<Node>
+        public class ManhattanPriorityFunction : IComparer<Node>
         {
             public int Compare(Node currentNode, Node otherNode)
             {
-                var currentNodeDistance = currentNode.ManhattanDistance  + currentNode.Depth;
-                var otherNodeDistance = otherNode.ManhattanDistance   + otherNode.Depth;
+                var currentNodeDistance = currentNode.ManhattanDistance + currentNode.Depth;
+                var otherNodeDistance = otherNode.ManhattanDistance + otherNode.Depth;
 
                 if (currentNodeDistance < otherNodeDistance) return -1;
                 if (currentNodeDistance > otherNodeDistance) return 1;
-           
+
                 return 0;
             }
         }
-        #endregion
+
+        #endregion Helper Classes
 
         #region Constants
-        const int NodeFound = -1;
-        const int NodeNotFound = Int32.MaxValue;
-        #endregion
+
+        private const int NodeFound = -1;
+        private const int NodeNotFound = Int32.MaxValue;
+
+        #endregion Constants
 
         #region Public methods
 
@@ -64,9 +85,47 @@ namespace SliderPuzzleSolver
             return BuildSolutionSteps(lastNode) as IEnumerable<IBoard>;
         }
 
-        #endregion
+        public IEnumerable<Direction> GetSolutionDirections(IBoard boardToSolve)
+        {
+            if (!boardToSolve.IsSolvable())
+            {
+                Console.WriteLine("Unsolvable puzzle");
+                return new List<Direction>() as IEnumerable<Direction>;
+            }
+
+            var lastNode = IDASolve(boardToSolve);
+
+            Stack<Direction> directions = new Stack<Direction>();
+            while (lastNode.ParentNode != null)
+            {
+                directions.Push(GetMoveDirection(lastNode.ParentNode.Board, lastNode.Board));
+                lastNode = lastNode.ParentNode;
+            }
+
+            return directions;
+        }
+
+        #endregion Public methods
 
         #region Private Methods
+
+        /// <summary>
+        /// Gets the direction blank tile has been traveled between two boards.
+        /// </summary>
+        /// <param name="fromBoard">The initial board acting as the source board.</param>
+        /// <param name="toBoard">The final board acting as the destination. </param>
+        /// <returns></returns>
+        private Direction GetMoveDirection(IBoard fromBoard, IBoard toBoard)
+        {
+            var horizontalMove = toBoard.BlankTilePosition.Column - fromBoard.BlankTilePosition.Column;
+            var verticalMove = toBoard.BlankTilePosition.Row - fromBoard.BlankTilePosition.Row;
+
+            if (horizontalMove == -1) return Direction.Left;
+            if (horizontalMove == 1) return Direction.Right;
+            if (verticalMove == -1) return Direction.Up;
+            return Direction.Down;
+        }
+
         private IEnumerable<IBoard> BuildSolutionSteps(Node lastNode)
         {
             Stack<IBoard> sol = new Stack<IBoard>();
@@ -93,9 +152,9 @@ namespace SliderPuzzleSolver
                 foreach (var neighbor in dequeuedNode.Board.GetDistanceByChildBoards())
                 {
                     if (dequeuedNode.ParentNode is null || !dequeuedNode.ParentNode.Board.Equals(neighbor))
-                    {   
+                    {
                         //calculate the priority function and updates the moves needed to get to the created node
-                        var childNode = CreateNode(neighbor.Key, dequeuedNode,neighbor.Value);
+                        var childNode = CreateNode(neighbor.Key, dequeuedNode, neighbor.Value);
 
                         minPriorityQueue.Add(childNode);
                     }
@@ -116,10 +175,10 @@ namespace SliderPuzzleSolver
             path.Push(startingNode);
 
             int thresholdDepth = startingNode.ManhattanDistance;
-            while(true)
+            while (true)
             {
                 var searchResult = BreadthFirstSearch(path, thresholdDepth);
-             
+
                 if (searchResult == NodeFound) return path.Peek();
                 //there are no solution to the puzzle
                 if (searchResult == NodeNotFound) { return null; }
@@ -135,7 +194,7 @@ namespace SliderPuzzleSolver
         // - NodeFound (-1) if the goal node was reached.
         // - NodeNotFound (Int32.MaxValue) if no solution were found
         // - an integer representing the new threshold for the BFS search
-        private int BreadthFirstSearch (Stack<Node> path, int threshold)
+        private int BreadthFirstSearch(Stack<Node> path, int threshold)
         {
             var node = path.Peek();
             var currentCost = node.Depth + node.ManhattanDistance;
@@ -172,6 +231,7 @@ namespace SliderPuzzleSolver
                 Depth = (ushort)(previousNode is null ? 0 : previousNode.Depth + 1)
             };
         }
-        #endregion
+
+        #endregion Private Methods
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using SliderPuzzleGenerator;
+using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
@@ -41,13 +43,15 @@ namespace UserInterface.Pages.SliderPage
         private readonly IPuzzleGenerator _puzzleGenerator;
         private readonly IPuzzleSolver _puzzleSolver;
 
-        private short _playerMoves;
+       
         private TimeSpan _playerTime;
         private ObservableBoard _sliderState;
         private DispatcherTimer _timer;
+
         private double _puzzleScale;
         private short _tileSize;
-
+        private short _playerMoves;
+        private IEnumerable<Direction> _solutionSteps;
 
         #endregion Private Fields
 
@@ -63,6 +67,7 @@ namespace UserInterface.Pages.SliderPage
             ConfigureTimer();
 
             OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
+            AutoSolveCommand = new DelegateCommand(OnAutoSolve);
 
             EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
         }
@@ -112,6 +117,20 @@ namespace UserInterface.Pages.SliderPage
             }
         }
 
+        /// <summary>
+        /// Gets the solutions steps in directions to solve the puzzle.
+        /// Sets only when the player starts the autosolving.
+        /// </summary>
+        public IEnumerable<Direction> SolutionSteps
+        {
+            get => _solutionSteps;
+            private set
+            {
+                _solutionSteps = value;
+                RaisePropertyChanged(nameof(SolutionSteps));
+            }
+        }
+
         /// <summary
         /// Gets the time since the player has started to solve the puzzle.
         /// </summary>
@@ -150,6 +169,11 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         public ICommand OpenMainMenuCommand { get; private set; }
 
+        /// <summary>
+        /// Gets the command to start solving the puzzle.
+        /// </summary>
+        public ICommand AutoSolveCommand { get; private set; }
+
         #endregion Public Commands
 
         #region Public
@@ -161,8 +185,7 @@ namespace UserInterface.Pages.SliderPage
         {
             //starts the timer only when the page displayed to avoid delays.
             StartGame();
-            PuzzleScale = 100;
-
+            PuzzleScale = 50;
         }
 
         #endregion Public
@@ -193,8 +216,16 @@ namespace UserInterface.Pages.SliderPage
         /// Displays MainMenu window.
         /// </summary>
         private void OnOpenMainMenu()
-        {
+        { 
             NavigationService.ShowPage(AppPages.MainMenuPage);
+        }
+
+        /// <summary>
+        /// Solve the puzzle
+        /// </summary>
+        private void OnAutoSolve()
+        {
+            SolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.Board);
         }
 
         /// <summary>
@@ -237,7 +268,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnGameFinished()
         {
             _timer.Stop();
-            NavigationService.ShowPage(AppPages.GameOverPage);
+            //NavigationService.ShowPage(AppPages.GameOverPage);
 
             EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent { ElapsedTime = PlayerTime, MovesCount = PlayerMoves });
         }
