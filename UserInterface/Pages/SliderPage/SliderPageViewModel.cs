@@ -5,6 +5,7 @@ using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
@@ -225,7 +226,10 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         private void OnAutoSolve()
         {
-            SolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.Board);
+            Task.Run(() =>
+            {
+                SolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.Board);
+            });
         }
 
         /// <summary>
