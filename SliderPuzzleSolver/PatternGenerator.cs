@@ -98,6 +98,16 @@ namespace SliderPuzzleSolver
     #region Public Methods
 
     /// <summary>
+    /// Generatess all 3 pattern database. At once!!
+    /// </summary>
+    public void GeneratAllPDB()
+    {
+      GeneratPatternDb(Pattern555.Left5, ConstantHelper.LeftPatternFilePath);
+      GeneratPatternDb(Pattern555.Bottom5, ConstantHelper.BottomPatternFilePath);
+      GeneratPatternDb(Pattern555.Right5, ConstantHelper.RightPatternFilePath);
+    }
+
+    /// <summary>
     /// Genetes a pattern database for the subpuzzles of 5 tiles.
     /// </summary>
     /// <param name="pattern">The pattern for which the database is generated</param>

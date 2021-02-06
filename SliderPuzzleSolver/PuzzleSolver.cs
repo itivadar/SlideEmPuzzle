@@ -80,9 +80,9 @@ namespace SliderPuzzleSolver
     private void LoadsPatternDatabase()
     {
       if (_isPatternDatabaseLoaded) return;
-      _right5Indexes = PatternGenerator.ReadDbFromFile(@"C:\users\neo_c\desktop\Right5.db");
-      _left5Indexes =  PatternGenerator.ReadDbFromFile(@"C:\users\neo_c\desktop\Right5.db");
-      _bottom5Indexes = PatternGenerator.ReadDbFromFile(@"C:\users\neo_c\desktop\Right5.db");
+      _right5Indexes = PatternGenerator.ReadDbFromFile(ConstantHelper.RightPatternFilePath);
+      _left5Indexes =  PatternGenerator.ReadDbFromFile(ConstantHelper.LeftPatternFilePath);
+      _bottom5Indexes = PatternGenerator.ReadDbFromFile(ConstantHelper.BottomPatternFilePath);
       _isPatternDatabaseLoaded = false;
     }
 

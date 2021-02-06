@@ -37,8 +37,7 @@ namespace SliderPuzzleSolver
                 Console.WriteLine("Unsolvable puzzle");
             }
 
-            //var file = @"C:\users\neo_c\desktop\Left5.db";
-
+      //var file = @"C:\users\neo_c\desktop\Left5.db";
 
             //Stopwatch stopwatch = Stopwatch.StartNew();
             //var gen = new PatternGenerator();

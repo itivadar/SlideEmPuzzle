@@ -7,6 +7,21 @@ namespace SliderPuzzleSolver
   static class ConstantHelper
   {
     /// <summary>
+    /// Gets the file path for the left pattern database.
+    /// </summary>
+    public static string LeftPatternFilePath => @"C:\users\neo_c\desktop\left.555";
+
+    /// <summary>
+    /// Gets the file path for the right pattern database.
+    /// </summary>
+    public static string RightPatternFilePath => @"C:\users\neo_c\desktop\right.555";
+
+    /// <summary>
+    /// Gets the file path for the bottom pattern database.
+    /// </summary>
+    public static string BottomPatternFilePath => @"C:\users\neo_c\desktop\bottom.555";
+
+    /// <summary>
     /// Gets the transformations on each directions
     /// </summary>
     public static readonly Dictionary<SlideDirection, (int Row, int Column)> DirectionsTransfom =
