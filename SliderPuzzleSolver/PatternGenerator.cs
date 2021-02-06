@@ -100,7 +100,7 @@ namespace SliderPuzzleSolver
     /// <summary>
     /// Generatess all 3 pattern database. At once!!
     /// </summary>
-    public void GeneratAllPDB()
+    public void GeneratAllPDBs()
     {
       GeneratPatternDb(Pattern555.Left5, ConstantHelper.LeftPatternFilePath);
       GeneratPatternDb(Pattern555.Bottom5, ConstantHelper.BottomPatternFilePath);
