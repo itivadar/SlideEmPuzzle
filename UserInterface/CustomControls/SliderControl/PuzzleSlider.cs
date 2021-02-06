@@ -49,7 +49,7 @@ namespace UserInterface.CustomControls
         /// </summary>
         public static readonly DependencyProperty SolutionStepsProperty =
              DependencyProperty.RegisterAttached(nameof(SolutionSteps),
-             typeof(IEnumerable<Direction>),
+             typeof(IEnumerable<SlideDirection>),
              typeof(PuzzleSlider),
              new FrameworkPropertyMetadata(null,
                  new PropertyChangedCallback(OnSolutionStepsChanged)));
@@ -165,9 +165,9 @@ namespace UserInterface.CustomControls
         /// <summary>
         /// Gets or set the tils size.
         /// </summary>
-        public IEnumerable<Direction> SolutionSteps
+        public IEnumerable<SlideDirection> SolutionSteps
         {
-            get => (IEnumerable<Direction>)GetValue(SolutionStepsProperty);
+            get => (IEnumerable<SlideDirection>)GetValue(SolutionStepsProperty);
             set => SetValue(SolutionStepsProperty, value);
         }
 
@@ -214,13 +214,13 @@ namespace UserInterface.CustomControls
         /// </summary>
         /// <param name="moveDirection">the direction in which the animation is played.</param>
         /// <param name="index">index of the animation if multe animations needs to be played sequentially </param>
-        private void AnimateInDirection(Direction moveDirection, int index)
+        private void AnimateInDirection(SlideDirection moveDirection, int index)
         {
             int positionDelta = -1;
 
-            if (moveDirection == Direction.Down) positionDelta = _rowsCount;
-            if (moveDirection == Direction.Up) positionDelta = -_rowsCount;
-            if (moveDirection == Direction.Right) positionDelta = 1;
+            if (moveDirection == SlideDirection.Down) positionDelta = _rowsCount;
+            if (moveDirection == SlideDirection.Up) positionDelta = -_rowsCount;
+            if (moveDirection == SlideDirection.Right) positionDelta = 1;
 
             var blankPosition = _tagToPositionMap[blankTile];
             Tile otherTile = null;
@@ -289,7 +289,7 @@ namespace UserInterface.CustomControls
         {
             var tileColumn = tileIndex % _rowsCount;
             var tileRow = tileIndex / _rowsCount;
-            var tileTag = State[tileIndex];
+            var tileTag = State[tileRow, tileColumn];
 
             var sliderTile = new Tile
             {
@@ -416,7 +416,7 @@ namespace UserInterface.CustomControls
                 return;
             }
 
-            PlaySlidingAnimationForSteps(args.NewValue as IEnumerable<Direction>);
+            PlaySlidingAnimationForSteps(args.NewValue as IEnumerable<SlideDirection>);
         }
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace UserInterface.CustomControls
         /// Plays the animations following the steps.
         /// </summary>
         /// <param name="steps">an IEnumerable of steps required to solve the puzzel</param>
-        private void PlaySlidingAnimationForSteps(IEnumerable<Direction> steps)
+        private void PlaySlidingAnimationForSteps(IEnumerable<SlideDirection> steps)
         {
             if (steps is null) return;
             int stepCount = 0;

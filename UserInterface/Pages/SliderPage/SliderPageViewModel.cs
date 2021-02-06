@@ -52,7 +52,7 @@ namespace UserInterface.Pages.SliderPage
         private double _puzzleScale;
         private short _tileSize;
         private short _playerMoves;
-        private IEnumerable<Direction> _solutionSteps;
+        private IEnumerable<SlideDirection> _solutionSteps;
 
         #endregion Private Fields
 
@@ -122,7 +122,7 @@ namespace UserInterface.Pages.SliderPage
         /// Gets the solutions steps in directions to solve the puzzle.
         /// Sets only when the player starts the autosolving.
         /// </summary>
-        public IEnumerable<Direction> SolutionSteps
+        public IEnumerable<SlideDirection> SolutionSteps
         {
             get => _solutionSteps;
             private set
@@ -284,7 +284,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
             var puzzleRows = int.Parse(puzzleTypeSelected);
-            PuzzleBoard = new ObservableBoard("1 5 9 13 2 6 10 14 3 7 11 15 4 8 12 0");
+            PuzzleBoard = new ObservableBoard("2 3 0 8 15 12 6 7 13 1 4 9 14 11 10 5");
         }
 
         /// <summary>
