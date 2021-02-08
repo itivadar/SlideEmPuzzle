@@ -7,7 +7,7 @@ namespace SliderPuzzleSolver
     /// <summary>
     /// Represents a pattern used by Patterns Database to solve harder puzzles.
     /// A pattern is a mini-puzzle having only 5 tiles placed in same initial postion.
-    /// Each board of 4x4  si composed of states from 3 different patterns
+    /// Each board of 4x4  is composed of states from 3 different patterns
     /// </summary>
     public enum  Pattern555 : byte
     {

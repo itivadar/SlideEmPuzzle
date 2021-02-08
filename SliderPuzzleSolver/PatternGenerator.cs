@@ -11,30 +11,14 @@ namespace SliderPuzzleSolver
   /// </summary>
   public class PatternGenerator
   {
-    #region Private Fields
+    #region Private Constants
 
     /// <summary>
     /// The total number of different configuration in each pattern
     /// </summary>
     private const int EntriesCount = 524160;
 
-    #endregion Private Fields
-
-    #region Public Constructors
-
-    #endregion Public Constructors
-
-    #region Public Methods
-
-    #endregion Public Methods
-
-    #region Private Methods
-
-    #endregion Private Methods
-
-    #region Public Classes
-
-    #endregion Public Classes
+    #endregion Private Constants
 
     #region Private Fields
 
@@ -86,7 +70,9 @@ namespace SliderPuzzleSolver
     #endregion Private Fields
 
     #region Public Constructors
-
+    /// <summary>
+    /// Initializez a new <see cref="PatternGenerator"/>
+    /// </summary>
     public PatternGenerator()
     {
       _visitedNodes = new Dictionary<int, bool>();

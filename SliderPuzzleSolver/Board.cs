@@ -8,7 +8,7 @@ namespace SliderPuzzleSolver
   /// <summary>
   /// Class model a puzzle board
   /// </summary>
-  public sealed class Board : IBoard, IEquatable<IBoard>
+  public sealed class Board : IBoard
   {
     #region Fields
     /// <summary>
@@ -149,9 +149,9 @@ namespace SliderPuzzleSolver
     /// </summary>
     /// <param name="obj">the board with which the comparation is made.</param>
     /// <returns>true if the boards are identical</returns>
-    public bool Equals(IBoard obj)
+    public override bool Equals(object board)
     {
-      var otherBoard = obj as Board;
+      var otherBoard = board as Board;
       if (Rows != otherBoard.Rows) return false;
       for (int row = 0; row < Rows; row++)
         for (int columnId = 0; columnId < Rows; columnId++)
@@ -161,7 +161,6 @@ namespace SliderPuzzleSolver
             return false;
           }
         }
-
       return true;
     }
 
