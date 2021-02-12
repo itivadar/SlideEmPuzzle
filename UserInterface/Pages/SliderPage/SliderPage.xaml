@@ -131,6 +131,7 @@
                     Maximum="100"
                     Minimum="0"
                     Width="300"
+                    IsEnabled="True"
                     HorizontalAlignment="Left"
                     TickFrequency="5"
                     Value="{Binding PuzzleScale}"/>

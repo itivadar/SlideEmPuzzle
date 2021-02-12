@@ -57,7 +57,5 @@ namespace UserInterface.CustomControls
                 Style = Application.Current.FindResource("BlankTileStyle") as Style;
             }
         }
-
-        
     }
 }

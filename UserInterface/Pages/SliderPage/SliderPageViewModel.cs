@@ -284,6 +284,7 @@ namespace UserInterface.Pages.SliderPage
         private void OnPuzzleTypeSelected(string puzzleTypeSelected)
         {
             var puzzleRows = int.Parse(puzzleTypeSelected);
+            //PuzzleBoard = new ObservableBoard("0 3 2 1");
             PuzzleBoard = new ObservableBoard("2 3 0 8 15 12 6 7 13 1 4 9 14 11 10 5");
         }
 

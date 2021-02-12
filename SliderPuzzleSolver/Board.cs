@@ -250,7 +250,8 @@ namespace SliderPuzzleSolver
 
       if (newPosition.Row < 0 || newPosition.Row >= Rows) return;
       if (newPosition.Column < 0 || newPosition.Column >= Rows) return;
-
+      
+      ManhattanDistance += GetManhattanDeltaForNeighbor(newPosition);
       Swap(_tiles, newPosition, BlankTilePosition);
       BlankTilePosition = newPosition;
     }
@@ -313,13 +314,8 @@ namespace SliderPuzzleSolver
     /// <returns></returns>
     private int ComputeHash()
     {
-      //TODO: maybe improves this algorithm
-      int hash = 0;
-      foreach (int tile in _tiles)
-      {
-        hash = HashCode.Combine(tile, hash);
-      }
-      _hashCode = hash;
+       //TODO: maybe improves this code
+      _hashCode = ToString().GetHashCode();
       return _hashCode.Value;
     }
 
@@ -329,14 +325,14 @@ namespace SliderPuzzleSolver
     /// </summary>
     /// <param name="neighbordBoard">the neighboard board where the tile  is situated in the new position.</param>
     /// <returns>either -1 or +1</returns>
-    private byte GetManhattanDeltaForNeighbor(Board neighbordBoard)
+    private byte GetManhattanDeltaForNeighbor((int Row, int Column) nextBlankTilePosition)
     {
-      var tile = _tiles[neighbordBoard.BlankTilePosition.Row, neighbordBoard.BlankTilePosition.Column];
+      var tile = _tiles[nextBlankTilePosition.Row, nextBlankTilePosition.Column];
 
 
       var currentDistance = _heuristics.GetManhattanForSingleTile(tile,
-                                                                 neighbordBoard.BlankTilePosition.Row,
-                                                                 neighbordBoard.BlankTilePosition.Column);
+                                                                 nextBlankTilePosition.Row,
+                                                                 nextBlankTilePosition.Column);
 
       var futureDistance = _heuristics.GetManhattanForSingleTile(tile,
                                                                  BlankTilePosition.Row,
@@ -455,7 +451,7 @@ namespace SliderPuzzleSolver
     private void UpdateHeuristicsForBoard(Board neighbordBoard)
     {
       //update Manhattan heuristic
-      neighbordBoard.ManhattanDistance = (byte)(ManhattanDistance + GetManhattanDeltaForNeighbor(neighbordBoard));
+      neighbordBoard.ManhattanDistance = (byte)(ManhattanDistance + GetManhattanDeltaForNeighbor(neighbordBoard.BlankTilePosition));
 
       //update 5-5-5 Pattern Database heuristics
       neighbordBoard.SetIndexForPattern(Pattern555.Left5, _heuristics.GetFuturePatternIndex(neighbordBoard, Pattern555.Left5));
