@@ -17,4 +17,16 @@
     <ProjectReference Include="..\BinaryHeap\BinaryHeap.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="555Data\bottom.555">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="555Data\left.555">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="555Data\right.555">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

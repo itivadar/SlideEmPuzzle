@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace SliderPuzzleSolver
@@ -9,17 +10,16 @@ namespace SliderPuzzleSolver
     /// <summary>
     /// Gets the file path for the left pattern database.
     /// </summary>
-    public static string LeftPatternFilePath => @"C:\users\neo_c\desktop\left.555";
-
+    public static string LeftPatternFilePath => Path.Combine(Directory.GetCurrentDirectory(), @"555Data\left.555"); 
     /// <summary>
     /// Gets the file path for the right pattern database.
     /// </summary>
-    public static string RightPatternFilePath => @"C:\users\neo_c\desktop\right.555";
+    public static string RightPatternFilePath => Path.Combine(Directory.GetCurrentDirectory(), @"555Data\right.555");
 
     /// <summary>
     /// Gets the file path for the bottom pattern database.
     /// </summary>
-    public static string BottomPatternFilePath => @"C:\users\neo_c\desktop\bottom.555";
+    public static string BottomPatternFilePath => Path.Combine(Directory.GetCurrentDirectory(), @"555Data\bottom.555");
 
     /// <summary>
     /// Gets the transformations on each directions
