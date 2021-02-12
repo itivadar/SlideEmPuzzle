@@ -67,7 +67,7 @@ namespace SliderPuzzleGenerator
             };
         }
 
-        //for 2 X 2 boards it is enough to pick one randomly from the possible boards;
+        //for 2 X 2 boards it is enough to pick one randomly from the possible board99s;
         private IBoard Generate2x2Board()
         {
             var randIndex = _rand.Next(_2x2Boards.Length);
@@ -112,7 +112,7 @@ namespace SliderPuzzleGenerator
             var genBoards = new Dictionary<IBoard, bool>();
             for (int move = 0; move < movesCount; move++)
             {
-                var neighbors = currentBoard.GetChildBoards();
+                var neighbors = currentBoard.GetNeighbordBoards();
                 currentBoard = neighbors[_rand.Next(neighbors.Count)];
             }
 

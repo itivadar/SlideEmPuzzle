@@ -65,9 +65,9 @@ namespace UserInterface.Pages.SliderPage
         /// </summary>
         /// <param name="i">the index of the requested tile</param>
         /// <returns>the tile tag at the given index.</returns>
-        public byte this[int i]
+        public byte this[int row, int colomn]
         {
-            get => _board.GetTiles()[i];
+            get => _board.GetTileAt(row, colomn);
         }
 
         #endregion Public Indexers
@@ -101,10 +101,10 @@ namespace UserInterface.Pages.SliderPage
         /// <param name="blankPosition">a numbered tile.</param>
         public void MoveBlankTile(int tilePosition, int blankPosition)
         {
-            var direction = Direction.Up;
-            if (blankPosition - tilePosition == 1) direction = Direction.Left;
-            if (blankPosition - tilePosition == -1) direction = Direction.Right;
-            if (blankPosition - tilePosition == -Rows) direction = Direction.Down;
+            var direction = SlideDirection.Up;
+            if (blankPosition - tilePosition == 1) direction = SlideDirection.Left;
+            if (blankPosition - tilePosition == -1) direction = SlideDirection.Right;
+            if (blankPosition - tilePosition == -Rows) direction = SlideDirection.Down;
 
             MoveBlankTile(direction);
         }
@@ -113,7 +113,7 @@ namespace UserInterface.Pages.SliderPage
         /// Move the blank tile in a given direction.
         /// </summary>
         /// <param name="direction">The direction in which we want to move the blank tile.</param>
-        public void MoveBlankTile(Direction direction)
+        public void MoveBlankTile(SlideDirection direction)
         {
             _board.MoveBlankTile(direction);
             RaiseStateChangedEvent();
