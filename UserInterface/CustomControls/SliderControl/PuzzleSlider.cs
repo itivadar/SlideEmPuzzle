@@ -66,7 +66,7 @@ namespace UserInterface.CustomControls
     /// <summary>
     /// The animation duration in ms used when two tiles are exchanged when the autosolving is enabled.
     /// </summary>
-    private const short AutomaticAnimationDuration = 520;
+    private const short AutomaticAnimationDuration = 500;
 
     /// <summary>
     /// The tag associated with the blank tile.
@@ -370,18 +370,20 @@ namespace UserInterface.CustomControls
       State.MoveBlankTile(valuePosition, blankPosition);
     }
 
+    /// <summary>
+    /// Resize the tiles.
+    /// </summary>
     private void ResizeTiles()
     {
-      _animationStoryboard.Pause();
+      if (_dirtyTilesMargin.Count > 0) return;
       foreach (Tile tile in Children)
       {
-        var tileIndex = _tileToPositionMap[tile];
+        var tilePosition = _tileToPositionMap[tile];
         tile.Height = TileSize;
         tile.Width = TileSize;
-        tile.Margin = GetMarginForTileIndex(tileIndex);
-        tile.DestinationMargin = GetMarginForTileIndex(tileIndex);
+        tile.Margin = GetMarginForTileIndex(tilePosition);
+        tile.DestinationMargin = GetMarginForTileIndex(tilePosition);
       }
-      _animationStoryboard.Resume();
     }
 
     /// <summary>
@@ -397,11 +399,16 @@ namespace UserInterface.CustomControls
       //blankTile.Margin = valueTile.Margin;
       //valueTile.Margin = t1;
     }
-
-    private Thickness GetMarginForTileIndex(int tileIndex)
+    
+    /// <summary>
+    /// Calculates the margin needed to display a tile on a certain position.
+    /// </summary>
+    /// <param name="tilePosition">the tile position in the board</param>
+    /// <returns>a <see cref="Thickness"/> object  need to place the tile at a certain position /></returns>
+    private Thickness GetMarginForTileIndex(int tilePosition)
     {
-      var tileColumn = tileIndex % State.Rows;
-      var tileRow = tileIndex / State.Rows;
+      var tileColumn = tilePosition % State.Rows;
+      var tileRow = tilePosition / State.Rows;
 
       return new Thickness(tileColumn * (TileSize + Spacing), tileRow * (TileSize + Spacing), 0, 0);
     }
