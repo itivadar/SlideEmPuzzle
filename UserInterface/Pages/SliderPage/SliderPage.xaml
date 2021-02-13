@@ -122,6 +122,7 @@
                            Text="Size"
                            HorizontalAlignment="Left"
                            Margin="30 0 0 0"
+                           Visibility="{Binding PuzzleScaleVisibility}"
                            Foreground= "{StaticResource TextForegroundBrush }"
                            FontFamily="{StaticResource LangarRegular}"
                            FontSize="20"/>
@@ -131,7 +132,7 @@
                     Maximum="100"
                     Minimum="0"
                     Width="300"
-                    IsEnabled="True"
+                    Visibility="{Binding PuzzleScaleVisibility}"
                     HorizontalAlignment="Left"
                     TickFrequency="5"
                     Value="{Binding PuzzleScale}"/>
