@@ -78,6 +78,9 @@
                             <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="{StaticResource SelectionColorBrush}"/>
                             <Setter Property="TextBlock.Foreground" TargetName="myContentPresenter" Value="{StaticResource SelectionColorBrush}"/>
                         </Trigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <SoundPlayerAction Source="\Resources\Sounds\clickSound.wav"/>
+                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -109,7 +109,6 @@ namespace SliderPuzzleGenerator
             }
 
             IBoard currentBoard = new Board(boardsSpace[startingBoardIndex]);
-            var genBoards = new Dictionary<IBoard, bool>();
             for (int move = 0; move < movesCount; move++)
             {
                 var neighbors = currentBoard.GetNeighbordBoards();

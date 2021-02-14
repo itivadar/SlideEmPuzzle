@@ -26,6 +26,8 @@
     <None Remove="Resources\labelTexture.jpg" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\menuButton4.jpg" />
+    <None Remove="Resources\Sounds\clickSound.wav" />
+    <None Remove="Resources\Sounds\slidingSound.wav" />
     <None Remove="Resources\tileTexture.jpg" />
   </ItemGroup>
 
@@ -60,6 +62,12 @@
     <Resource Include="Resources\labelTexture.jpg" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\menuButton4.jpg" />
+    <Content Include="Resources\Sounds\clickSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\slidingSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\tileTexture.jpg" />
   </ItemGroup>
 
