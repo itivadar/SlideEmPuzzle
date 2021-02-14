@@ -37,12 +37,12 @@ namespace SliderPuzzleSolver
     /// </summary>
     /// <param name="boardToSolve">the puzzle to solve.</param>
     /// <returns>an IEnumerable of directions</returns>
-    public IEnumerable<SlideDirection> GetSolutionDirections(IBoard boardToSolve)
+    public IReadOnlyCollection<SlideDirection> GetSolutionDirections(IBoard boardToSolve)
     {
       if (!boardToSolve.IsSolvable())
       {
         Console.WriteLine("Unsolvable puzzle");
-        return new List<SlideDirection>() as IEnumerable<SlideDirection>;
+        return new List<SlideDirection>() as IReadOnlyCollection<SlideDirection>;
       }
 
       var lastNode = IDASolve(boardToSolve);
@@ -54,20 +54,20 @@ namespace SliderPuzzleSolver
     /// Sequence of steps fromt the initial board to the goal board.
     /// </summary>
     /// <param name="boardToSolve">the puzzle to solve.</param>
-    /// <returns>an IEnumerable of directiond</returns>
-    public IEnumerable<IBoard> SolutionSteps(IBoard boardToSolve)
+    /// <returns>an IEnumerable of directiond</returns
+    public IReadOnlyCollection<SlideDirection> SolutionSteps(IBoard boardToSolve)
     {
       if (!boardToSolve.IsSolvable())
       {
         Console.WriteLine("Unsolvable puzzle");
-        return new List<IBoard>() as IEnumerable<IBoard>;
+        return new List<IBoard>() as IReadOnlyCollection<SlideDirection>;
       }
   
       Stopwatch stopWatch = Stopwatch.StartNew();
       var lastNode = IDASolve(boardToSolve);
       stopWatch.Stop();
       Console.WriteLine($"Done in {stopWatch.ElapsedMilliseconds} ms.");
-      return BuildSolutionSteps(lastNode) as IEnumerable<IBoard>;
+      return BuildSolutionSteps(lastNode) as IReadOnlyCollection<SlideDirection>;
     }
 
     #endregion Public methods
@@ -162,7 +162,7 @@ namespace SliderPuzzleSolver
     /// </summary>
     /// <param name="lastNode">the node with the solution board.</param>
     /// <returns>a sequence of boards as IEnumerable</returns>
-    private IEnumerable<IBoard> BuildSolutionSteps(Node lastNode)
+    private IReadOnlyCollection<SlideDirection> BuildSolutionSteps(Node lastNode)
     {
       Stack<IBoard> sol = new Stack<IBoard>();
       while (lastNode != null)
@@ -171,7 +171,7 @@ namespace SliderPuzzleSolver
         lastNode = lastNode.ParentNode;
       }
 
-      return sol as IEnumerable<IBoard>;
+      return sol as IReadOnlyCollection<SlideDirection>;
     }
 
 
@@ -180,7 +180,7 @@ namespace SliderPuzzleSolver
     /// </summary>
     /// <param name="lastNode">the node with the solution board.</param>
     /// <returns>a sequence of directionsas IEnumerable</returns>
-    private IEnumerable<SlideDirection> BuildSolutionDirections(Node lastNode)
+    private IReadOnlyCollection<SlideDirection> BuildSolutionDirections(Node lastNode)
     {
       Stack<SlideDirection> directions = new Stack<SlideDirection>();
       while (lastNode.ParentNode != null)
@@ -188,7 +188,7 @@ namespace SliderPuzzleSolver
         directions.Push(GetMoveDirection(lastNode.ParentNode.Board, lastNode.Board));
         lastNode = lastNode.ParentNode;
       }
-      return directions;
+      return directions as IReadOnlyCollection<SlideDirection>;
     }
 
 

@@ -11,14 +11,14 @@ namespace SliderPuzzleSolver.Interfaces
     /// </summary>
     /// <param name="boardToSolve">the puzzle to solve.</param>
     /// <returns>an IEnumerable of directiond</returns>
-    IEnumerable<IBoard> SolutionSteps(IBoard boardToSolve);
+    IReadOnlyCollection<SlideDirection> SolutionSteps(IBoard boardToSolve);
 
     /// <summary>
     /// Sequence of directions in which the blank tile should be moved in order to solve the puzzle.
     /// </summary>
     /// <param name="boardToSolve">the puzzle to solve.</param>
     /// <returns>an IEnumerable of directions</returns>
-    IEnumerable<SlideDirection> GetSolutionDirections(IBoard boardToSolve);
+    IReadOnlyCollection<SlideDirection> GetSolutionDirections(IBoard boardToSolve);
 
   }
 }

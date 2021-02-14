@@ -52,7 +52,7 @@ namespace UserInterface.CustomControls
     /// </summary>
     public static readonly DependencyProperty SolutionStepsProperty =
          DependencyProperty.RegisterAttached(nameof(SolutionSteps),
-         typeof(IEnumerable<SlideDirection>),
+         typeof(IReadOnlyCollection<SlideDirection>),
          typeof(PuzzleSlider),
          new FrameworkPropertyMetadata(null,
              new PropertyChangedCallback(OnSolutionStepsChanged)));
@@ -193,8 +193,8 @@ namespace UserInterface.CustomControls
       set
       {
         SetValue(StateProperty, value);
-        InitSlider();
         StopAllAnimations();
+        InitSlider();
         IsEnabled = true;       
       }
     }
@@ -215,9 +215,9 @@ namespace UserInterface.CustomControls
     /// <summary>
     /// Gets or set the tils size.
     /// </summary>
-    public IEnumerable<SlideDirection> SolutionSteps
+    public IReadOnlyCollection<SlideDirection> SolutionSteps
     {
-      get => (IEnumerable<SlideDirection>)GetValue(SolutionStepsProperty);
+      get => (IReadOnlyCollection<SlideDirection>)GetValue(SolutionStepsProperty);
       set => SetValue(SolutionStepsProperty, value);
     }
 
@@ -518,7 +518,7 @@ namespace UserInterface.CustomControls
         return;
       }
 
-      PlaySlidingAnimationForSteps(args.NewValue as IEnumerable<SlideDirection>);
+      PlaySlidingAnimationForSteps(args.NewValue as IReadOnlyCollection<SlideDirection>);
     }
 
     /// <summary>
@@ -589,7 +589,7 @@ namespace UserInterface.CustomControls
     /// Plays the animations following the steps.
     /// </summary>
     /// <param name="steps">an IEnumerable of steps required to solve the puzzel</param>
-    private void PlaySlidingAnimationForSteps(IEnumerable<SlideDirection> steps)
+    private void PlaySlidingAnimationForSteps(IReadOnlyCollection<SlideDirection> steps)
     {
       if (steps is null) return;
 
@@ -610,6 +610,7 @@ namespace UserInterface.CustomControls
     {
       _mediaPlayer.Stop();
       _animationStoryboard.Stop();
+      _animationStoryboard.Children.Clear();
       _dirtyTilesMargin.Clear();
     }
 

@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BonusSystem\ScoringSystem.csproj" />
     <ProjectReference Include="..\SliderPuzzleGenerator\SliderPuzzleGenerator.csproj" />
     <ProjectReference Include="..\SliderPuzzleSolver\SliderPuzzleSolver.csproj" />
   </ItemGroup>

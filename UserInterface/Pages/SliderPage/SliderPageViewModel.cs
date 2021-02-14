@@ -52,9 +52,12 @@ namespace UserInterface.Pages.SliderPage
     private double _puzzleScale;
     private short _tileSize;
     private short _playerMoves;
-    private IEnumerable<SlideDirection> _solutionSteps;
+    private IReadOnlyCollection<SlideDirection> _solutionSteps;
+    private IReadOnlyCollection<SlideDirection> _solvedSolutionSteps;
     private Visibility _puzzleScaleVisibility;
     private bool _isPuzzleEnabled;
+
+    private int _minMovesToSolution;
     #endregion Private Fields
 
     #region Public Constructors
@@ -147,7 +150,7 @@ namespace UserInterface.Pages.SliderPage
     /// Gets the solutions steps in directions to solve the puzzle.
     /// Sets only when the player starts the autosolving.
     /// </summary>
-    public IEnumerable<SlideDirection> SolutionSteps
+    public IReadOnlyCollection<SlideDirection> SolutionSteps
     {
       get => _solutionSteps;
       private set
@@ -180,6 +183,7 @@ namespace UserInterface.Pages.SliderPage
       set
       {
         _sliderState = value;
+        _solvedSolutionSteps = null;
         RaisePropertyChanged(nameof(PuzzleBoard));
         if (value is null) return;
         _sliderState.StateChanged -= OnStateChanged;
@@ -215,6 +219,13 @@ namespace UserInterface.Pages.SliderPage
       PuzzleScale = 50;
     }
 
+    /// <summary>
+    /// Triggered when the pages is deactivated
+    /// </summary>
+    public override void OnDeactivated()
+    {
+      PuzzleBoard = null;
+    }
     #endregion Public
 
     #region Private Methods
@@ -244,22 +255,19 @@ namespace UserInterface.Pages.SliderPage
     /// </summary>
     private void OnOpenMainMenu()
     {
-      PuzzleBoard = null;
       NavigationService.ShowPage(AppPages.MainMenuPage);
     }
 
     /// <summary>
     /// Solve the puzzle
     /// </summary>
-    private void OnSolve()
+    private async void OnSolve()
     {
       PuzzleScaleVisibility = Visibility.Collapsed;
       IsPuzzleEnabled = false;
 
-      Task.Run(() =>
-      {
-        SolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.Board);
-      });
+      await SolvePuzzleInBackground();
+      SolutionSteps = _solvedSolutionSteps;
     }
 
     /// <summary>
@@ -269,6 +277,7 @@ namespace UserInterface.Pages.SliderPage
     private void OnStateChanged()
     {
       PlayerMoves++;
+      _solvedSolutionSteps = null;
       if (PuzzleBoard.IsSolved)
       {
         OnGameFinished();
@@ -304,20 +313,28 @@ namespace UserInterface.Pages.SliderPage
     private void OnGameFinished()
     {
       _timer.Stop();
-      //NavigationService.ShowPage(AppPages.GameOverPage);
+      EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent
+      {
+        ElapsedTime = PlayerTime,
+        MovesCount = PlayerMoves,
+        PuzzleRows = PuzzleBoard.Rows,
+        MinMoves = _minMovesToSolution
+      });
 
-      EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent { ElapsedTime = PlayerTime, MovesCount = PlayerMoves });
+      NavigationService.ShowPage(AppPages.GameOverPage);
     }
 
     /// <summary>
     /// Draw the selected slider type.
     /// </summary>
     /// <param name="puzzleTypeSelected">The type selected by the puzzle</param>
-    private void OnPuzzleTypeSelected(string puzzleTypeSelected)
+    private async void OnPuzzleTypeSelected(string puzzleTypeSelected)
     {
       var puzzleRows = int.Parse(puzzleTypeSelected);
       //PuzzleBoard = new ObservableBoard("0 3 2 1");
-      PuzzleBoard = new ObservableBoard("2 3 0 8 15 12 6 7 13 1 4 9 14 11 10 5");
+      //PuzzleBoard = new ObservableBoard("2 3 0 8 15 12 6 7 13 1 4 9 14 11 10 5");
+      PuzzleBoard = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));
+      await SetMinimumMoves();
     }
 
     /// <summary>
@@ -327,6 +344,31 @@ namespace UserInterface.Pages.SliderPage
     {
       ResetPlayerState();
       _timer.Start();
+    }
+
+    /// <summary>
+    /// Solves async the puzzle.
+    /// </summary>
+    /// <returns>steps to solve the puzzle</returns>
+    private async Task<IReadOnlyCollection<SlideDirection>> SolvePuzzleInBackground()
+    {
+      if (_solvedSolutionSteps != null) return null;
+      await Task.Run(() =>
+      {
+        _solvedSolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.CloneBoard);
+      });
+
+      return _solvedSolutionSteps;
+    }
+
+    /// <summary>
+    /// Calculates async the minimum number of steps required to solve the puzzle.
+    /// </summary>
+    /// <returns></returns>
+    private async Task SetMinimumMoves()
+    {
+     var steps = await SolvePuzzleInBackground();
+      _minMovesToSolution = steps.Count;
     }
 
     #endregion Private Methods

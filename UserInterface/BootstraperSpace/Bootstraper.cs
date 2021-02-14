@@ -1,4 +1,5 @@
-﻿using Prism.Events;
+﻿using BonusSystem;
+using Prism.Events;
 using SliderPuzzleGenerator;
 using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
@@ -43,9 +44,14 @@ namespace UserInterface.BootstraperSpace
         public void ShowPage(string pageName)
         {
             var page = GetPage(pageName);
+
             //Improve mechanism
+            var currentPageViewModel = _mainViewModel?.MainFrame?.DataContext as ViewModelBase;
+            currentPageViewModel?.OnDeactivated();
+
             var viewModel = page.DataContext as ViewModelBase;
             viewModel?.OnDisplayed();
+            
 
             _mainViewModel.MainFrame = GetPage(pageName);
         }
@@ -77,6 +83,7 @@ namespace UserInterface.BootstraperSpace
             _unityContainer.RegisterSingleton<IPuzzleSolver, PuzzleSolver>();
             _unityContainer.RegisterSingleton<IPuzzleGenerator, PuzzleGenerator>();
             _unityContainer.RegisterSingleton<IGreetingsProvider, GreetingsProvider>();
+            _unityContainer.RegisterSingleton<IScoringSystem, ScoringSystem>();
 
             _unityContainer.RegisterInstance<INavigationService>(this);
         }

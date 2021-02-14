@@ -45,11 +45,11 @@ namespace UserInterface.Pages.SliderPage
         /// Determines if the board is solved or not.
         /// </summary>
         public bool IsSolved => _board.IsSolved();
-
+          
         /// <summary>
         /// Gets the board.
         /// </summary>
-        public IBoard Board => _board.Clone();
+        public IBoard CloneBoard => _board.Clone();
 
         /// <summary>
         /// Gets the board rows.

@@ -40,6 +40,13 @@ namespace UserInterface.Helpers
         {
         }
 
+        /// <summary>
+        /// Triggered when the page is hidden.
+        /// </summary>
+        public virtual void OnDeactivated()
+        {
+        }
+
         #endregion Public Methods
     }
 }
