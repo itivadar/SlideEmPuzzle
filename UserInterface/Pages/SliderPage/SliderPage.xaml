@@ -95,7 +95,7 @@
                 <custom:MenuButton Grid.Row="3"
                                    Margin="0 10 0 10"
                                    Content="Solve it"
-                                   Command="{Binding AutoSolveCommand}"/>
+                                   Command="{Binding SolveCommand}"/>
                 
                 <custom:MenuButton Grid.Row="4"
                                    Margin="0 10 0 10"
@@ -109,11 +109,12 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
             <custom:PuzzleSlider Grid.Row="0"
-                                 State="{Binding PuzzleBoard}"
-                                 Margin="30 40 0 0"
-                                 TileSize="{Binding TileSize}"
                                  Height="400"
+                                 Margin="30 40 0 0"
+                                 State="{Binding PuzzleBoard}"
+                                 TileSize="{Binding TileSize}"                                 
                                  SolutionSteps="{Binding SolutionSteps}"
+                                 IsEnabled="{Binding IsPuzzleEnabled, Mode=TwoWay}"
                                  Width="400"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"/>

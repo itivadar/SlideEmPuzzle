@@ -1,8 +1,11 @@
 ﻿using SliderPuzzleSolver;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using UserInterface.Pages.SliderPage;
 
@@ -99,13 +102,17 @@ namespace UserInterface.CustomControls
     /// <summary>
     /// Set of tiles whose margin will be updated to the final position after the animation is ended.
     /// </summary>
-    private HashSet<Tile> _dirtyTilesMargin;
+    private readonly HashSet<Tile> _dirtyTilesMargin;
 
     /// <summary>
     /// Reference to the blank tile.
     /// </summary>
     private Tile blankTile;
 
+    /// <summary>
+    /// Media player used for sounds
+    /// </summary>
+    private static readonly MediaPlayer _mediaPlayer = new MediaPlayer();
     #endregion Private Fields
 
     #region Public Constructors
@@ -117,18 +124,39 @@ namespace UserInterface.CustomControls
     {
       _tileToPositionMap = new Dictionary<Tile, int>();
       _dirtyTilesMargin = new HashSet<Tile>();
+
       _animationStoryboard = new Storyboard
       {
         AutoReverse = false,
         FillBehavior=FillBehavior.Stop,
+        SlipBehavior = SlipBehavior.Slip
       };
 
-      _animationStoryboard.Completed += SlidingAnimationsCompleted;
+      _mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/Resources/Sounds/slidingSound.wav", UriKind.Absolute));
+      _mediaPlayer.Volume = 0.1;
+
       State = GetDefaultBoard();
       InitSlider();
+    
+
+      //Register to events
       StateChangedEvent += OnNewState;
       TileChangedEvent += OnNewTileSize;
       SolutionStepsChangeEvent += OnSolutionStepsChangeEvent;
+      _animationStoryboard.Completed += SlidingAnimationsCompleted;
+
+    }
+
+    /// <summary>
+    /// Called when activating each sliding animation.
+    /// </summary>
+    private void OnAnimationStateInvalidated(object sender, EventArgs e)
+    {
+      var clock = (AnimationClock)sender;
+      if (clock.CurrentState == ClockState.Active)
+      {
+        PlaySound();
+      }
     }
 
     #endregion Public Constructors
@@ -166,7 +194,8 @@ namespace UserInterface.CustomControls
       {
         SetValue(StateProperty, value);
         InitSlider();
-        IsEnabled = true;
+        StopAllAnimations();
+        IsEnabled = true;       
       }
     }
 
@@ -273,6 +302,7 @@ namespace UserInterface.CustomControls
 
       _animationStoryboard.Children.Add(tileAnimation);
       _animationStoryboard.Children.Add(blankAnimation);
+      tileAnimation.CurrentStateInvalidated += OnAnimationStateInvalidated;
 
       _dirtyTilesMargin.Add(valueTile);
       _dirtyTilesMargin.Add(blankTile);
@@ -532,7 +562,16 @@ namespace UserInterface.CustomControls
     /// </summary>
     private void BeginAnimations()
     {
-      _animationStoryboard.Begin();
+      _animationStoryboard.Begin(); 
+    }
+
+    /// <summary>
+    /// Plays a sliding sound
+    /// </summary>
+    private void PlaySound()
+    {
+      _mediaPlayer.Position = TimeSpan.Zero;
+      _mediaPlayer.Play();
     }
 
     /// <summary>
@@ -562,6 +601,16 @@ namespace UserInterface.CustomControls
         AddAnimationForDirection(step, stepCount++);
       }
       BeginAnimations();
+    }
+
+    /// <summary>
+    /// Stops all the animations
+    /// </summary>
+    private void StopAllAnimations()
+    {
+      _mediaPlayer.Stop();
+      _animationStoryboard.Stop();
+      _dirtyTilesMargin.Clear();
     }
 
     #endregion Private Methods

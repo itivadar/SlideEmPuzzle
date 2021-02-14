@@ -54,6 +54,7 @@ namespace UserInterface.Pages.SliderPage
     private short _playerMoves;
     private IEnumerable<SlideDirection> _solutionSteps;
     private Visibility _puzzleScaleVisibility;
+    private bool _isPuzzleEnabled;
     #endregion Private Fields
 
     #region Public Constructors
@@ -68,7 +69,7 @@ namespace UserInterface.Pages.SliderPage
       ConfigureTimer();
 
       OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
-      AutoSolveCommand = new DelegateCommand(OnAutoSolve);
+      SolveCommand = new DelegateCommand(OnSolve);
 
       EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
     }
@@ -118,6 +119,10 @@ namespace UserInterface.Pages.SliderPage
       }
     }
 
+    /// <summary>
+    /// Determines the visibility of the scaling control.
+    /// Due to some WCF limitation, the tiles can not be scaled during animations.
+    /// </summary>
     public Visibility PuzzleScaleVisibility
     {
       get => _puzzleScaleVisibility;
@@ -125,6 +130,16 @@ namespace UserInterface.Pages.SliderPage
       {
         _puzzleScaleVisibility = value;
         RaisePropertyChanged(nameof(PuzzleScaleVisibility));
+      }
+    }
+
+    public bool IsPuzzleEnabled
+    {
+      get => _isPuzzleEnabled;
+      set
+      {
+        _isPuzzleEnabled = value;
+        RaisePropertyChanged(nameof(IsPuzzleEnabled));
       }
     }
 
@@ -165,9 +180,10 @@ namespace UserInterface.Pages.SliderPage
       set
       {
         _sliderState = value;
+        RaisePropertyChanged(nameof(PuzzleBoard));
+        if (value is null) return;
         _sliderState.StateChanged -= OnStateChanged;
         _sliderState.StateChanged += OnStateChanged;
-        RaisePropertyChanged(nameof(PuzzleBoard));
       }
     }
 
@@ -183,7 +199,7 @@ namespace UserInterface.Pages.SliderPage
     /// <summary>
     /// Gets the command to start solving the puzzle.
     /// </summary>
-    public ICommand AutoSolveCommand { get; private set; }
+    public ICommand SolveCommand { get; private set; }
 
     #endregion Public Commands
 
@@ -228,15 +244,18 @@ namespace UserInterface.Pages.SliderPage
     /// </summary>
     private void OnOpenMainMenu()
     {
+      PuzzleBoard = null;
       NavigationService.ShowPage(AppPages.MainMenuPage);
     }
 
     /// <summary>
     /// Solve the puzzle
     /// </summary>
-    private void OnAutoSolve()
+    private void OnSolve()
     {
       PuzzleScaleVisibility = Visibility.Collapsed;
+      IsPuzzleEnabled = false;
+
       Task.Run(() =>
       {
         SolutionSteps = _puzzleSolver.GetSolutionDirections(PuzzleBoard.Board);
@@ -264,6 +283,7 @@ namespace UserInterface.Pages.SliderPage
       PlayerMoves = 0;
       PlayerTime = TimeSpan.Zero;
       PuzzleScaleVisibility = Visibility.Visible;
+      IsPuzzleEnabled = true;
     }
 
     /// <summary>
