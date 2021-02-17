@@ -16,7 +16,11 @@
     <!--Confetti images used at the game final -->
     <ImageSource x:Key="LeftConfettiIcon" >/Resources/confettiLeft.png</ImageSource>
     <ImageSource x:Key="RightConfettiIcon" >/Resources/confettiRight.png</ImageSource>
- 
+     
+    <!--Resources for star icons-->
+    <ImageSource x:Key="Star" >/Resources/star.png</ImageSource>
+    <ImageSource x:Key="EmptyStar" >/Resources/emptyStar.png</ImageSource>
+        
     <!--Foreground brush for general text -->
     <SolidColorBrush x:Key="TextForegroundBrush" Color="Wheat"/>
     

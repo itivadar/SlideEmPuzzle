@@ -22,12 +22,14 @@
     <None Remove="Resources\confettiLeft.png" />
     <None Remove="Resources\confettiRight.png" />
     <None Remove="Resources\Earth_Pointer.ani" />
+    <None Remove="Resources\emptystar.png" />
     <None Remove="Resources\ico1.png" />
     <None Remove="Resources\labelTexture.jpg" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\menuButton4.jpg" />
     <None Remove="Resources\Sounds\clickSound.wav" />
     <None Remove="Resources\Sounds\slidingSound.wav" />
+    <None Remove="Resources\star.png" />
     <None Remove="Resources\tileTexture.jpg" />
   </ItemGroup>
 
@@ -60,6 +62,7 @@
     <Resource Include="Resources\Earth_Pointer.ani">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\emptystar.png" />
     <Resource Include="Resources\labelTexture.jpg" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\menuButton4.jpg" />
@@ -69,6 +72,7 @@
     <Content Include="Resources\Sounds\slidingSound.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\star.png" />
     <Resource Include="Resources\tileTexture.jpg" />
   </ItemGroup>
 

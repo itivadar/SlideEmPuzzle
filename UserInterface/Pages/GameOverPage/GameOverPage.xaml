@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                    Text="Astonishing result!"
@@ -40,7 +41,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="200"></ColumnDefinition>
@@ -63,8 +64,8 @@
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
-                
-                <Grid Grid.Row="2">
+
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="200"/>
@@ -87,7 +88,7 @@
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="200"/>
@@ -110,12 +111,28 @@
                    FontSize="36"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
+                <Grid Grid.Row="3" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image Grid.Column="0"
+                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5"/>
+                    <Image Grid.Column="1"
+                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5"/>
+                    <Image Grid.Column="2"
+                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5"/>
+                </Grid>
+                   
             </Grid>
 
             <Image Grid.Column="3"
                    Source ="{StaticResource RightConfettiIcon}"/>
         </Grid>
-        <customcontrols:MenuButton Grid.Row="3"
+        
+        <customcontrols:MenuButton Grid.Row="4"
                                        Command="{Binding OpenMainMenuCommand}"
                                        Content="Main menu"
                                        HorizontalAlignment="Center"
