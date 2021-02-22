@@ -23,9 +23,18 @@ namespace BonusSystem
     {
         {2, 1000},
         {3, 1800},
-        {4, 2400}
+        {4, 2200}
     };
 
+    /// <summary>
+    /// The minimun points to gain the respective stars.
+    /// </summary>
+    private Dictionary<int, short> _starLimits = new Dictionary<int, short>()
+    {
+        {3, 3500},
+        {2, 2500},
+        {1, 1000}
+    };
     /// <summary>
     /// Gets the player score based on the perfomance.
     /// </summary>
@@ -50,7 +59,7 @@ namespace BonusSystem
       playerMoves = Math.Max(playerMoves, minMoves);
 
       var coefficientBonus = ((float)(MaxRewardedMoves - playerMoves) / (MaxRewardedMoves - minMoves));
-      return (ushort)(Math.Pow(2, coefficientBonus) * _basePoints[puzzleRows] + _basePoints[puzzleRows]);
+      return (ushort)(Math.Pow(2, coefficientBonus) * _basePoints[puzzleRows]);
     }
 
     /// <summary>
@@ -64,6 +73,21 @@ namespace BonusSystem
       var timeBonus = ((float)(MaxRewaredTime - playerTime) / MaxRewaredTime);
       return (ushort)(timeBonus * 600);
     }
+
+    /// <summary>
+    /// Gets the stars count for the player score.
+    /// </summary>
+    /// <param name="playerScore">the player score</param>
+    /// <returns>integer between 0 and 3 represeting the stars gained by the player</returns>
+    public int GetStarCount(int playerScore)
+    {
+      if (playerScore >= _starLimits[3]) return 3;
+      if (playerScore >= _starLimits[2]) return 2;
+      if (playerScore >= _starLimits[1]) return 1;
+
+      return 0;
+    }
+    
 
   }
 }

@@ -12,6 +12,7 @@
       Title="GameOverPage">
     <Page.Resources>
         <helpers:TimeSpanToStringFormatConverter x:Key="TimeSpanToStringFormatConverter"/>
+
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -109,7 +110,8 @@
                    HorizontalAlignment="Center"
                    Margin="0 5 0 0"
                    FontSize="36"
-                   FontFamily="{StaticResource LangarRegular}"/>
+                   FontFamily="{StaticResource LangarRegular}">
+                    </TextBlock>
                 </Grid>
                 <Grid Grid.Row="3" Margin="10">
                     <Grid.ColumnDefinitions>
@@ -117,11 +119,42 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
-                    <Image Grid.Column="0"
-                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5"/>
+
+                    <Image x:Name="Star1" Grid.Column="0"
+                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5">
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="Image.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Star1"
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1" Duration="0:0:0.6"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
                     <Image Grid.Column="1"
-                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5"/>
+                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5">
+                    </Image>
+                    <Image x:Name="Star2"
+                           Grid.Column="1"
+                           Opacity="0"
+                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5">
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="Image.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Star2"
+                                 BeginTime="0:0:0.6"
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1" Duration="0:0:0.6"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
+                   
                     <Image Grid.Column="2"
                            Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5"/>
                 </Grid>

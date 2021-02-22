@@ -4,7 +4,10 @@ using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
 using UserInterface.Events;
 using UserInterface.Helpers;
@@ -13,10 +16,28 @@ namespace UserInterface.Pages.GameOverPage
 {
   internal class GameOverViewModel : ViewModelBase
   {
-    private string _movesMade;
-    private TimeSpan _time;
-    private ushort _playerScore;
+    #region Constants
+    /// <summary>
+    /// Duration in ms for counting player score.
+    /// The player score will be raised from 0 to its final score in this period of time.
+    /// </summary>
+    private const int CountAnimationDuration = 750;
+
+    #endregion
+
+    #region Private Fields
+
     private readonly IScoringSystem _scoringSystem;
+    private DispatcherTimer _countingTimer;
+    private string _movesMade;
+    private ushort _playerScore;
+    private ushort _pointsStep;
+    private ushort _realTimeScore;
+    private TimeSpan _time;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     public GameOverViewModel(
         IEventAggregator eventAggregator, INavigationService navigationService, IScoringSystem scoringSystem)
@@ -25,13 +46,14 @@ namespace UserInterface.Pages.GameOverPage
     {
       _scoringSystem = scoringSystem;
       OpenMainMenuCommand = new DelegateCommand(OpenMainMenu);
+      ConfigureCountingTimer();
+
       EventAggregator.GetEvent<GameFinishedEvent>().Subscribe(UpdateStats);
     }
 
-    /// <summary>
-    /// Command for open MainMenu
-    /// </summary>
-    public ICommand OpenMainMenuCommand { get; set; }
+    #endregion Public Constructors
+
+    #region Public Properties
 
     /// <summary>
     /// Gets the moves count made by the player
@@ -45,6 +67,11 @@ namespace UserInterface.Pages.GameOverPage
         RaisePropertyChanged(nameof(MovesMade));
       }
     }
+
+    /// <summary>
+    /// Command for open MainMenu
+    /// </summary>
+    public ICommand OpenMainMenuCommand { get; set; }
 
     /// <summary>
     /// The score obtained by the player after solving the puzzle.
@@ -70,7 +97,65 @@ namespace UserInterface.Pages.GameOverPage
         _time = value;
         RaisePropertyChanged(nameof(Time));
       }
+    }
 
+    #endregion Public Properties
+
+    #region Public Methods
+
+    /// <summary>
+    /// Called when the page is displayed
+    /// </summary>
+    public override void OnDisplayed()
+    {
+      StarCountingAnimation();
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
+
+    /// <summary>
+    /// Configure the timer used for counting animation.
+    /// At each tick, the player score will be increased by a certain value.
+    /// </summary>
+    private void ConfigureCountingTimer()
+    {
+      _countingTimer = new DispatcherTimer();
+      _countingTimer.Interval = TimeSpan.FromMilliseconds(15);
+      _countingTimer.Tick += OnCountingTick;
+    }
+
+    /// <summary>
+    /// Increases the player score
+    /// </summary>
+    /// <param name="sender">the sender object [not use]</param>
+    /// <param name="e">the event args [not use] </param>
+    private void OnCountingTick(object sender, EventArgs e)
+    {
+      PlayerScore += _pointsStep;
+      if (Math.Abs(PlayerScore - _realTimeScore) <= _pointsStep)
+      {
+        PlayerScore = _realTimeScore;
+        _countingTimer.Stop();
+      }
+    }
+
+    /// <summary>
+    /// Opens main menu.
+    /// </summary>
+    private void OpenMainMenu()
+    {
+      NavigationService.ShowPage(AppPages.MainMenuPage);
+    }
+
+    /// <summary>
+    /// Stars the couting animation for the player score.
+    /// </summary>
+    private void StarCountingAnimation()
+    {
+      PlayerScore = 0;
+      _countingTimer.Start();
     }
 
     /// <summary>
@@ -81,19 +166,16 @@ namespace UserInterface.Pages.GameOverPage
     {
       MovesMade = gameFinished.MovesCount.ToString();
       Time = gameFinished.ElapsedTime;
-      PlayerScore = _scoringSystem.GetPlayerScore(
-                      gameFinished.PuzzleRows,
-                      gameFinished.MovesCount,
-                      gameFinished.MinMoves,
-                      (int)gameFinished.ElapsedTime.TotalSeconds);
+
+      _realTimeScore = _scoringSystem.GetPlayerScore(
+                              gameFinished.PuzzleRows,
+                              gameFinished.MovesCount,
+                              gameFinished.MinMoves,
+                              (int)gameFinished.ElapsedTime.TotalSeconds);
+
+      _pointsStep = (ushort)((_realTimeScore * _countingTimer.Interval.TotalMilliseconds) / CountAnimationDuration);
     }
 
-    /// <summary>
-    /// Opens main menu.
-    /// </summary>
-    private void OpenMainMenu()
-    {
-      NavigationService.ShowPage(AppPages.MainMenuPage);
-    }
+    #endregion Private Methods
   }
 }
