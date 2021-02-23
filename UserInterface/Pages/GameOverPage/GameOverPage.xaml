@@ -7,7 +7,7 @@
       xmlns:customcontrols="clr-namespace:UserInterface.CustomControls" 
       xmlns:helpers="clr-namespace:UserInterface.Helpers"
       mc:Ignorable="d" 
-      d:DesignHeight="450" 
+      d:DesignHeight="600" 
       d:DesignWidth="800"
       Title="GameOverPage">
     <Page.Resources>
@@ -119,57 +119,113 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-
-                    <Image x:Name="Star1" Grid.Column="0"
-                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5">
+                    
+                    <Image Grid.Column="0"
+                           Source="{StaticResource EmptyStar}" 
+                           Height="95" 
+                           Width="95"
+                           Margin="5">
+                    </Image>
+                    <Image x:Name = "Star1" Grid.Column="0"
+                           Source ="{StaticResource Star}"
+                           Opacity ="100"
+                           Visibility="{Binding FirstStarVisibility}"
+                           Height="95" 
+                           Width="95"
+                           Margin="5">
                         <Image.Triggers>
                             <EventTrigger RoutedEvent="Image.Loaded">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Star1"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetName="Star1"
-                                Storyboard.TargetProperty="Opacity"
-                                From="0.0" To="1" Duration="0:0:0.6"/>
+                                                         Storyboard.TargetProperty="Opacity"                                                       
+                                                         BeginTime="0:0:0.8"
+                                                         From="0" To="1" Duration="0:0:0.6"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Image.Triggers>
                     </Image>
                     <Image Grid.Column="1"
-                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5">
+                           Source="{StaticResource EmptyStar}" 
+                           Height="95" 
+                           Width="95"
+                           Margin="5">
                     </Image>
                     <Image x:Name="Star2"
                            Grid.Column="1"
-                           Opacity="0"
-                           Source="{StaticResource Star}" Height="95" Width="95" Margin="5">
+                           Source="{StaticResource Star}"
+                           Height="95"
+                           Opacity ="100"
+                           Visibility="{Binding SecondStarVisibility}"
+                           Width="95"
+                           Margin="5">
                         <Image.Triggers>
                             <EventTrigger RoutedEvent="Image.Loaded">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Star2"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetName="Star2"
-                                 BeginTime="0:0:0.6"
-                                Storyboard.TargetProperty="Opacity"
-                                From="0.0" To="1" Duration="0:0:0.6"/>
+                                                         BeginTime="0:0:1.4"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0" To="1" Duration="0:0:0.6"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Image.Triggers>
                     </Image>
-                   
                     <Image Grid.Column="2"
-                           Source="{StaticResource EmptyStar}" Height="95" Width="95" Margin="5"/>
+                           Source="{StaticResource EmptyStar}" 
+                           Height="95" 
+                           Width="95"
+                           Margin="5">
+                    </Image>
+                    <Image x:Name="Star3"
+                           Grid.Column="2"
+                           Source="{StaticResource Star}"
+                           Height="95"
+                           Opacity="100"
+                           Visibility="{Binding ThirdStarVisibility}"
+                           Width="95"
+                           Margin="5">
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="Image.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Star3"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <DoubleAnimation Storyboard.TargetName="Star3"
+                                                         BeginTime="0:0:2"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0" To="1" Duration="0:0:0.6"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
                 </Grid>
                    
             </Grid>
-
+            
             <Image Grid.Column="3"
                    Source ="{StaticResource RightConfettiIcon}"/>
         </Grid>
         
         <customcontrols:MenuButton Grid.Row="4"
-                                       Command="{Binding OpenMainMenuCommand}"
-                                       Content="Main menu"
-                                       HorizontalAlignment="Center"
-                                       Margin="0 0 0 50" />
+                                   Command="{Binding OpenMainMenuCommand}"
+                                   Content="Main menu"
+                                   HorizontalAlignment="Center"
+                                   Margin="0 0 0 50" />
        
     </Grid>
 </Page>

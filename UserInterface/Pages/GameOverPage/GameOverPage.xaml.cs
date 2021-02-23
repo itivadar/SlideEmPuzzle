@@ -22,5 +22,5 @@ namespace UserInterface.Pages.GameOverPage
         {
             InitializeComponent();
         }
-    }
+  }
 }

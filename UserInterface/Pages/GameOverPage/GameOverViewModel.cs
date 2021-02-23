@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UserInterface.BootstraperSpace;
@@ -32,15 +33,19 @@ namespace UserInterface.Pages.GameOverPage
     private string _movesMade;
     private ushort _playerScore;
     private ushort _pointsStep;
-    private ushort _realTimeScore;
+    private ushort _finalScore;
+
+    private Visibility _firstStarVisibility;
+    private Visibility _secondStarVisibility;
+    private Visibility _thirdStarVisibiliy;
+
     private TimeSpan _time;
 
     #endregion Private Fields
 
     #region Public Constructors
 
-    public GameOverViewModel(
-        IEventAggregator eventAggregator, INavigationService navigationService, IScoringSystem scoringSystem)
+    public GameOverViewModel(IEventAggregator eventAggregator, INavigationService navigationService, IScoringSystem scoringSystem)
         : base(eventAggregator, navigationService)
 
     {
@@ -83,6 +88,45 @@ namespace UserInterface.Pages.GameOverPage
       {
         _playerScore = value;
         RaisePropertyChanged(nameof(PlayerScore));
+      }
+    }
+
+    /// <summary>
+    /// Gets the visibility for the first golden star displayed.
+    /// </summary>
+    public Visibility FirstStarVisibility
+		{
+      get => _firstStarVisibility;
+      private set 
+      {
+        _firstStarVisibility = value;
+        RaisePropertyChanged(nameof(FirstStarVisibility));
+      }
+		}
+
+    /// <summary>
+    /// Gets the visibiliy for the second golden star displayed.
+    /// </summary>
+    public Visibility SecondStarVisibility
+    {
+      get => _secondStarVisibility;
+      set
+      {
+        _secondStarVisibility = value;
+        RaisePropertyChanged(nameof(SecondStarVisibility));
+      }
+    }
+
+    /// <summary>
+    /// Gets the visibility for the third golden star displayed.
+    /// </summary>
+    public Visibility ThirdStarVisibility
+    {
+      get => _thirdStarVisibiliy;
+      set
+      {
+        _thirdStarVisibiliy = value;
+        RaisePropertyChanged(nameof(ThirdStarVisibility));
       }
     }
 
@@ -134,9 +178,9 @@ namespace UserInterface.Pages.GameOverPage
     private void OnCountingTick(object sender, EventArgs e)
     {
       PlayerScore += _pointsStep;
-      if (Math.Abs(PlayerScore - _realTimeScore) <= _pointsStep)
+      if (Math.Abs(PlayerScore - _finalScore) <= _pointsStep)
       {
-        PlayerScore = _realTimeScore;
+        PlayerScore = _finalScore;
         _countingTimer.Stop();
       }
     }
@@ -155,6 +199,7 @@ namespace UserInterface.Pages.GameOverPage
     private void StarCountingAnimation()
     {
       PlayerScore = 0;
+      _pointsStep = GetScoreStepForAnimation(_finalScore);
       _countingTimer.Start();
     }
 
@@ -167,15 +212,60 @@ namespace UserInterface.Pages.GameOverPage
       MovesMade = gameFinished.MovesCount.ToString();
       Time = gameFinished.ElapsedTime;
 
-      _realTimeScore = _scoringSystem.GetPlayerScore(
+      _finalScore = _scoringSystem.GetPlayerScore(
                               gameFinished.PuzzleRows,
                               gameFinished.MovesCount,
                               gameFinished.MinMoves,
                               (int)gameFinished.ElapsedTime.TotalSeconds);
 
-      _pointsStep = (ushort)((_realTimeScore * _countingTimer.Interval.TotalMilliseconds) / CountAnimationDuration);
+      var starsCount = _scoringSystem.GetStarCount(_finalScore);
+
+      HideAllStars();
+      DisplayStars(starsCount);
     }
 
+    /// <summary>
+    /// Displays stars proportional to the input number.
+    /// </summary>
+    /// <param name="starCount">the number of golder stars that will be displayed to the user</param>
+    private void DisplayStars(int starCount)
+    {
+      if (starCount >= 1)
+      {
+				FirstStarVisibility = Visibility.Visible;
+      }
+
+      if (starCount >= 2)
+      {
+				SecondStarVisibility = Visibility.Visible;
+      }
+
+      if (starCount >= 3)
+      {
+				ThirdStarVisibility = Visibility.Visible;
+      }
+    }
+
+    /// <summary>
+    /// Set all golden star on Collapsed.
+    /// </summary>
+    private void HideAllStars()
+    {
+      FirstStarVisibility = Visibility.Collapsed;
+      SecondStarVisibility = Visibility.Collapsed;
+      ThirdStarVisibility = Visibility.Collapsed;
+    }
+
+    /// <summary>
+    /// Gets the score step wich will be added to the player score at each tick during the animation.
+    /// </summary>
+    /// <param name="score">the final score of the player</param>
+    /// <returns>an ushort number represeting the score step</returns>
+    private ushort GetScoreStepForAnimation(int score)
+		{
+      return (ushort)(score * _countingTimer.Interval.TotalMilliseconds / CountAnimationDuration);
+    }
+   
     #endregion Private Methods
   }
 }
