@@ -132,10 +132,9 @@ namespace UserInterface.CustomControls
         SlipBehavior = SlipBehavior.Slip
       };
 
-      _mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/Resources/Sounds/slidingSound.wav", UriKind.Absolute));
-      _mediaPlayer.Volume = 0.1;
 
-      State = GetDefaultBoard();
+
+			State = GetDefaultBoard();
       InitSlider();
     
 
@@ -476,7 +475,7 @@ namespace UserInterface.CustomControls
       var blankRow = blankPosition / _rowsCount;
 
       if (Math.Abs(tilePosition - blankPosition) == _rowsCount ||  //the tiles have to be on the same colomn
-        (Math.Abs(tilePosition - blankPosition) == 1 && tileRow == blankRow)) //the tiles have to be adjacent
+        (Math.Abs(tilePosition - blankPosition)  == 1 && tileRow == blankRow)) //the tiles have to be adjacent
       {
         return true;
       }
@@ -555,6 +554,7 @@ namespace UserInterface.CustomControls
     private void InitializeStoryboard()
     {
       _animationStoryboard.Children.Clear();
+      InitializeMediaPlayer();
     }
 
     /// <summary>
@@ -614,6 +614,15 @@ namespace UserInterface.CustomControls
       _dirtyTilesMargin.Clear();
     }
 
+    /// <summary>
+    /// Opens the file for the sliding sound
+    /// </summary>
+    private void InitializeMediaPlayer()
+    {
+      _mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/Resources/Sounds/slidingSound.wav", UriKind.Absolute));
+      _mediaPlayer.Volume = 0.1;
+    }
+  
     #endregion Private Methods
   }
 }
