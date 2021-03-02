@@ -18,7 +18,7 @@ namespace UserInterface.Pages.GameOverPage
     /// Duration in ms for counting player score.
     /// The player score will be raised from 0 to its final score in this period of time.
     /// </summary>
-    private const int CountAnimationDuration = 750;
+    private const int CountAnimationDuration = 500;
 
     #endregion
 

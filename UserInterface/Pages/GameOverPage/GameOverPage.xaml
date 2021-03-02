@@ -144,7 +144,7 @@
                                         <DoubleAnimation Storyboard.TargetName="Star1"
                                                          Storyboard.TargetProperty="Opacity"                                                       
                                                          BeginTime="0:0:0.8"
-                                                         From="0" To="1" Duration="0:0:0.6"/>
+                                                         From="0" To="1" Duration="0:0:0.5"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -173,9 +173,9 @@
                                             <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetName="Star2"
-                                                         BeginTime="0:0:1.4"
+                                                         BeginTime="0:0:1.3"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         From="0" To="1" Duration="0:0:0.6"/>
+                                                         From="0" To="1" Duration="0:0:0.5"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -205,9 +205,9 @@
                                         </DoubleAnimationUsingKeyFrames>
 
                                         <DoubleAnimation Storyboard.TargetName="Star3"
-                                                         BeginTime="0:0:2"
+                                                         BeginTime="0:0:1.8"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         From="0" To="1" Duration="0:0:0.6"/>
+                                                         From="0" To="1" Duration="0:0:0.5"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
