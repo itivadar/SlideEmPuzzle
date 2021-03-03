@@ -8,6 +8,7 @@
       xmlns:prism="http://prismlibrary.com/"
       d:DesignHeight="600" 
       d:DesignWidth="850"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       Title="SliderPage">
     <Page.Resources>
         <helper:TimeSpanToStringFormatConverter x:Key="TimeSpanToStringFormatConverter"></helper:TimeSpanToStringFormatConverter>
@@ -28,7 +29,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock  Grid.Column="1"
-                        Text="Solve the puzzle by sorting the numbers!"
+                        Text="Arrange the numbers!"
                          Foreground= "{StaticResource TextForegroundBrush }"
                          FontFamily="{StaticResource LangarRegular}"
                          FontSize="20"
@@ -117,9 +118,15 @@
                                  IsEnabled="{Binding IsPuzzleEnabled, Mode=TwoWay}"
                                  Width="400"
                                  HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"/>
+                                 VerticalAlignment="Top">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="AnimationChangedEvent">
+                            <i:InvokeCommandAction Command="{Binding AnimationStateChanged}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </custom:PuzzleSlider>
                 
-                <TextBlock Grid.Row="1"
+                    <TextBlock Grid.Row="1"
                            Text="Size"
                            HorizontalAlignment="Left"
                            Margin="30 0 0 0"

@@ -71,9 +71,6 @@ namespace UserInterface.Pages.SliderPage
       _puzzleSolver = puzzleSolver;
       ConfigureTimer();
 
-      OpenMainMenuCommand = new DelegateCommand(OnOpenMainMenu);
-      SolveCommand = new DelegateCommand(OnSolve);
-
       EventAggregator.GetEvent<PuzzleTypeSelectedEvent>().Subscribe(OnPuzzleTypeSelected);
     }
 
@@ -153,7 +150,7 @@ namespace UserInterface.Pages.SliderPage
     public IReadOnlyCollection<SlideDirection> SolutionSteps
     {
       get => _solutionSteps;
-      private set
+      set
       {
         _solutionSteps = value;
         RaisePropertyChanged(nameof(SolutionSteps));
@@ -198,12 +195,23 @@ namespace UserInterface.Pages.SliderPage
     /// <summary>
     /// Gets the command to open the MainMenu
     /// </summary>
-    public ICommand OpenMainMenuCommand { get; private set; }
+    public ICommand OpenMainMenuCommand
+    {
+      get => new DelegateCommand(OnOpenMainMenu);
+    }
 
     /// <summary>
     /// Gets the command to start solving the puzzle.
     /// </summary>
-    public ICommand SolveCommand { get; private set; }
+    public ICommand SolveCommand 
+    {
+      get => new DelegateCommand(OnSolve);
+    }
+
+    public ICommand AnimationStateChanged
+		{
+      get => new DelegateCommand(OnAnimationStopped);
+		}
 
     #endregion Public Commands
 
@@ -270,6 +278,14 @@ namespace UserInterface.Pages.SliderPage
       SolutionSteps = _solvedSolutionSteps;
     }
 
+    private void OnAnimationStopped()
+		{
+      if (PuzzleBoard.IsSolved)
+      {
+        OnGameFinished();
+      }
+    }
+
     /// <summary>
     /// Handles the state changed event.
     /// Triggered every time the user moves a tile.
@@ -278,10 +294,6 @@ namespace UserInterface.Pages.SliderPage
     {
       PlayerMoves++;
       _solvedSolutionSteps = null;
-      if (PuzzleBoard.IsSolved)
-      {
-        OnGameFinished();
-      }
     }
 
     /// <summary>

@@ -32,7 +32,7 @@ namespace BonusSystem
     private Dictionary<int, short> _starLimits = new Dictionary<int, short>()
     {
         {3, 3500},
-        {2, 2500},
+        {2, 2750},
         {1, 1000}
     };
     /// <summary>
