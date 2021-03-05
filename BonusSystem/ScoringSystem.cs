@@ -35,6 +35,7 @@ namespace BonusSystem
         {2, 2750},
         {1, 1000}
     };
+
     /// <summary>
     /// Gets the player score based on the perfomance.
     /// </summary>

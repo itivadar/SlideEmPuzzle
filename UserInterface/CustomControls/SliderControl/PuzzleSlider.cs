@@ -123,6 +123,11 @@ namespace UserInterface.CustomControls
 		/// </summary>
 		private int _rowsCount;
 
+		/// <summary>
+		/// Queue containing the moves that will be played when the animation is played.
+		/// </summary>
+		private Queue<(int, int)> _movesQueue;
+
 		#endregion Private Fields
 
 		#region Public Constructors
@@ -134,6 +139,7 @@ namespace UserInterface.CustomControls
 		{
 			_tileToPositionMap = new Dictionary<Tile, int>();
 			_dirtyTilesMargin = new HashSet<Tile>();
+			_movesQueue = new Queue<(int, int)>();
 
 			_animationStoryboard = new Storyboard
 			{
@@ -155,12 +161,13 @@ namespace UserInterface.CustomControls
 		/// <summary>
 		/// Called when activating each sliding animation.
 		/// </summary>
-		private void OnAnimationStateInvalidated(object sender, EventArgs e)
+		private void OnAnimationActivated(object sender, EventArgs e)
 		{
 			var clock = (AnimationClock)sender;
 			if (clock.CurrentState == ClockState.Active)
 			{
 				PlaySound();
+				MakeQueuedMove();
 			}
 		}
 
@@ -315,7 +322,7 @@ namespace UserInterface.CustomControls
 
 			_animationStoryboard.Children.Add(tileAnimation);
 			_animationStoryboard.Children.Add(blankAnimation);
-			tileAnimation.CurrentStateInvalidated += OnAnimationStateInvalidated;
+			tileAnimation.CurrentStateInvalidated += OnAnimationActivated;
 
 			_dirtyTilesMargin.Add(valueTile);
 			_dirtyTilesMargin.Add(_blankTile);
@@ -419,8 +426,9 @@ namespace UserInterface.CustomControls
 			_tileToPositionMap[blankTile] = valuePosition;
 			_tileToPositionMap[valueTile] = blankPosition;
 
-			//move the blank tile to the new position
-			State.MoveBlankTile(valuePosition, blankPosition);
+			//queue the move to played in sync with animation
+			_movesQueue.Enqueue((valuePosition, blankPosition));
+			
 		}
 
 		/// <summary>
@@ -631,6 +639,7 @@ namespace UserInterface.CustomControls
 			_animationStoryboard.Stop();
 			_animationStoryboard.Children.Clear();
 			_dirtyTilesMargin.Clear();
+			_movesQueue.Clear();
 		}
 
 		/// <summary>
@@ -639,6 +648,17 @@ namespace UserInterface.CustomControls
 		private void RaiseAnimationChangedEvent()
 		{
 			AnimationChangedEvent?.Invoke(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// The State Board is updated in sync with the animations.
+		/// The moves are queued until the animations is played.
+		/// </summary>
+		private void MakeQueuedMove()
+		{
+			(int valuePosition, int blankPosition) = _movesQueue.Dequeue();
+			//move the blank tile to the new position
+			State.MoveBlankTile(valuePosition, blankPosition);
 		}
 
 		#endregion Private Methods
