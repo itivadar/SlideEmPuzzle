@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Text="Astonishing result!"
+                   Text="{Binding GameOverGreetings}"
                    Foreground="{StaticResource TextForegroundBrush}"
                    HorizontalAlignment="Center"
                    FontSize="26"

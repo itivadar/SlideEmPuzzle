@@ -36,7 +36,7 @@ namespace UserInterface.Pages.GameOverPage
     private Visibility _thirdStarVisibiliy;
 
     private TimeSpan _time;
-
+    private string _gameOverGreetings;
     #endregion Private Fields
 
     #region Public Constructors
@@ -46,7 +46,6 @@ namespace UserInterface.Pages.GameOverPage
 
     {
       _scoringSystem = scoringSystem;
-      OpenMainMenuCommand = new DelegateCommand(OpenMainMenu);
       ConfigureCountingTimer();
 
       EventAggregator.GetEvent<GameFinishedEvent>().Subscribe(UpdateStats);
@@ -55,6 +54,13 @@ namespace UserInterface.Pages.GameOverPage
     #endregion Public Constructors
 
     #region Public Properties
+    /// <summary>
+    /// Command for open MainMenu
+    /// </summary>
+    public ICommand OpenMainMenuCommand
+		{
+      get => new DelegateCommand(OpenMainMenu);
+    }
 
     /// <summary>
     /// Gets the moves count made by the player
@@ -70,9 +76,17 @@ namespace UserInterface.Pages.GameOverPage
     }
 
     /// <summary>
-    /// Command for open MainMenu
+    /// Gets the greetins displayed for the user in the game over screen.
     /// </summary>
-    public ICommand OpenMainMenuCommand { get; set; }
+    public string GameOverGreetings
+		{
+      get => _gameOverGreetings;
+			private set
+			{
+        _gameOverGreetings = value;
+        RaisePropertyChanged(nameof(GameOverGreetings));
+			}
+		}
 
     /// <summary>
     /// The score obtained by the player after solving the puzzle.
@@ -208,17 +222,14 @@ namespace UserInterface.Pages.GameOverPage
       MovesMade = gameFinished.MovesCount.ToString();
       Time = gameFinished.ElapsedTime;
 
-      _finalScore = _scoringSystem.GetPlayerScore(
-                              gameFinished.PuzzleRows,
-                              gameFinished.MovesCount,
-                              gameFinished.MinMoves,
-                              (int)gameFinished.ElapsedTime.TotalSeconds);
+      SetFinalScore(gameFinished);
 
       var starsCount = _scoringSystem.GetStarCount(_finalScore);
-
       HideAllStars();
       DisplayStars(starsCount);
+      UpdateGameOverGreetings(starsCount);
     }
+
 
     /// <summary>
     /// Displays stars proportional to the input number.
@@ -261,7 +272,41 @@ namespace UserInterface.Pages.GameOverPage
 		{
       return (ushort)(score * _countingTimer.Interval.TotalMilliseconds / CountAnimationDuration);
     }
-   
+    
+    /// <summary>
+    /// Sets the final score for the player.
+    /// - 100 if it uses the automatic solving
+    /// - calculated based on the moves otherwise
+    /// </summary>
+    private void SetFinalScore(GameFinishedEvent gameFinished)
+		{
+      _finalScore = 100;
+      if (!gameFinished.IsAutoSolved)
+      {
+        _finalScore = _scoringSystem.GetPlayerScore(
+                                gameFinished.PuzzleRows,
+                                gameFinished.MovesCount,
+                                gameFinished.MinMoves,
+                                (int)gameFinished.ElapsedTime.TotalSeconds);
+      }
+    }
+
+    /// <summary>
+    /// Display a game over greetings to the user based on the awarded stars.
+    /// </summary>
+    /// <param name="displayedStars">The awarded star count</param>
+    private void UpdateGameOverGreetings(int displayedStars)
+		{
+      GameOverGreetings = "Astonishing result!";
+      if(displayedStars == 1)
+			{
+        GameOverGreetings = "You did well!";
+			}
+      if(displayedStars == 0)
+			{
+        GameOverGreetings = "Give it a try by yourself!";
+			}
+		}
     #endregion Private Methods
   }
 }

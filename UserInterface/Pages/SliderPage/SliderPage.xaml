@@ -19,8 +19,20 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition ></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Text="Order the numbers!"
+                         Foreground= "{StaticResource TextForegroundBrush }"
+                         FontFamily="{StaticResource LangarRegular}"
+                         FontSize="25"
+                        Margin="0 20 0 0"
+                        HorizontalAlignment="Center"/>
+            <Grid Grid.Column="1"
+                  Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -28,13 +40,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock  Grid.Column="1"
-                        Text="Arrange the numbers!"
-                         Foreground= "{StaticResource TextForegroundBrush }"
-                         FontFamily="{StaticResource LangarRegular}"
-                         FontSize="20"
-                        Margin="30 40 0 0"
-                        HorizontalAlignment="Center"/>
+            
                 <Grid x:Name="UserInfo"
                   Grid.Column="1"
                   Grid.Row="1"
@@ -103,15 +109,16 @@
                                    Content="Main menu"
                                    Command="{Binding OpenMainMenuCommand}"/>
             </Grid>
-            <Grid Grid.Column="0">
+            <Grid Grid.Row="1" 
+                Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-            <custom:PuzzleSlider Grid.Row="0"
+            <custom:PuzzleSlider Grid.Row="0"                               
                                  Height="400"
-                                 Margin="30 40 0 0"
+                                 Margin="30 20 0 0"
                                  State="{Binding PuzzleBoard}"
                                  TileSize="{Binding TileSize}"                                 
                                  SolutionSteps="{Binding SolutionSteps}"

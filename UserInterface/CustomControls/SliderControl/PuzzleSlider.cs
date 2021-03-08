@@ -469,6 +469,7 @@ namespace UserInterface.CustomControls
 		private void InitializeStoryboard()
 		{
 			_animationStoryboard.Children.Clear();
+			_movesQueue.Clear();
 			InitializeMediaPlayer();
 		}
 

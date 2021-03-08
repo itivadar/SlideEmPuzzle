@@ -56,6 +56,7 @@ namespace UserInterface.Pages.SliderPage
     private IReadOnlyCollection<SlideDirection> _solvedSolutionSteps;
     private Visibility _puzzleScaleVisibility;
     private bool _isPuzzleEnabled;
+    private bool _isAutoSolved;
 
     private int _minMovesToSolution;
     #endregion Private Fields
@@ -271,6 +272,7 @@ namespace UserInterface.Pages.SliderPage
     /// </summary>
     private async void OnSolve()
     {
+      _isAutoSolved = true;
       PuzzleScaleVisibility = Visibility.Collapsed;
       IsPuzzleEnabled = false;
 
@@ -305,6 +307,7 @@ namespace UserInterface.Pages.SliderPage
       PlayerTime = TimeSpan.Zero;
       PuzzleScaleVisibility = Visibility.Visible;
       IsPuzzleEnabled = true;
+      _isAutoSolved = false;
     }
 
     /// <summary>
@@ -327,6 +330,7 @@ namespace UserInterface.Pages.SliderPage
       _timer.Stop();
       EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent
       {
+        IsAutoSolved = _isAutoSolved,
         ElapsedTime = PlayerTime,
         MovesCount = PlayerMoves,
         PuzzleRows = PuzzleBoard.Rows,
@@ -343,8 +347,6 @@ namespace UserInterface.Pages.SliderPage
     private async void OnPuzzleTypeSelected(string puzzleTypeSelected)
     {
       var puzzleRows = int.Parse(puzzleTypeSelected);
-      //PuzzleBoard = new ObservableBoard("0 3 2 1");
-      //PuzzleBoard = new ObservableBoard("2 3 0 8 15 12 6 7 13 1 4 9 14 11 10 5");
       PuzzleBoard = new ObservableBoard(_puzzleGenerator.GenerateRandomPuzzle(puzzleRows));
       await SetMinimumMoves();
     }
