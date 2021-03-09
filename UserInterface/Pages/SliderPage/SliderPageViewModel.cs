@@ -44,7 +44,7 @@ namespace UserInterface.Pages.SliderPage
 
     private readonly IPuzzleGenerator _puzzleGenerator;
     private readonly IPuzzleSolver _puzzleSolver;
-
+    private readonly DispatcherTimer _finalTimer;
     private TimeSpan _playerTime;
     private ObservableBoard _sliderState;
     private DispatcherTimer _timer;
@@ -134,6 +134,9 @@ namespace UserInterface.Pages.SliderPage
       }
     }
 
+    /// <summary>
+    /// Determines if the player can make moves.
+    /// </summary>
     public bool IsPuzzleEnabled
     {
       get => _isPuzzleEnabled;
@@ -209,6 +212,9 @@ namespace UserInterface.Pages.SliderPage
       get => new DelegateCommand(OnSolve);
     }
 
+    /// <summary>
+    /// Gets the command triggered when the sliding animations stops.
+    /// </summary>
     public ICommand AnimationStateChanged
 		{
       get => new DelegateCommand(OnAnimationStopped);
@@ -280,6 +286,9 @@ namespace UserInterface.Pages.SliderPage
       SolutionSteps = _solvedSolutionSteps;
     }
 
+    /// <summary>
+    /// Triggered when the animations regardind the sliding stopped.
+    /// </summary>
     private void OnAnimationStopped()
 		{
       if (PuzzleBoard.IsSolved)
@@ -337,7 +346,7 @@ namespace UserInterface.Pages.SliderPage
         MinMoves = _minMovesToSolution
       });
 
-      NavigationService.ShowPage(AppPages.GameOverPage);
+      NavigationService.ShowPageAfterDelay(AppPages.GameOverPage, TimeSpan.FromMilliseconds(600));
     }
 
     /// <summary>
