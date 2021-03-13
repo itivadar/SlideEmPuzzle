@@ -29,7 +29,7 @@ namespace SliderPuzzleGenerator
 					"2 3 0 1",
 					"3 0 2 1",
 					"2 3 1 0",
-				};
+		};
 
 		/// <summary>
 		/// Array of predefined 3x3 boards.
@@ -42,20 +42,21 @@ namespace SliderPuzzleGenerator
           "1 0 2 4 6 3 7 5 8", //5 moves
 					"1 4 3 7 0 8 6 5 2", //18 moves
 					"1 3 5 7 2 6 8 0 4", //11 moves
-        };
+    };
 
 		/// <summary>
 		/// Array of predefined 4x4 boards.
 		/// </summary>
 		private static readonly string[] HardBoards =
 		{
-          "1 2 8 3 5 11 6 4 0 10 7 12 9 13 14 15", //14 moves
+					"1 2 8 3 5 11 6 4 0 10 7 12 9 13 14 15", //14 moves
 					"5 1 3 4 9 2 7 8 13 0 10 12 14 6 11 15", //11 moves
 					"5 1 2 4 9 6 3 7 13 10 0 8 14 15 11 12", //12 moves
 					"5 2 4 0 6 1 3 8 13 11 7 12 10 9 14 15", //17 moves 
 					"6 3 7 4 2 9 10 8 1 5 12 15 13 0 14 11", //20 moves
 					"1 4 8 3 7 2 10 11 5 6 0 15 9 13 14 12", //22 moves
-        };
+					"1 2 4 12 5 6 3 0 9 10 8 7 13 14 11 15", //10 moves
+    };
 
 		//We map last selected position to each dimension to avoid generating same board twice
 		private readonly Dictionary<BoardType, int> _lastChosenIndexByDimension;
