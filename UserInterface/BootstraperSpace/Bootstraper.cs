@@ -112,7 +112,7 @@ namespace UserInterface.BootstraperSpace
     /// </summary>
     private void RegisterViews()
     {
-      //a Main Window need no name :) 
+      //a Main Window needs no name :) 
       _unityContainer.RegisterWindow<MainWindow, MainWindowViewModel>();
 
       _unityContainer.RegisterPage<SliderPage, SliderPageViewModel>(AppPages.SliderPage);
