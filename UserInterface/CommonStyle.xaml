@@ -26,6 +26,7 @@
     
     <!--Font family used -->
     <FontFamily x:Key="LangarRegular">pack://application:,,,/Fonts/Langar-Regular.ttf#Langar</FontFamily>
+    <FontFamily x:Key="NovaFlat">pack://application:,,,/Fonts/NovaFlat-Regular.ttf#NovaFlat</FontFamily>
 
     <!-- Text will be revealed -->
     <Style x:Key="AnimatedText" TargetType="{x:Type TextBlock}">

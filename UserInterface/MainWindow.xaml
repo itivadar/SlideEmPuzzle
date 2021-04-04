@@ -7,25 +7,64 @@
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
         Title="Slide'em Puzzle" 
-        Height="620"
-        Width="900"
-        WindowStyle="SingleBorderWindow"
-        Background="#FF933C3C" 
-        Foreground="White"  
+        Height="700"
+        Width="1024"
+        WindowStyle="None"
+        ResizeMode="CanMinimize"
+        Background="Transparent"
+        Foreground="White"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
+        Style="{StaticResource FuturisticWindowStyle}"
         Cursor="{StaticResource GameCursor}">
+
+    <Border CornerRadius="23" BorderThickness="12">
+        <Border.BorderBrush>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF24307E"/>
+                <GradientStop Color="#FF104C6E" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBlock Text="Slide'Em Puzzle "
+                           FontFamily="{StaticResource LangarRegular}"
+                           FontSize="18"/>
+            
+                <Button Content="X"
+                        Width="35"
+                        Height="35"
+                        Margin="0 0 0 5"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource FunctionalButtonStyle}"
+                        Command="{Binding CloseCommand}"/>
+
+            </Grid>
+        <Frame Grid.Row="1"
+               Content="{Binding MainFrame}"
+               NavigationUIVisibility="Hidden" 
+               Grid.ColumnSpan="2" 
+               VerticalAlignment="Stretch"/>
+
+
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF24307E"/>
                 <GradientStop Color="#FF104C6E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Frame Grid.Row="0" 
-               HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch"
-               Content="{Binding MainFrame}"
-               NavigationUIVisibility="Hidden">
-        </Frame>
+
+
     </Grid>
+    </Border>
 </Window>

@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="/CustomControls/SliderControl/SliderStyle.xaml"/>
                 <ResourceDictionary Source="/CustomControls/Tile/TileStyle.xaml"/>
                 <ResourceDictionary Source="/CustomControls/Label/LabelStyle.xaml"/>
+                <ResourceDictionary Source="/CustomControls/Window/WindowStyle.xaml"/>
+                <ResourceDictionary Source="/CustomControls/FunctionalButton/FunctionalButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

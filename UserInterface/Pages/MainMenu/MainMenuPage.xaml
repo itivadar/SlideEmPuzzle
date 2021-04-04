@@ -26,9 +26,6 @@
             <customControls:MenuButton Width="200"
                                    Content="About"
                                    Margin="0,20,2,0"/>
-            <customControls:MenuButton Width="200"
-                                   Content="Exit"
-                                   Margin="0,20,2,0"/>
         </StackPanel>
         <Image Grid.Column="2" Width="400"  Source="{StaticResource GameLogo}"/>
     </Grid>

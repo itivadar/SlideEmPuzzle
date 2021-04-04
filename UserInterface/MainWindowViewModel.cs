@@ -28,6 +28,7 @@ namespace UserInterface
             base(eventAggregator, navigationService)
     {
       PlayCommand = new DelegateCommand(OnPlay);
+      CloseCommand = new DelegateCommand(OnExit);
     }
 
     #endregion Public Constructors
@@ -42,7 +43,12 @@ namespace UserInterface
     /// <summary>
     /// Gets the command for displaying playing page.
     /// </summary>
-    public ICommand PlayCommand { get; private set; }
+    public ICommand PlayCommand { get; private set;  }
+
+    /// <summary>
+    /// Gets the command for close the game.
+    /// </summary>
+    public ICommand CloseCommand { get; private set; }
 
     /// <summary>
     /// Gets or sets the page displayed in the main area.
