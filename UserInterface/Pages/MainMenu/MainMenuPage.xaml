@@ -22,7 +22,8 @@
                                    Command="{Binding OpenAboutCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="How to play"
-                                   Margin="0,20,2,0"/>
+                                   Margin="0,20,2,0"
+                                   Command="{Binding OpenHowToPlayPageCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="About"
                                    Margin="0,20,2,0"/>
