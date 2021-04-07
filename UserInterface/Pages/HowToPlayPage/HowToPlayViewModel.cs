@@ -6,12 +6,14 @@ using System.Text;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
 using UserInterface.Helpers;
+using UserInterface.Pages.SliderPage;
 
 namespace UserInterface.Pages.HowToPlayPage
 {
 	internal class HowToPlayViewModel : ViewModelBase
 
 	{
+		private ObservableBoard _goalState = new ObservableBoard("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0");
 
 		#region Internal Constructors
 
@@ -24,6 +26,15 @@ namespace UserInterface.Pages.HowToPlayPage
 		#endregion Internal Constructors
 
 		#region Public Properties
+
+		public ObservableBoard GoalState
+		{
+			get => _goalState;
+			set
+			{
+				_goalState = value;
+			}
+		}
 
 		/// <summary>
 		/// Gets the command to open Main Menu
@@ -41,7 +52,6 @@ namespace UserInterface.Pages.HowToPlayPage
 		{
 			NavigationService.ShowPage(AppPages.MainMenuPage);
 		}
-
 		#endregion Private Methods
 
 	}

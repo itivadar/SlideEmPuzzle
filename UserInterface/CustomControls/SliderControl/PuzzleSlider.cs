@@ -224,7 +224,6 @@ namespace UserInterface.CustomControls
 				SetValue(StateProperty, value);
 				StopAllAnimations();
 				InitSlider();
-				IsEnabled = true;
 			}
 		}
 

@@ -6,20 +6,66 @@
       xmlns:local="clr-namespace:UserInterface.Pages.HowToPlayPage" xmlns:custom="clr-namespace:UserInterface.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HowToPlayPage">
+      Title="HowToPlayPage"
+      Background="Transparent">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                    FontFamily="{StaticResource LangarRegular}"
-                   Foreground="{StaticResource TextForegroundBrush}">
-            Slide'em is a puzzle game
-        </TextBlock>
+        <FlowDocumentScrollViewer Grid.Row="0"
+                   Margin="0 0 10 0"
+                   FontFamily="{StaticResource LangarRegular}"
+                   Foreground="{StaticResource TextForegroundBrush}"
+                    MinZoom="80"
+                    MaxZoom="200">
+            <FlowDocument
+                    ColumnWidth="500" 
+                    IsOptimalParagraphEnabled="True" 
+                    IsHyphenationEnabled="True"
+                    FontSize="22">
+                <Paragraph FontSize="24" TextAlignment="Center" BreakPageBefore="false" FontWeight="Demibold">Slidin' to succces</Paragraph>
+                <Paragraph>
+                    <Bold>The Sliding Puzzle</Bold> is a puzzle that challenges player to slide tiles 
+                        into the empty space until all the tiles are into order.
+                </Paragraph>
+                <Paragraph   FontSize="24"  TextAlignment="Center" BreakPageBefore="false" FontWeight="Demibold">Moves</Paragraph>
+                <Paragraph>
+                    <Bold>The 15 Puzzle</Bold> is made of 15 square tiles numbered from 1 to 15 in a frame that is 4 by 4 tiles, leaving one empty space. 
+                        The player can slide numbered tiles horizontally or vertically into the empty space. 
+                        The move is possible if the tiles are on the same row or column of the open position.
+                </Paragraph>
+                <Paragraph FontSize="25"  TextAlignment="Center" FontWeight="Demibold">The goal</Paragraph>
+                <Paragraph>
+                    The goal of the puzzle is to place the tile in ascending order with the empty position in the bottom right corner.
+                </Paragraph>
+                <BlockUIContainer>
+                    <custom:PuzzleSlider HorizontalAlignment="Center"
+                                             Margin="-320 2 0 0"
+                                             Height="340"
+                                             IsEnabled="false"
+                                             TileSize="75"
+                                             State="{Binding GoalState}"/>
+                </BlockUIContainer>
+                <Paragraph FontSize="25" TextAlignment="Center" FontWeight="Demibold">Other variants</Paragraph>
+                <Paragraph>
+                    Other variant of the puzzle is 8 Puzzle which is played with 8 square tiles in a 3 by 3 frame. 
+                    The easiest puzzle is 3 Puzzle played in a frame of 2 by 2 tiles.
+                </Paragraph>
+                <Paragraph FontSize="25" TextAlignment="Center" FontWeight="Demibold">History</Paragraph>
+                <Paragraph> 
+                    The puzzle was invented by Noyes Palmer Chapman, a postmaster in Canastota, New York, who is said to have shown friends, 
+                        as early as 1874, a precursor puzzle consisting of 16 numbered blocks that were to be put together in rows of four.
+                </Paragraph>
+                <Paragraph>
+                    Source: Wikipedia
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
         <custom:MenuButton Grid.Row="1"
                            Content="Back"
+                           Margin="5"
                            Command="{Binding OpenMainMenuCommand}"/>
     </Grid>
 </Page>
