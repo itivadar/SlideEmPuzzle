@@ -61,12 +61,12 @@ namespace SliderPuzzleSolver
     /// <summary>
     /// Unique index board and the associated cost.
     /// </summary>
-    private Dictionary<int, byte> _boardsCostMap;
+    private readonly Dictionary<int, byte> _boardsCostMap;
 
     /// <summary>
     /// Visited nodes while running BFS.
     /// </summary>
-    private Dictionary<int, bool> _visitedNodes;
+    private readonly Dictionary<int, bool> _visitedNodes;
     #endregion Private Fields
 
     #region Public Constructors
