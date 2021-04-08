@@ -97,7 +97,8 @@
                 </Grid>
                 <custom:MenuButton Grid.Row="2"
                                    Content="New game"
-                                   Margin="0 10 0 10"/>
+                                   Margin="0 10 0 10"
+                                   Command="{Binding NewGameCommand}"/>
                 
                 <custom:MenuButton Grid.Row="3"
                                    Margin="0 10 0 10"
