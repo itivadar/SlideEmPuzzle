@@ -73,7 +73,6 @@ namespace UserInterface.BootstraperSpace
         counter.Stop();
       };
 
-      counter.Start();
 		}
 
     /// <summary>
