@@ -4,6 +4,7 @@ using SliderPuzzleGenerator;
 using SliderPuzzleSolver;
 using SliderPuzzleSolver.Interfaces;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -65,14 +66,14 @@ namespace UserInterface.BootstraperSpace
     /// <param name="duration">The delay after which the page is displayed.</param>
     public void ShowPageAfterDelay(string pageName, TimeSpan duration)
 		{
-      var counter = new DispatcherTimer();
-      counter.Interval = duration;
-      counter.Tick += (object sender, EventArgs e) =>
-      {
-        ShowPage(pageName);
-        counter.Stop();
-      };
-
+      Task.Delay((int)duration.TotalMilliseconds).ContinueWith(
+        _ =>
+        {
+          Application.Current.Dispatcher.Invoke(() =>
+          {
+            ShowPage(pageName);
+          });
+        });
 		}
 
     /// <summary>

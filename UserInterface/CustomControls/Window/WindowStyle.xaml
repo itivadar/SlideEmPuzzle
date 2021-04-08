@@ -9,7 +9,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Window">
                     <Grid Background="Transparent">
-                        <Border CornerRadius="22.5" BorderThickness="2" BorderBrush="MidnightBlue">
+                        <Border CornerRadius="22.5" BorderThickness="3" BorderBrush="MidnightBlue">
                             <Grid Name="myContentPresenterDockPanel"  >
                                 <ContentPresenter  Content="{TemplateBinding Content}"
                                               Margin="10"/>

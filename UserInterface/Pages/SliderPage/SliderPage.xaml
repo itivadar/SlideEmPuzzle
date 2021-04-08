@@ -25,11 +25,11 @@
             </Grid.RowDefinitions>
             <TextBlock  Grid.Row="0"
                         Grid.ColumnSpan="2"
-                        Text="Order the numbers!"
+                        Text="Slide to victory!"
                          Foreground= "{StaticResource TextForegroundBrush }"
                          FontFamily="{StaticResource LangarRegular}"
                          FontSize="25"
-                        Margin="0 20 0 0"
+                        Margin="0 20 0 10"
                         HorizontalAlignment="Center"/>
             <Grid Grid.Column="1"
                   Grid.Row="1">

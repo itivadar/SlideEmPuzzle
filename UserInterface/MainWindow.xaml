@@ -7,7 +7,7 @@
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
         Title="Slide'em Puzzle" 
-        Height="700"
+        Height="770"
         Width="1024"
         WindowStyle="None"
         ResizeMode="CanMinimize"

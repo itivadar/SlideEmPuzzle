@@ -15,19 +15,31 @@ namespace UserInterface.Pages.SliderPage
 
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a <see cref="ObservableBoard"/> from a given <see cref="IBoard"/>
+        /// </summary>
+        /// <param name="board">The board used to initilized current instance </param>
         public ObservableBoard(IBoard board)
         {
             _board = board;
         }
-
+        
+        /// <summary>
+        /// Initializes a <see cref="ObservableBoard"/> from a byte array.
+        /// </summary>
+        /// <param name="board">the puzzle board represented by a byte array.</param>
         public ObservableBoard(byte[,] board)
         {
             _board = new Board(board);
         }
-
+        
+        /// <summary>
+        /// Initializes a <see cref="ObservableBoard"/> from a string.
+        /// </summary>
+        /// <param name="board">string representation of a puzzle board.</param>
         public ObservableBoard(string board)
         {
-            _board = new Board(board);
+            _board = new Board(board);  
         }
 
         #endregion Public Constructors
