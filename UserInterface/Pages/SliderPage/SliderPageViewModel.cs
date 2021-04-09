@@ -55,6 +55,7 @@ namespace UserInterface.Pages.SliderPage
 		private IReadOnlyCollection<SlideDirection> _solutionSteps;
 		private short _tileSize;
 		private DispatcherTimer _timer;
+		private bool _areCommandsEnabled; 
 		#endregion Private Fields
 
 		#region Public Constructors
@@ -88,6 +89,18 @@ namespace UserInterface.Pages.SliderPage
 			}
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether the UI buttons are enabled.
+		/// </summary>
+		private bool AreCommandsEnabled
+		{
+			get => _areCommandsEnabled;
+			set
+			{
+				_areCommandsEnabled = value;
+				RaisePropertyChanged(nameof(AreCommandsEnabled));
+			}
+		}
 		#endregion Private Properties
 
 		#region Public Properties
@@ -218,7 +231,7 @@ namespace UserInterface.Pages.SliderPage
 
 		public ICommand NewGameCommand
 		{
-			get => new DelegateCommand(StartGame);
+			get => new DelegateCommand(StartGame, CanUserInteract).ObservesCanExecute(() => AreCommandsEnabled);
 		}
 
 		/// <summary>
@@ -226,7 +239,7 @@ namespace UserInterface.Pages.SliderPage
 		/// </summary>
 		public ICommand OpenMainMenuCommand
 		{
-			get => new DelegateCommand(OnOpenMainMenu);
+			get => new DelegateCommand(OnOpenMainMenu, CanUserInteract).ObservesCanExecute(() => AreCommandsEnabled);
 		}
 
 		/// <summary>
@@ -273,6 +286,15 @@ namespace UserInterface.Pages.SliderPage
 		}
 
 		/// <summary>
+		/// Determines if the user can interact with the UI buttons.
+		/// </summary>
+		/// <returns>true if the buttons should be enabled.</returns>
+		private bool CanUserInteract()
+		{
+			return AreCommandsEnabled;
+		}
+
+		/// <summary>
 		/// Configure timer to have 1s interval ticks.
 		/// </summary>
 		private void ConfigureTimer()
@@ -283,7 +305,7 @@ namespace UserInterface.Pages.SliderPage
 		}
 
 		/// <summary>
-		/// Triggered when the animations regardind the sliding stopped.
+		/// Triggered when the  sliding  animations  stopped.
 		/// </summary>
 		private void OnAnimationStopped()
 		{
@@ -300,6 +322,7 @@ namespace UserInterface.Pages.SliderPage
 		private void OnGameFinished()
 		{
 			_timer.Stop();
+			AreCommandsEnabled = false;
 			EventAggregator.GetEvent<GameFinishedEvent>().Publish(new GameFinishedEvent
 			{
 				IsAutoSolved = IsAutoSolved,
@@ -369,6 +392,7 @@ namespace UserInterface.Pages.SliderPage
 			PuzzleScaleVisibility = Visibility.Visible;
 			IsPuzzleEnabled = true;
 			IsAutoSolved = false;
+			AreCommandsEnabled = true;
 		}
 
 		/// <summary>
