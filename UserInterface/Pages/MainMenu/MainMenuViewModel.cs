@@ -19,24 +19,35 @@ namespace UserInterface.Pages.MainMenu
 		public MainMenuViewModel(IEventAggregator eventAggregator, INavigationService navigationService) :
 								base(eventAggregator, navigationService)
 		{
-			OpenAboutCommand = new DelegateCommand(OpenAboutPage);
-			OpenHowToPlayPageCommand = new DelegateCommand(OpenHowToPlayPage);
 		}
 
 		#endregion Public Constructors
 
 
 		#region Public Properties
+		/// <summary>
+		/// Gets the command for starting the game.
+		/// </summary>
+		public ICommand StartGameCommand
+		{
+			get => new DelegateCommand(StartGame);
+		}
 
 		/// <summary>
 		/// Gets the command to open the About Page.
 		/// </summary>
-		public ICommand OpenAboutCommand { get; set; }
+		public ICommand OpenAboutPageCommand 
+		{ 
+			get => new DelegateCommand(OpenAboutPage);
+		}
 
 		/// <summary>
 		/// Gets the command for opening the How To Play Page.
 		/// </summary>
-		public ICommand OpenHowToPlayPageCommand { get; set; }
+		public ICommand OpenHowToPlayPageCommand 
+		{ 
+			get => new DelegateCommand(OpenHowToPlayPage);
+		}
 
 		#endregion Public Properties
 
@@ -48,12 +59,23 @@ namespace UserInterface.Pages.MainMenu
 		/// </summary>
 		private void OpenAboutPage()
 		{
-			NavigationService.ShowPage(AppPages.PuzzleSelectorPage);
+			NavigationService.ShowPage(AppPages.AboutPage);
 		}
 
+		/// <summary>
+		/// Opens How To Play page.
+		/// </summary>
 		private void OpenHowToPlayPage()
 		{
 			NavigationService.ShowPage(AppPages.HowToPlayPage);
+		}
+
+		/// <summary>
+		/// Starts the game
+		/// </summary>
+		private void StartGame()
+		{
+			NavigationService.ShowPage(AppPages.PuzzleSelectorPage);
 		}
 		#endregion Private Methods
 	}

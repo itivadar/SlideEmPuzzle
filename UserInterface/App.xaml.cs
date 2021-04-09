@@ -9,19 +9,23 @@ using UserInterface.BootstraperSpace;
 
 namespace UserInterface
 {
+  /// <summary>
+  /// Interaction logic for App.xaml
+  /// </summary>
+  public partial class App : Application
+  {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Invoked when the application is fired-up.
     /// </summary>
-    public partial class App : Application
+    /// <param name="e"></param>
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            var bootstraper = new Bootstraper();
-            bootstraper.ConfigureContainer();
-            //the inital page displayed when the game is started
-            bootstraper.ShowPage(AppPages.MainMenuPage);
-            bootstraper.GetView<MainWindow>().Show();
-        }
+      base.OnStartup(e);
+      var bootstraper = new Bootstraper();
+      bootstraper.ConfigureContainer();
+      //the inital page displayed when the game is started
+      bootstraper.ShowPage(AppPages.MainMenuPage);
+      bootstraper.GetView<MainWindow>().Show();
     }
+  }
 }

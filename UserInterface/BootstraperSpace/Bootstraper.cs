@@ -121,8 +121,7 @@ namespace UserInterface.BootstraperSpace
       _unityContainer.RegisterPage<PuzzleSelectorPage, PuzzleSelectorViewModel>(AppPages.PuzzleSelectorPage);
       _unityContainer.RegisterPage<GameOverPage, GameOverViewModel>(AppPages.GameOverPage);
       _unityContainer.RegisterPage<HowToPlayPage, HowToPlayViewModel>(AppPages.HowToPlayPage);
-
-      _unityContainer.RegisterNoViewModelPage<AboutPage>(AppPages.AboutPage);
+      _unityContainer.RegisterPage<AboutPage, AboutPageViewModel>(AppPages.AboutPage);
     }
   }
 }

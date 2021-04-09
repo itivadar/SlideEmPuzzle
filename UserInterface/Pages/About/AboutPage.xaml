@@ -10,8 +10,16 @@
       Title="AboutPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <TextBlock Text="Welcome to the About page" 
                    Foreground="WhiteSmoke"/>
+        <custom:MenuButton Grid.Row="1"
+                           Height="60"
+                           Content="Back"
+                           Command="{Binding GoBackCommand}"/>
     </Grid>
 
 </Page>

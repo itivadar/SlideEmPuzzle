@@ -19,14 +19,15 @@
             <customControls:MenuButton Width="200"
                                    Content="Start game" 
                                    Margin="0,80,5,0"
-                                   Command="{Binding OpenAboutCommand}"/>
+                                   Command="{Binding StartGameCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="How to play"
                                    Margin="0,20,2,0"
                                    Command="{Binding OpenHowToPlayPageCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="About"
-                                   Margin="0,20,2,0"/>
+                                   Margin="0,20,2,0"
+                                   Command="{Binding OpenAboutPageCommand}"/>
         </StackPanel>
         <Image Grid.Column="2" Width="400"  Source="{StaticResource GameLogo}"/>
     </Grid>
