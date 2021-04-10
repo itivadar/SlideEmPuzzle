@@ -282,7 +282,7 @@ namespace UserInterface.Pages.SliderPage
 		/// <returns>true if the puzzle can be autosolve</returns>
 		private bool CanSolve()
 		{
-			return !IsAutoSolved;
+			return !IsAutoSolved && AreCommandsEnabled;
 		}
 
 		/// <summary>
