@@ -7,19 +7,85 @@
       xmlns:custom="clr-namespace:UserInterface.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AboutPage">
+      Title="AboutPage"
+      FontFamily="{StaticResource LangarRegular}"
+      Foreground="{StaticResource TextForegroundBrush}">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Welcome to the About page" 
-                   Foreground="WhiteSmoke"/>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Source="{StaticResource GameLogo}" 
+                       Height="120"
+                       Margin="0 0 100 0"/>
+                
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               FontSize="30"> 
+                        Slide'Em Puzzle Game
+                    </TextBlock>
+                    <TextBlock Grid.Row="1"
+                               FontSize="20"
+                               Margin="0 5 0 0"> 
+                        First Edition
+                    </TextBlock>
+                    <TextBlock Grid.Row="2"
+                               FontSize="20"
+                               FontStyle="Oblique"
+                               Margin="0 5 0 0"> 
+                        A game of slidin' around
+                    </TextBlock>
+
+                </Grid>
+            </Grid>
+            <TextBlock Grid.Row="1"
+                       FontSize="22">
+                Engineered by Tivadar Ionut
+                <LineBreak/>
+                  2020 - 2021
+            </TextBlock>
+            <TextBlock Grid.Row="2"
+                       FontSize="18"
+                       FontWeight ="ExtraLight"
+                       FontStyle="Oblique">
+                Atrributions
+                <LineBreak/>
+                - Buttons textures were designed by starline / Freepik
+                <LineBreak/>
+                - Stars icons were designed by Pixel Perfect on flaticon.com
+            </TextBlock>
+        </Grid>
         <custom:MenuButton Grid.Row="1"
                            Height="60"
                            Content="Back"
                            Command="{Binding GoBackCommand}"/>
+        <TextBlock Grid.Row="1"
+                    HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   FontSize="18">
+            v 1.0
+        </TextBlock>
     </Grid>
 
 </Page>

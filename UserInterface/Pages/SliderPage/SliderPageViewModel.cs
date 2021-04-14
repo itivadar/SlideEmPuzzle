@@ -405,6 +405,7 @@ namespace UserInterface.Pages.SliderPage
 			var scale = (PuzzleScale / 100);
 			TileSize = (short)((puzzleMaxSize - puzzleMinSize) * scale + puzzleMinSize);
 		}
+
 		/// <summary>
 		/// Calculates async the minimum number of steps required to solve the puzzle.
 		/// </summary>
