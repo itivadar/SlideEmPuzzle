@@ -4,85 +4,97 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
+using UserInterface.Events;
 using UserInterface.Helpers;
 
 namespace UserInterface
 {
-  /// <summary>
-  /// The ViewModel for the MainWindow.
-  /// </summary>
-  public class MainWindowViewModel : ViewModelBase
-  {
-    #region Private Fields
-    private Page _mainFrame;
+	/// <summary>
+	/// The ViewModel for the MainWindow.
+	/// </summary>
+	public class MainWindowViewModel : ViewModelBase
+	{
+		#region Private Fields
 
-    #endregion Private Fields
+		private Page _mainFrame;
+		private bool _shoulAnimate;
 
-    #region Public Constructors
+		#endregion Private Fields
 
-    /// <summary>
-    /// Initializes a new ViewModel
-    /// </summary>
-    /// <param name="navigationService">nagivation service used for displaying pages.</param>
-    public MainWindowViewModel(IEventAggregator eventAggregator, INavigationService navigationService) :
-            base(eventAggregator, navigationService)
-    {
-      PlayCommand = new DelegateCommand(OnPlay);
-      CloseCommand = new DelegateCommand(OnExit);
-    }
+		#region Public Constructors
 
-    #endregion Public Constructors
+		/// <summary>
+		/// Initializes a new ViewModel
+		/// </summary>
+		/// <param name="navigationService">nagivation service used for displaying pages.</param>
+		public MainWindowViewModel(IEventAggregator eventAggregator, INavigationService navigationService) :
+						base(eventAggregator, navigationService)
+		{
+			CloseCommand = new DelegateCommand(OnExit);
+			EventAggregator.GetEvent<BlinkBorderEvent>().Subscribe(RunEasterEgg);
+		}
 
-    #region Public Properties
+		#endregion Public Constructors
 
-    /// <summary>
-    /// Gets the command for displaying the about page.
-    /// </summary>
-    public ICommand AboutCommand { get; private set; }
+		#region Public Properties
 
-    /// <summary>
-    /// Gets the command for displaying playing page.
-    /// </summary>
-    public ICommand PlayCommand { get; private set;  }
+		/// <summary>
+		/// Gets the command for close the game.
+		/// </summary>
+		public ICommand CloseCommand { get; private set; }
 
-    /// <summary>
-    /// Gets the command for close the game.
-    /// </summary>
-    public ICommand CloseCommand { get; private set; }
+		/// <summary>
+		/// Gets or sets the page displayed in the main area.
+		/// </summary>
+		public Page MainFrame
+		{
+			get => _mainFrame;
+			set
+			{
+				_mainFrame = value;
+				RaisePropertyChanged(nameof(MainFrame));
+			}
+		}
 
-    /// <summary>
-    /// Gets or sets the page displayed in the main area.
-    /// </summary>
-    public Page MainFrame
-    {
-      get => _mainFrame;
-      set
-      {
-        _mainFrame = value;
-        RaisePropertyChanged(nameof(MainFrame));
-      }
-    }
+		/// <summary>
+		/// Gets or sets a value indicating whether the border blinking animation should start.
+		/// </summary>
+		public bool ShouldAnimateBorder
+		{
+			get => _shoulAnimate;
+			set
+			{
+				_shoulAnimate = value;
+				RaisePropertyChanged(nameof(ShouldAnimateBorder));
 
-    #endregion Public Properties
+				//it needs to be reseted in order to trigger the event once more.
+				if (value)
+				{
+					ShouldAnimateBorder = false;
+				}
+			}
+		}
 
-    #region Private Methods
+		#endregion Public Properties
 
-    /// <summary>
-    /// Opens the puzzle selection page.
-    /// </summary>
-    private void OnPlay()
-    {
-      MainFrame = NavigationService.GetPage(AppPages.PuzzleSelectorPage);
-    }
+		#region Private Methods
 
-    /// <summary>
-    /// Exits the application.
-    /// </summary>
-    private void OnExit()
-    {
-      Application.Current.Shutdown();
-    }
+		/// <summary>
+		/// Exits the application.
+		/// </summary>
+		private void OnExit()
+		{
+			Application.Current.Shutdown();
+		}
 
-    #endregion Private Methods
-  }
+		/// <summary>
+		/// Run the Easter Egg as the border blinking animation
+		/// </summary>
+		private void RunEasterEgg()
+		{
+			ShouldAnimateBorder = true;
+		}
+
+		#endregion Private Methods
+	}
 }

@@ -23,7 +23,7 @@
                         <Rectangle x:Name="outerRectangle" 
                                    HorizontalAlignment="Stretch" 
                                    VerticalAlignment="Stretch" 
-                                   Stroke="MidnightBlue"                                  
+                                   Stroke="{StaticResource FuturisticBorderColor}"                                  
                                    RadiusX="20" 
                                    RadiusY="20" 
                                    StrokeThickness="3" 

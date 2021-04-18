@@ -4,12 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UserInterface.Pages.About" 
-      xmlns:custom="clr-namespace:UserInterface.CustomControls"
+      xmlns:custom="clr-namespace:UserInterface.CustomControls" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutPage"
       FontFamily="{StaticResource LangarRegular}"
       Foreground="{StaticResource TextForegroundBrush}">
+
+    <!--Trigger something nice when the player clicks on About page-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <i:InvokeCommandAction Command="{Binding MouseDownCommand}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,8 +26,7 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -32,9 +38,10 @@
                        Source="{StaticResource GameLogo}" 
                        Height="120"
                        Margin="0 0 100 0"/>
-                
+
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -51,7 +58,7 @@
                         First Edition
                     </TextBlock>
                     <TextBlock Grid.Row="2"
-                               FontSize="20"
+                               FontSize="24"
                                FontStyle="Oblique"
                                Margin="0 5 0 0"> 
                         A game of slidin' around
@@ -59,22 +66,65 @@
 
                 </Grid>
             </Grid>
-            <TextBlock Grid.Row="1"
-                       FontSize="22">
-                Engineered by Tivadar Ionut
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       FontSize="20"
+                       Margin="0 50 0 0">
+                Engineered by Tivadar Ionut              
                 <LineBreak/>
-                  2020 - 2021
+                 © 2020 - 2021            
+                <LineBreak/>
+                 Github: itivadar
+               
+            </TextBlock>
+            
+            <TextBlock Grid.Row="1"
+                       FontSize="20"
+                       Margin="0 30 0 0">
+                Nerds info
+                <LineBreak/>
+                The IDA* algorithm helps with solving the puzzles.
             </TextBlock>
             <TextBlock Grid.Row="2"
-                       FontSize="18"
+                       FontSize="19"
                        FontWeight ="ExtraLight"
-                       FontStyle="Oblique">
+                       FontStyle="Normal"
+                       Margin="0 15 0 0">
                 Atrributions
                 <LineBreak/>
-                - Buttons textures were designed by starline / Freepik
+                » Buttons textures were designed by starline / Freepik
                 <LineBreak/>
-                - Stars icons were designed by Pixel Perfect on flaticon.com
+                » Stars icons were designed by Pixel Perfect on flaticon.com
             </TextBlock>
+
+                <Border BorderBrush="{StaticResource FuturisticBorderColor}"
+                    BorderThickness="2"
+                    Grid.Column="1"
+                    Grid.RowSpan="3"
+                    HorizontalAlignment="Right"
+                    CornerRadius="22"
+                    Height="350"
+                    Width="350"
+                    Visibility="{Binding MemeImageVisibility}"
+                    Style="{StaticResource AnimatedMeme}">
+                    <Image  Source="C:\Users\neo_c\Desktop\succeskid.jpg" 
+                    
+                    Height="325"
+                    Width="325"
+                    HorizontalAlignment="Center"/>
+
+                </Border>
+            </Grid>
         </Grid>
         <custom:MenuButton Grid.Row="1"
                            Height="60"

@@ -9,16 +9,39 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Window">
                     <Grid Background="Transparent">
-                        <Border CornerRadius="22.5" BorderThickness="3" BorderBrush="MidnightBlue">
+                        <Border CornerRadius="22.5"
+                                BorderThickness="3" 
+                                BorderBrush="{TemplateBinding BorderBrush }">
+
                             <Grid Name="myContentPresenterDockPanel"  >
                                 <ContentPresenter  Content="{TemplateBinding Content}"
                                               Margin="10"/>
                             </Grid>
                         </Border>
                     </Grid>
-                        
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=ShouldAnimateBorder}" Value="true">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="3x"
+                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+
+                                <!--<SplineColorKeyFrame KeyTime="0:0:0.3" Value="IndianRed"/>-->
+                                <SplineColorKeyFrame KeyTime="0:0:0.6" Value="IndianRed"/>
+                                <!--<SplineColorKeyFrame KeyTime="0:0:0.9" Value="Turquoise"/>-->
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

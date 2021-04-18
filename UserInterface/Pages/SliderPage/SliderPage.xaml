@@ -83,7 +83,7 @@
                            Width="100"
                            Margin="5"
                            Style="{StaticResource InfoLabelStyle}"
-                           Foreground="Beige"
+                           Foreground= "{DynamicResource SelectionColorBrush}"
                            FontSize="16"
                            FontWeight="DemiBold"/>
                     <Label Grid.Column="1"

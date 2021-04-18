@@ -16,8 +16,9 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource FuturisticWindowStyle}"
-        Cursor="{StaticResource GameCursor}">
-
+        Cursor="{StaticResource GameCursor}"
+        BorderBrush="{StaticResource FuturisticBorderColor}">
+    
     <Border CornerRadius="23" BorderThickness="12">
         <Border.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

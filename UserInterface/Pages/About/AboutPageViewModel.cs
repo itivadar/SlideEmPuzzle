@@ -1,7 +1,9 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using System.Windows;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
+using UserInterface.Events;
 using UserInterface.Helpers;
 
 namespace UserInterface.Pages.About
@@ -11,6 +13,12 @@ namespace UserInterface.Pages.About
 	/// </summary>
 	internal class AboutPageViewModel : ViewModelBase
 	{
+		#region Private Fields
+
+		private Visibility _memeImageVisibility;
+		private byte _tapsOnPage;
+		#endregion Private Fields
+
 		#region Internal Constructors
 
 		/// <summary>
@@ -21,9 +29,23 @@ namespace UserInterface.Pages.About
 		internal AboutPageViewModel(IEventAggregator eventAggregator, INavigationService navigationService)
 						: base(eventAggregator, navigationService)
 		{
+			MouseDownCommand = new DelegateCommand(OnMouseDown);
 		}
 
 		#endregion Internal Constructors
+
+		#region Public Methods
+
+		/// <summary>
+		/// Method invoked when the About page is displayed.
+		/// </summary>
+		public override void OnDisplayed()
+		{
+			_tapsOnPage = 0;
+			MemeImageVisibility = Visibility.Collapsed;
+		}
+
+		#endregion Public Methods
 
 		#region Public Properties
 
@@ -35,9 +57,40 @@ namespace UserInterface.Pages.About
 			get => new DelegateCommand(OpenMainMenu);
 		}
 
+		/// <summary>
+		/// Gets the Visibiliy of Easter Egg image.
+		/// </summary>
+		public Visibility MemeImageVisibility
+		{
+			get => _memeImageVisibility;
+			private set
+			{
+				_memeImageVisibility = value;
+				RaisePropertyChanged(nameof(MemeImageVisibility));
+			}
+		}
+		/// <summary>
+		/// Gets the command invoked when the mouse is pressed on the page.
+		/// </summary>
+		public ICommand MouseDownCommand { get; private set; }
+
 		#endregion Public Properties
 
 		#region Private Methods
+
+		/// <summary>
+		/// Triggered when the mouse is pressed on the page.
+		/// </summary>
+		private void OnMouseDown()
+		{
+			_tapsOnPage++;
+			if (_tapsOnPage == 3)
+			{
+				MemeImageVisibility = Visibility.Visible;
+				EventAggregator.GetEvent<BlinkBorderEvent>().Publish();
+				_tapsOnPage = 0;
+			}
+		}
 
 		/// <summary>
 		/// Opens Main Menu page.

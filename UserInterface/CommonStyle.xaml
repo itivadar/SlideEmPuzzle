@@ -4,6 +4,9 @@
     
     <!--The cursor used in the game-->
     <Cursor x:Key="GameCursor">pack://application:,,,/Resources/Earth_Pointer.ani</Cursor>
+
+
+    <SolidColorBrush x:Key="FuturisticBorderColor" Color="MidnightBlue"/>
     
     <!-- The game logo -->
     <ImageSource x:Key="GameLogo">/Resources/logo.png</ImageSource>
@@ -27,22 +30,38 @@
     <!--Font family used -->
     <FontFamily x:Key="LangarRegular">pack://application:,,,/Fonts/Langar-Regular.ttf#Langar</FontFamily>
     <FontFamily x:Key="NovaFlat">pack://application:,,,/Fonts/NovaFlat-Regular.ttf#NovaFlat</FontFamily>
+    <FontFamily x:Key="DarkerGrotesque">pack://application:,,,/Fonts/DarkerGrotesque-Regular.ttf#Darker Grotesque</FontFamily>
 
-    <!-- Text will be revealed -->
+    <!-- Text will be slowly revealed -->
     <Style x:Key="AnimatedText" TargetType="{x:Type TextBlock}">
-       <Style.Triggers>
+        <Style.Triggers>
             <Trigger Property="IsVisible"  Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                           <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                              From="0" To="1" Duration="0:0:0.420"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
-            </Trigger>    
-       </Style.Triggers>
-        
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
+    <!-- Meme will be slowly revealed -->
+        <Style x:Key="AnimatedMeme" TargetType="{x:Type Border}">
+            <Style.Triggers>
+                <Trigger Property="IsVisible"  Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             From="0" To="1" Duration="0:0:1.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
 </ResourceDictionary>
