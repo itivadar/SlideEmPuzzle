@@ -30,6 +30,7 @@
     <None Remove="Resources\Sounds\clickSound.wav" />
     <None Remove="Resources\Sounds\slidingSound.wav" />
     <None Remove="Resources\star.png" />
+    <None Remove="Resources\succeskid.jpg" />
     <None Remove="Resources\tileTexture.jpg" />
   </ItemGroup>
 
@@ -73,6 +74,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\star.png" />
+    <Resource Include="Resources\succeskid.jpg" />
     <Resource Include="Resources\tileTexture.jpg" />
   </ItemGroup>
 

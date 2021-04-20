@@ -64,7 +64,6 @@ namespace UserInterface.Pages.About
 				{
 					ShouldMemeBlink = false;
 				}
-				
 			}
 		}
 

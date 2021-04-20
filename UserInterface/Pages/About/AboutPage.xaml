@@ -118,11 +118,10 @@
                     Width="350"
                     Visibility="{Binding MemeImageVisibility}"
                     Style="{StaticResource AnimatedMeme}">
-                    <Image  Source="C:\Users\neo_c\Desktop\succeskid.jpg" 
-                    
-                    Height="325"
-                    Width="325"
-                    HorizontalAlignment="Center"/>
+                    <Image  Source="/Resources/succeskid.jpg"              
+                            Height="325"
+                            Width="325"
+                            HorizontalAlignment="Center"/>
 
                 </Border>
             </Grid>
