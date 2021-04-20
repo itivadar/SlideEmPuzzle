@@ -55,12 +55,27 @@
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                              From="0" To="1" Duration="0:0:1.5"/>
-                            </Storyboard>
+                        </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
                 </Trigger>
+            <DataTrigger Binding="{Binding Path=ShouldMemeBlink}" Value="true">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="3x"
+                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                <SplineColorKeyFrame KeyTime="0:0:0.6" Value="IndianRed"/>
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
             </Style.Triggers>
         </Style>
 

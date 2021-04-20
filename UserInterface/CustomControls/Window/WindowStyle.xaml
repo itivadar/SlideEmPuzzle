@@ -33,10 +33,7 @@
                                             FillBehavior="Stop"
                                             RepeatBehavior="3x"
                                             Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
-
-                                <!--<SplineColorKeyFrame KeyTime="0:0:0.3" Value="IndianRed"/>-->
                                 <SplineColorKeyFrame KeyTime="0:0:0.6" Value="IndianRed"/>
-                                <!--<SplineColorKeyFrame KeyTime="0:0:0.9" Value="Turquoise"/>-->
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </BeginStoryboard>
