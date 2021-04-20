@@ -17,6 +17,7 @@ namespace UserInterface.Pages.About
 
 		private Visibility _memeImageVisibility;
 		private byte _tapsOnPage;
+		private bool _shouldMemeBlink;
 		#endregion Private Fields
 
 		#region Internal Constructors
@@ -48,6 +49,24 @@ namespace UserInterface.Pages.About
 		#endregion Public Methods
 
 		#region Public Properties
+		/// <summary>
+		/// Gets a value indicating if the pictures should blink
+		/// Used like a triggered when the value is true
+		/// </summary>
+		public bool ShouldMemeBlink
+		{
+			get => _shouldMemeBlink;
+			private set 
+			{
+				_shouldMemeBlink = value;
+				RaisePropertyChanged(nameof(ShouldMemeBlink));
+				if (value)
+				{
+					ShouldMemeBlink = false;
+				}
+				
+			}
+		}
 
 		/// <summary>
 		/// Gets the command to go back to Main Menu page.
@@ -86,6 +105,7 @@ namespace UserInterface.Pages.About
 			_tapsOnPage++;
 			if (_tapsOnPage == 3)
 			{
+				ShouldMemeBlink = true;
 				MemeImageVisibility = Visibility.Visible;
 				EventAggregator.GetEvent<BlinkBorderEvent>().Publish();
 				_tapsOnPage = 0;
