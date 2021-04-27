@@ -87,6 +87,7 @@ namespace UserInterface.Pages.About
 				RaisePropertyChanged(nameof(MemeImageVisibility));
 			}
 		}
+
 		/// <summary>
 		/// Gets the command invoked when the mouse is pressed on the page.
 		/// </summary>

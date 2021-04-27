@@ -6,7 +6,7 @@
     <Cursor x:Key="GameCursor">pack://application:,,,/Resources/Earth_Pointer.ani</Cursor>
 
 
-    <SolidColorBrush x:Key="FuturisticBorderColor" Color="MidnightBlue"/>
+    <SolidColorBrush x:Key="FuturisticBorderColor" Color="#045db0"/>
     
     <!-- The game logo -->
     <ImageSource x:Key="GameLogo">/Resources/logo.png</ImageSource>

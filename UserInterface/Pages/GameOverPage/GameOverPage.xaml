@@ -8,7 +8,7 @@
       xmlns:helpers="clr-namespace:UserInterface.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="600" 
-      d:DesignWidth="800"
+      d:DesignWidth="900"
       Title="GameOverPage">
     <Page.Resources>
         <helpers:TimeSpanToStringFormatConverter x:Key="TimeSpanToStringFormatConverter"/>
@@ -29,12 +29,14 @@
                    FontFamily="{StaticResource LangarRegular}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition />
-                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
-                   Source ="{StaticResource LeftConfettiIcon}"/>
+                   Source ="{StaticResource LeftConfettiIcon}"
+                   Height="230"
+                   Width="230"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -44,15 +46,15 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                    Grid.Column="0"
                    Text="Time "
                    Foreground="{StaticResource TextForegroundBrush}"
-                   Margin="55 90 0 0"
+                   Margin="120 90 0 0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
 
@@ -60,15 +62,15 @@
                    Grid.Column="1"
                    Text="{Binding Time, Converter={StaticResource TimeSpanToStringFormatConverter}}"
                    Foreground="{StaticResource TextForegroundBrush}"
-                   HorizontalAlignment="Center"
-                   Margin="50 90 0 0"
+                   HorizontalAlignment="Left"
+                   Margin="0 90 0 0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
 
@@ -76,22 +78,22 @@
                    Grid.Column="0"
                    Text="Slides "
                    Foreground="{StaticResource TextForegroundBrush}"
-                   Margin="55 5 0 0"
+                   Margin="120 5 0 0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
 
                     <TextBlock
-                   Grid.Column="1"
+                   Grid.Column="2"
                    Text="{Binding MovesMade}"
                    Foreground="{StaticResource TextForegroundBrush}"
-                   HorizontalAlignment="Center"
-                   Margin="20 5 0 0"
+                   HorizontalAlignment="Left"
+                   Margin="0,5,0,0"
                    FontSize="26"
                    FontFamily="{StaticResource LangarRegular}"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
 
@@ -99,7 +101,7 @@
                    Grid.Column="0"
                    Text="Score "
                    Foreground="{StaticResource TextForegroundBrush}"
-                   Margin="55 5 0 0"
+                   Margin="120 5 0 0"
                    FontSize="36"
                    FontFamily="{StaticResource LangarRegular}"/>
 
@@ -107,7 +109,7 @@
                    Grid.Column="1"
                    Text="{Binding PlayerScore}"
                    Foreground="{StaticResource TextForegroundBrush}"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Left"
                    Margin="0 5 0 0"
                    FontSize="36"
                    FontFamily="{StaticResource LangarRegular}">
@@ -119,19 +121,19 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Image Grid.Column="0"
                            Source="{StaticResource EmptyStar}" 
-                           Height="95" 
-                           Width="95"
+                           Height="115" 
+                           Width="115"
                            Margin="5">
                     </Image>
                     <Image x:Name = "Star1" Grid.Column="0"
                            Source ="{StaticResource Star}"
                            Opacity ="100"
                            Visibility="{Binding FirstStarVisibility}"
-                           Height="95" 
-                           Width="95"
+                           Height="115" 
+                           Width="115"
                            Margin="5">
                         <Image.Triggers>
                             <EventTrigger RoutedEvent="Image.Loaded">
@@ -152,17 +154,18 @@
                     </Image>
                     <Image Grid.Column="1"
                            Source="{StaticResource EmptyStar}" 
-                           Height="95" 
-                           Width="95"
+                           Height="115" 
+                           Width="115"
                            Margin="5">
                     </Image>
                     <Image x:Name="Star2"
                            Grid.Column="1"
                            Source="{StaticResource Star}"
-                           Height="95"
+                           Height="115"
+                           Width="115"
                            Opacity ="100"
                            Visibility="{Binding SecondStarVisibility}"
-                           Width="95"
+                           
                            Margin="5">
                         <Image.Triggers>
                             <EventTrigger RoutedEvent="Image.Loaded">
@@ -183,17 +186,17 @@
                     </Image>
                     <Image Grid.Column="2"
                            Source="{StaticResource EmptyStar}" 
-                           Height="95" 
-                           Width="95"
+                           Height="115" 
+                           Width="115"
                            Margin="5">
                     </Image>
                     <Image x:Name="Star3"
                            Grid.Column="2"
                            Source="{StaticResource Star}"
-                           Height="95"
+                           Height="115"
                            Opacity="100"
                            Visibility="{Binding ThirdStarVisibility}"
-                           Width="95"
+                           Width="115"
                            Margin="5">
                         <Image.Triggers>
                             <EventTrigger RoutedEvent="Image.Loaded">
@@ -214,18 +217,20 @@
                         </Image.Triggers>
                     </Image>
                 </Grid>
-                   
+
             </Grid>
-            
+
             <Image Grid.Column="3"
-                   Source ="{StaticResource RightConfettiIcon}"/>
+                   Source ="{StaticResource RightConfettiIcon}"
+                   Height="230"
+                   Width="230"/>
         </Grid>
-        
+
         <customcontrols:MenuButton Grid.Row="4"
                                    Command="{Binding OpenMainMenuCommand}"
                                    Content="Main menu"
                                    HorizontalAlignment="Center"
                                    Margin="0 0 0 50" />
-       
+
     </Grid>
 </Page>

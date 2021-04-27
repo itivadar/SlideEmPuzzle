@@ -18,7 +18,7 @@
                     Orientation="Vertical">
             <customControls:MenuButton Width="200"
                                    Content="Start game" 
-                                   Margin="0,80,5,0"
+                                   Margin="0,150,5,0"
                                    Command="{Binding StartGameCommand}"/>
             <customControls:MenuButton Width="200"
                                    Content="How to play"

@@ -102,9 +102,9 @@
                        Margin="0 15 0 0">
                 Atrributions
                 <LineBreak/>
-                » Buttons textures were designed by starline / Freepik
+                Buttons textures were designed by starline / Freepik
                 <LineBreak/>
-                » Stars icons were designed by Pixel Perfect on flaticon.com
+                Stars icons were designed by Pixel Perfect on flaticon.com
             </TextBlock>
 
                 <Border BorderBrush="{StaticResource FuturisticBorderColor}"

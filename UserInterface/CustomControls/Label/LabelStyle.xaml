@@ -11,7 +11,7 @@
                         <Rectangle x:Name="outerRectangle" 
                                    HorizontalAlignment="Stretch" 
                                    VerticalAlignment="Stretch" 
-                                   Stroke="#FFD6BD66"                               
+                                   Stroke="{StaticResource FuturisticBorderColor}"                               
                                    RadiusX="10" 
                                    RadiusY="10" 
                                    StrokeThickness="1" 
@@ -34,7 +34,7 @@
                                               Content="{TemplateBinding Content}"
                                               TextBlock.FontSize="22" 
                                               TextBlock.FontWeight="DemiBold"
-                                              TextBlock.Foreground="Orange"
+                                              TextBlock.Foreground="#e8bd80"
                                               TextBlock.FontFamily="{StaticResource LangarRegular}"/>
                         </DockPanel>
                     </Grid>

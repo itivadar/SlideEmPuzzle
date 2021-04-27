@@ -16,8 +16,8 @@
     <Grid>
         <Grid Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="380"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -28,10 +28,10 @@
                         Text="Slide to victory!"
                          Foreground= "{StaticResource TextForegroundBrush }"
                          FontFamily="{StaticResource LangarRegular}"
-                         FontSize="25"
-                        Margin="0 20 0 10"
+                        FontSize="35"
+                        Margin="0 20 0 45"
                         HorizontalAlignment="Center"/>
-            <Grid Grid.Column="1"
+            <Grid Grid.Column="0"
                   Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -54,7 +54,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-
+                   
                     <Label Grid.Column="0"
                            Grid.Row="0"
                            FontSize="10"
@@ -97,7 +97,7 @@
                 </Grid>
                 <custom:MenuButton Grid.Row="2"
                                    Content="New game"
-                                   Margin="0 10 0 10"
+                                   Margin="0 40 0 10"
                                    Command="{Binding NewGameCommand}"/>
                 
                 <custom:MenuButton Grid.Row="3"
@@ -111,7 +111,7 @@
                                    Command="{Binding OpenMainMenuCommand}"/>
             </Grid>
             <Grid Grid.Row="1" 
-                Grid.Column="0">
+                Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -119,7 +119,7 @@
                 </Grid.RowDefinitions>
             <custom:PuzzleSlider Grid.Row="0"                               
                                  Height="400"
-                                 Margin="30 20 0 0"
+                                 Margin="80 20 0 0"
                                  State="{Binding PuzzleBoard}"
                                  TileSize="{Binding TileSize}"                                 
                                  SolutionSteps="{Binding SolutionSteps}"
@@ -137,14 +137,14 @@
                     <TextBlock Grid.Row="1"
                            Text="Size"
                            HorizontalAlignment="Left"
-                           Margin="30 0 0 0"
+                           Margin="80 0 0 0"
                            Visibility="{Binding PuzzleScaleVisibility}"
                            Foreground= "{StaticResource TextForegroundBrush }"
                            FontFamily="{StaticResource LangarRegular}"
                            FontSize="20"/>
 
                 <Slider Grid.Row="2"
-                    Margin="30 5 0 20"
+                    Margin="80 5 0 20"
                     Maximum="100"
                     Minimum="0"
                     Width="300"
