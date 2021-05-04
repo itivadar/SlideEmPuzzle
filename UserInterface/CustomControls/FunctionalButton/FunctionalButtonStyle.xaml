@@ -36,7 +36,7 @@
                                         VerticalAlignment="Center">
                         <ContentPresenter x:Name="myContentPresenter" 
                                               Content="{TemplateBinding  Content}" 
-                                              TextBlock.Foreground="White"
+                                              TextBlock.Foreground="#ed7e0e"
                                               TextBlock.FontSize="18"
                                               TextBlock.FontWeight="Bold"
                                             

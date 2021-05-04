@@ -6,7 +6,7 @@
     
     <SolidColorBrush x:Key="SelectionColorBrush" Color="DeepSkyBlue"/>
     <SolidColorBrush x:Key="UpperRectangleColorBrush" Color="LightSteelBlue"/>
-    <SolidColorBrush x:Key="LowerRectangleColorBrush" Color="IndianRed"/>
+    <SolidColorBrush x:Key="LowerRectangleColorBrush" Color="#ed7e0e"/>
     <SolidColorBrush x:Key="ButtonFillBrush" Color="DarkOliveGreen"/>
     <system:Double x:Key="SmallRectangleDimension">18</system:Double>
 

@@ -7,65 +7,75 @@
         xmlns:custom="clr-namespace:UserInterface.CustomControls" 
         mc:Ignorable="d"
         Title="Slide'em Puzzle" 
-        Height="770"
+        Height="800"
         Width="1024"
         WindowStyle="None"
         ResizeMode="CanMinimize"
-        Background="Transparent"
         Foreground="White"
+        Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource FuturisticWindowStyle}"
         Cursor="{StaticResource GameCursor}"
         BorderBrush="{StaticResource FuturisticBorderColor}">
-    
-    <Border CornerRadius="23" BorderThickness="12">
-        <Border.BorderBrush>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF24307E"/>
-                <GradientStop Color="#FF104C6E" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-                <TextBlock Text="Slide'Em Puzzle "
-                           FontFamily="{StaticResource LangarRegular}"
-                           FontSize="18"/>
-            
-                <Button Content="X"
+    <Border CornerRadius="23" BorderThickness="12">
+      
+        <Border.BorderBrush>
+            <ImageBrush ImageSource="/Resources/borderbackground.png"
+                        Stretch="Uniform"/>
+        </Border.BorderBrush>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/backgroundtexture.png"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                        Source="/Resources/gameico.ico"
+                       Margin="5 0 5 0"
+                       Height="40"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="SLIDE' EM PUZZLE GAME "
+                           VerticalAlignment="Center"
+                           FontSize="13"
+                           Foreground="Orange"
+                           FontWeight="Bold"
+                           FontFamily="{StaticResource NovaFlat}"/>
+
+                <Button Grid.Column="2"
+                        Content="X"
                         Width="35"
                         Height="35"
                         Margin="0 0 0 5"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         Style="{StaticResource FunctionalButtonStyle}"
-                        Command="{Binding CloseCommand}"/>
+                        Command="{Binding CloseCommand}"
+                        Foreground="Orange"/>
 
             </Grid>
-        <Frame Grid.Row="1"
+            <Frame Grid.Row="1"
                Content="{Binding MainFrame}"
                NavigationUIVisibility="Hidden" 
-               Grid.ColumnSpan="2" 
-               VerticalAlignment="Stretch"/>
+               Grid.ColumnSpan="2">
+            </Frame>
 
 
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF24307E"/>
-                <GradientStop Color="#FF104C6E" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-
-
-    </Grid>
+        </Grid>
     </Border>
 </Window>

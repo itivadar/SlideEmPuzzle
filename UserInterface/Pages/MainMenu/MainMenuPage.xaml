@@ -29,6 +29,291 @@
                                    Margin="0,20,2,0"
                                    Command="{Binding OpenAboutPageCommand}"/>
         </StackPanel>
-        <Image Grid.Column="2" Width="400"  Source="{StaticResource GameLogo}"/>
+        <TextBlock Text="by T. Ionut"
+                   FontFamily="{StaticResource LangarRegular}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Foreground="{StaticResource TextForegroundBrush}"
+                   FontSize="16"
+                   Margin="5 0 5 5"/>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Width="85" Height="158"  
+               Source="/Resources/gameico.ico"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center">
+                <Image.Effect>
+                    <BlurEffect Radius="4" KernelType="Gaussian"/>
+                </Image.Effect>
+            </Image>
+            <Image  Grid.Column="1" 
+                Source="/Resources/gameico.ico" />
+            <Grid Grid.Row="1"
+                  Grid.ColumnSpan="3">
+                <Rectangle Grid.Column="1"
+                       Grid.Row="1"
+                      x:Name="Rec1"
+                       Height="20"
+                       Width="20"
+                       Margin="75 10 3 0"
+                       VerticalAlignment ="Top"
+                       Fill="Transparent"
+                       Stroke="Orange"
+                       StrokeThickness="1">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec1"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                       
+                                                         
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle Grid.Column="0"
+                       Grid.Row="1"
+                       x:Name="Rec2"
+                       Height="25"
+                       Width="25"
+                       VerticalAlignment ="Top"
+                       Fill="Transparent"
+                       Stroke="Turquoise"
+                       StrokeThickness="5">
+
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s2"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec2"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                       
+                                                        
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+                <Rectangle Grid.Column="1"
+                       Grid.Row="1"
+                       x:Name="Rec4"
+                       Height="23"
+                       Width="23"
+                       Margin="155 20  3 0"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Orange"
+                       StrokeThickness="4">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s4"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec4"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                       
+                                                         
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle Grid.Column="0"
+                       Grid.Row="1"
+                       x:Name="Rec3"
+                       Height="22"
+                       Width="22"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Turquoise"
+                       StrokeThickness="3"
+                       Margin="115 4 2 0">
+
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s3"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec3"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                       
+                                                         
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1.4"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle Grid.Column="1"
+                       Grid.Row="1"
+                       x:Name="Rec6"
+                       Height="30"
+                       Width="30"
+                       Margin="120 0 3 0"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Orange"
+                       StrokeThickness="2">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s6"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec6"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle x:Name="Rec5"
+                       Height="16"
+                       Width="16"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Turquoise"
+                       StrokeThickness="2"
+                       Margin="160 4 2 0">
+
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s5"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec5"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                          
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:0.830"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+                <Rectangle Grid.Column="1"
+                       Grid.Row="1"
+                       x:Name="Rec7"
+                       Height="30"
+                       Width="30"
+                       Margin="250 0 3 0"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Orange"
+                       StrokeThickness="4">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s7"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec7"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                      
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:1.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle x:Name="Rec8"
+                       Height="20"
+                       Width="20"
+                       VerticalAlignment ="Top"
+                       HorizontalAlignment="Left"
+                       Fill="Transparent"
+                       Stroke="Turquoise"
+                       StrokeThickness="3"
+                       Margin="205 20 2 0">
+
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="s8"></TranslateTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="4" KernelType="Gaussian"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="Rec8"
+                                                         Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.Y)"                                                       
+                                                         
+                                                         RepeatBehavior="Forever"
+                                                         From="0" To="300" Duration="0:0:0.920"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+            </Grid>
+        </Grid>
     </Grid>
+
 </Page>

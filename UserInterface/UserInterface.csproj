@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>SlideEmPuzzle</AssemblyName>
+    <ApplicationIcon>Resources/gameico.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,10 +20,13 @@
     <None Remove="Fonts\DarkerGrotesque-Regular.ttf" />
     <None Remove="Fonts\Langar-Regular.ttf" />
     <None Remove="Fonts\NovaFlat-Regular.ttf" />
+    <None Remove="Resources\backgroundtexture.png" />
+    <None Remove="Resources\borderbackground.png" />
     <None Remove="Resources\confettiLeft.png" />
     <None Remove="Resources\confettiRight.png" />
     <None Remove="Resources\Earth_Pointer.ani" />
     <None Remove="Resources\emptystar.png" />
+    <None Remove="Resources\gameico.ico" />
     <None Remove="Resources\ico1.png" />
     <None Remove="Resources\labelTexture.jpg" />
     <None Remove="Resources\logo.png" />
@@ -56,6 +60,8 @@
     <Resource Include="Fonts\NovaFlat-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\backgroundtexture.png" />
+    <Resource Include="Resources\borderbackground.png" />
     <Resource Include="Resources\confettiLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -64,6 +70,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\emptystar.png" />
+    <Resource Include="Resources\gameico.ico" />
     <Resource Include="Resources\labelTexture.jpg" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\menuButton4.jpg" />
