@@ -55,8 +55,7 @@
                            VerticalAlignment="Center"
                            FontSize="14"
                            FontWeight="DemiBold"
-                           Foreground="Wheat"
-                           
+                           Foreground="Wheat"                          
                            FontFamily="{StaticResource NovaFlat}"/>
 
                 <Button Grid.Column="2"
