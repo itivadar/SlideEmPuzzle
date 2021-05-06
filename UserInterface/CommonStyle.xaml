@@ -8,8 +8,11 @@
 
     <SolidColorBrush x:Key="FuturisticBorderColor" Color="#045db0"/>
     
+    <!-- The game icon-->
+    <ImageSource x:Key="GameIcon">/Resources/gameico.ico</ImageSource>
+
     <!-- The game logo -->
-    <ImageSource x:Key="GameLogo">/Resources/logo.png</ImageSource>
+    <ImageSource x:Key="TextGameLogo">/Resources/textgamelogo.png</ImageSource>
 
     <!--Textures used for the controls -->
     <ImageBrush x:Key="LabelTexture" ImageSource="/Resources/menuButton4.jpg" Stretch="UniformToFill"/>

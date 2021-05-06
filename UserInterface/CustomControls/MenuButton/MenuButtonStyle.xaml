@@ -65,7 +65,7 @@
                             <ContentPresenter x:Name="myContentPresenter" 
                                               Content="{TemplateBinding  Content}" 
                                               TextBlock.Foreground="{StaticResource TextForegroundBrush}"
-                                              TextBlock.FontSize="20" 
+                                              TextBlock.FontSize="22" 
                                               TextBlock.FontWeight="DemiBold"
                                               TextBlock.FontFamily="{StaticResource LangarRegular}"/>
                         </DockPanel>

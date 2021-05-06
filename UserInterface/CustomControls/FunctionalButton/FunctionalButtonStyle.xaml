@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UserInterface.CustomControls.FunctionalButton">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Style x:Key="FunctionalButtonStyle"  TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
     <Setter Property="BorderThickness" Value="1"/>
@@ -36,7 +35,7 @@
                                         VerticalAlignment="Center">
                         <ContentPresenter x:Name="myContentPresenter" 
                                               Content="{TemplateBinding  Content}" 
-                                              TextBlock.Foreground="#ed7e0e"
+                                              TextBlock.Foreground="Wheat"
                                               TextBlock.FontSize="18"
                                               TextBlock.FontWeight="Bold"
                                             

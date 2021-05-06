@@ -6,30 +6,32 @@
       xmlns:local="clr-namespace:UserInterface.Pages.MainMenu" 
       xmlns:customControls="clr-namespace:UserInterface.CustomControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" 
+      d:DesignWidth="1024"
       Title="MainMenuPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" 
-                    Orientation="Vertical">
-            <customControls:MenuButton Width="200"
+                    Orientation="Vertical"
+                    Margin="70,175,5,0">
+            <customControls:MenuButton Width="210"
                                    Content="Start game" 
-                                   Margin="0,150,5,0"
+                                   
                                    Command="{Binding StartGameCommand}"/>
-            <customControls:MenuButton Width="200"
+            <customControls:MenuButton Width="210"
                                    Content="How to play"
-                                   Margin="0,20,2,0"
+                                   Margin="0,30,2,0"
                                    Command="{Binding OpenHowToPlayPageCommand}"/>
-            <customControls:MenuButton Width="200"
+            <customControls:MenuButton Width="210"
                                    Content="About"
-                                   Margin="0,20,2,0"
+                                   Margin="0,30,2,0"
                                    Command="{Binding OpenAboutPageCommand}"/>
         </StackPanel>
-        <TextBlock Text="by T. Ionut"
+        <TextBlock Text="by tionut"
                    FontFamily="{StaticResource LangarRegular}"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
@@ -37,26 +39,18 @@
                    FontSize="16"
                    Margin="5 0 5 5"/>
         <Grid Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Width="85" Height="158"  
-               Source="/Resources/gameico.ico"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center">
-                <Image.Effect>
-                    <BlurEffect Radius="4" KernelType="Gaussian"/>
-                </Image.Effect>
-            </Image>
+          
             <Image  Grid.Column="1" 
-                Source="/Resources/gameico.ico" />
+                    Source="{StaticResource TextGameLogo}"
+                    Height="100"
+                    Margin="0 50 0 0"/>
             <Grid Grid.Row="1"
-                  Grid.ColumnSpan="3">
+                  Grid.ColumnSpan="3"
+                  Margin="100 35 0 0">
                 <Rectangle Grid.Column="1"
                        Grid.Row="1"
                       x:Name="Rec1"

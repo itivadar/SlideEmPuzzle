@@ -35,6 +35,7 @@
     <None Remove="Resources\Sounds\slidingSound.wav" />
     <None Remove="Resources\star.png" />
     <None Remove="Resources\succeskid.jpg" />
+    <None Remove="Resources\textgamelogo.png" />
     <None Remove="Resources\tileTexture.jpg" />
   </ItemGroup>
 
@@ -82,6 +83,7 @@
     </Content>
     <Resource Include="Resources\star.png" />
     <Resource Include="Resources\succeskid.jpg" />
+    <Resource Include="Resources\textgamelogo.png" />
     <Resource Include="Resources\tileTexture.jpg" />
   </ItemGroup>
 

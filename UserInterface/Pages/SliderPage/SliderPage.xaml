@@ -65,7 +65,7 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Right"
                            Style="{StaticResource InfoLabelStyle}"
-                           Foreground="Beige"/>
+                           Foreground="#ed7e0e"/>
 
                     <Label Grid.Column="1"
                            Grid.Row="0"
@@ -83,7 +83,7 @@
                            Width="100"
                            Margin="5"
                            Style="{StaticResource InfoLabelStyle}"
-                           Foreground= "{DynamicResource SelectionColorBrush}"
+                           Foreground= "#ed7e0e"
                            FontSize="16"
                            FontWeight="DemiBold"/>
                     <Label Grid.Column="1"
@@ -91,22 +91,25 @@
                            Width="80"
                            Margin="5"
                            Content="{Binding PlayerMoves}"
-                           Foreground="Beige"
+                           Foreground="#ed7e0e"
                            Style="{StaticResource InfoLabelStyle}"
                            FontWeight="DemiBold"/>
                 </Grid>
                 <custom:MenuButton Grid.Row="2"
                                    Content="New game"
                                    Margin="0 40 0 10"
+                                   Width="210"
                                    Command="{Binding NewGameCommand}"/>
                 
                 <custom:MenuButton Grid.Row="3"
                                    Margin="0 10 0 10"
-                                   Content="Solve it"
+                                   Content="Find path"
+                                   Width="210"
                                    Command="{Binding SolveCommand}"/>
                 
                 <custom:MenuButton Grid.Row="4"
                                    Margin="0 10 0 10"
+                                   Width="210"
                                    Content="Main menu"
                                    Command="{Binding OpenMainMenuCommand}"/>
             </Grid>

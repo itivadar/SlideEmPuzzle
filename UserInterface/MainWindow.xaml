@@ -45,16 +45,18 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image Grid.Column="0"
-                        Source="/Resources/gameico.ico"
+                       Source="{StaticResource GameIcon}"
                        Margin="5 0 5 0"
-                       Height="40"/>
+                       Height="35"
+                       Width="35"/>
 
                 <TextBlock Grid.Column="1"
                            Text="SLIDE' EM PUZZLE GAME "
                            VerticalAlignment="Center"
-                           FontSize="13"
-                           Foreground="Orange"
-                           FontWeight="Bold"
+                           FontSize="14"
+                           FontWeight="DemiBold"
+                           Foreground="Wheat"
+                           
                            FontFamily="{StaticResource NovaFlat}"/>
 
                 <Button Grid.Column="2"
@@ -66,7 +68,7 @@
                         HorizontalAlignment="Right"
                         Style="{StaticResource FunctionalButtonStyle}"
                         Command="{Binding CloseCommand}"
-                        Foreground="Orange"/>
+                        Foreground="Wheat"/>
 
             </Grid>
             <Frame Grid.Row="1"
