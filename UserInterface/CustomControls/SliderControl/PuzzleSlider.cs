@@ -173,14 +173,6 @@ namespace UserInterface.CustomControls
 
 		#endregion Public Constructors
 
-		#region Public Properties
-
-		#endregion Public Properties
-
-		#region Private Methods
-
-		#endregion Private Methods
-
 		#region Public Events
 
 		/// <summary>
@@ -459,7 +451,7 @@ namespace UserInterface.CustomControls
 		private void InitializeMediaPlayer()
 		{
 			_mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/Resources/Sounds/slidingSound.wav", UriKind.Absolute));
-			_mediaPlayer.Volume = 0.1;
+			_mediaPlayer.Volume = 0.05;
 		}
 
 		/// <summary>

@@ -90,7 +90,10 @@
                 Nerds info
                 <LineBreak/>
                 The IDA* algorithm helps with solving the puzzles.
-            </TextBlock>
+                <LineBreak/>
+
+                 Heuristic function used is 555 Database Pattern.
+                </TextBlock>
             <TextBlock Grid.Row="2"
                        FontSize="20"
                        FontWeight ="ExtraLight"
