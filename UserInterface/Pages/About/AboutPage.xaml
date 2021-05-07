@@ -92,7 +92,7 @@
                 The IDA* algorithm helps with solving the puzzles.
                 <LineBreak/>
 
-                 The heuristic function used is 555 Database Pattern.
+                 The heuristic function used is 5-5-5 Database Pattern.
                 </TextBlock>
             <TextBlock Grid.Row="2"
                        FontSize="20"
@@ -133,8 +133,8 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Bottom"
                    FontSize="18"
-                   Margin="0 0 20 0">
-            v 1.0
+                   Margin="0 0 20 0"
+                   Text="{Binding GameVersion}">
         </TextBlock>
     </Grid>
 

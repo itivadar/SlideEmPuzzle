@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using UserInterface.BootstraperSpace;
@@ -18,8 +19,9 @@ namespace UserInterface.Pages.About
 		private Visibility _memeImageVisibility;
 		private byte _tapsOnPage;
 		private bool _shouldMemeBlink;
-		#endregion Private Fields
+		private string _gameVersion;
 
+		#endregion Private Fields
 		#region Internal Constructors
 
 		/// <summary>
@@ -44,6 +46,7 @@ namespace UserInterface.Pages.About
 		{
 			_tapsOnPage = 0;
 			MemeImageVisibility = Visibility.Collapsed;
+			SetGameVersion();
 		}
 
 		#endregion Public Methods
@@ -64,6 +67,19 @@ namespace UserInterface.Pages.About
 				{
 					ShouldMemeBlink = false;
 				}
+			}
+		}
+
+		/// <summary>
+		/// Displays the game version
+		/// </summary>
+		public string GameVersion
+		{
+			get => _gameVersion;
+			private set
+			{
+				_gameVersion = value;
+				RaisePropertyChanged(nameof(GameVersion));
 			}
 		}
 
@@ -118,6 +134,14 @@ namespace UserInterface.Pages.About
 		private void OpenMainMenu()
 		{
 			NavigationService.ShowPage(AppPages.MainMenuPage);
+		}
+
+		/// <summary>
+		/// Sets the displayed gameversion
+		/// </summary>
+		private void SetGameVersion()
+		{
+			GameVersion = $"v {Assembly.GetExecutingAssembly().GetName().Version.ToString(2)}";
 		}
 
 		#endregion Private Methods
