@@ -76,10 +76,10 @@
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\menuButton4.jpg" />
     <Content Include="Resources\Sounds\clickSound.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Sounds\slidingSound.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\star.png" />
     <Resource Include="Resources\succeskid.jpg" />

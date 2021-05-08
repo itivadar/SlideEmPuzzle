@@ -451,7 +451,7 @@ namespace UserInterface.CustomControls
 		private void InitializeMediaPlayer()
 		{
 			_mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/Resources/Sounds/slidingSound.wav", UriKind.Absolute));
-			_mediaPlayer.Volume = 0.05;
+			_mediaPlayer.Volume = 0.2;
 		}
 
 		/// <summary>
