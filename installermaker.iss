@@ -17,8 +17,6 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-; Remove the following line to run in administrative install mode (install for all users.)
-PrivilegesRequired=lowest
 OutputDir=.\Setup\
 OutputBaseFilename="SlideEmSetup-v{#MyAppVersion}-{#Runtime}"
 SetupIconFile=.\UserInterface\Resources\gameico.ico
@@ -30,7 +28,7 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
 Source: "{#Location}\{#MyAppExeName}"; DestDir: "{app}"; Flags: 
