@@ -8,13 +8,13 @@ The game features multiple levels of difficulties, star ratings, animations and 
 
 You can give it a try by download the installer from the [latest release](https://github.com/itivadar/SlideEmPuzzle/releases/download/v1.2final/SlideEmSetup-v1.2-win-x64.exe). Have fun!
 
-![First page](Screens\mediumpuzzle.png)
+![First page](Screens/mediumpuzzle.png)
 ##### [You can see more below](#Screenshots)
 
 # Multiple levels of difficulty
 There are 3 levels of difficulty in the game: Easy, Medium and Hard. The difficulty depends on how many numbers the player needs to arrange in order to reach the solution.
 
-![Level selector](Screens\levelSelector.png)
+![Level selector](Screens/levelSelector.png)
 
 * __Easy__ would be an 2 by 2 puzzle.
 * __Medium__ would be an 3 by 3 puzzle.
@@ -49,7 +49,7 @@ The heuristic function for evaluating nodes in 4 by 4 puzzles destination is `5-
 # Score system
 The points awarded to a user have two components: the slides component and the time components. 
 
-![Score](Screens\score.png)
+![Score](Screens/score.png)
 
 The most important component is the slides component. The player will get the maximum points for this component by making minimum slides (moves) required to solve a certain puzzle.
 
@@ -59,6 +59,8 @@ For the time component, the player will get some extra points for how fast he wi
 Based on the points and the difficulty level, the player is awarded between no star and three stars.
 No star is awarded if the magical elf is summoned to solve the puzzles.
 # Screenshots
-![Solving image](Screens\solving.png)
+![Solving image](Screens/firstPage.png)
 
-![About page](Screens\aboutPage.png)
+![Solving image](Screens/solving.png)
+
+![About page](Screens/aboutPage.png)
