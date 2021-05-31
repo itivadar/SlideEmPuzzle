@@ -8,7 +8,7 @@ The game features multiple levels of difficulties, star ratings, animations and 
 
 You can give it a try by download the installer from the [latest release](https://github.com/itivadar/SlideEmPuzzle/releases/download/v1.2final/SlideEmSetup-v1.2-win-x64.exe). Have fun!
 
-![First page](Screens/mediumpuzzle.png)
+![First page](Screens/mediumPuzzle.png)
 ##### [You can see more below](#Screenshots)
 
 # Multiple levels of difficulty
